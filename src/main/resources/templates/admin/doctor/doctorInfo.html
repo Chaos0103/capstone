@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/css/app.css">
+
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <title>esl-hospital system</title>
+</head>
+
+<body>
+<!--Nav-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container px-5">
+    <a class="navbar-brand" th:onclick="|location.href='@{/}'|" style="cursor:pointer">
+      <img src="assets/images/sejong_black.png" width="37" style="
+              border-radius: 70px;
+              -moz-border-radius: 70px;
+              -khtml-border-radius: 70px;
+              -webkit-border-radius: 70px;
+              " alt="My Logo">
+      세종대병원</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!--List Add-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--sideBar-->
+<section>
+  <form>
+      <h2>상세정보</h2>
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <label for="inputEmail4" >이름</label>
+        <input type="text" id="name" class="form-control" value="이름" th:value="${doctor.info.name}" readonly>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputEmail4" >전화번호</label>
+        <input type="text" id="phoneNumber" class="form-control" value="전화번호" th:value="${doctor.info.phoneNumber}" readonly>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputEmail4" >전공</label>
+        <input type="text" id="major" class="form-control" value="전공" th:value="${doctor.major}" readonly>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">승인 관리자</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="choi minho"disabled >
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputEmail4" >License Code</label>
+        <input type="text" id="licenseCode" class="form-control" value="License Code" th:value="${doctor.licenseCode}" readonly>
+      </div>
+
+    </div>
+
+
+    <a class=" btn btn-primary btn-lg" href="admin_doctor_edit.html"  style = " font-size:1.0em; width:90px; height:39px">수정</a>
+    <a class=" btn btn-primary btn-lg"  href="admin_drug.html"style = " font-size:1.0em; width:90px; height:39px">취소</a>
+  </form>
+  </div>
+</section>
+<footer id="footer">
+  <div class="section-content">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-3 mb-4 footer-4">
+          <p class="m-0 text-center text-black">Copyright &copy; Your Website 2022</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"
+        integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/app.js"></script>
+</body>
+
+</html>
