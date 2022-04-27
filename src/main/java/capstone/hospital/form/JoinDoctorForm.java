@@ -1,4 +1,4 @@
-package capstone.hospital.Form;
+package capstone.hospital.form;
 
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;

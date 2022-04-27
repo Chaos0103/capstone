@@ -1,12 +1,12 @@
 package capstone.hospital.controller;
 
-import capstone.hospital.Form.JoinDoctorForm;
+import capstone.hospital.form.JoinDoctorForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.Form.JoinPatientForm;
+import capstone.hospital.form.JoinPatientForm;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

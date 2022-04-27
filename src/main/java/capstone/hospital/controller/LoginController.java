@@ -1,6 +1,6 @@
 package capstone.hospital.controller;
 
-import capstone.hospital.Form.LoginForm;
+import capstone.hospital.form.LoginForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.service.LoginService;
 import lombok.RequiredArgsConstructor;
