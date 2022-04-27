@@ -1,12 +1,10 @@
 package capstone.hospital.service;
 
+import capstone.hospital.domain.Admin;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.Nurse;
-import capstone.hospital.repository.DoctorRepository;
-import capstone.hospital.repository.PatientQueryRepository;
-import capstone.hospital.repository.PatientRepository;
-import capstone.hospital.repository.NurseRepository;
+import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +21,7 @@ public class JoinService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
+    private final AdminRepository adminRepository;
     private final PatientQueryRepository patientQueryRepository;
 
     @Transactional  // type: 0
@@ -47,6 +46,14 @@ public class JoinService {
         validateDuplicateLoginId(nurse.getLoginId());
         nurseRepository.save(nurse);
         return nurse.getId();
+    }
+
+    @Transactional  // 임시
+    public Long joinAdmin(Admin admin) {
+//        validateDuplicateRRN(nurse.getInfo().getRrn(), 2);
+//        validateDuplicateLoginId(nurse.getLoginId());
+        adminRepository.save(admin);
+        return admin.getId();
     }
 
 

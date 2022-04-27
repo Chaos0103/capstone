@@ -1,9 +1,10 @@
 package capstone.hospital.domain;
 
-import capstone.hospital.domain.enumtype.NurseRank;
-import capstone.hospital.domain.enumtype.WardType;
+import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Information;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Nurse {
 
     @Id @GeneratedValue
@@ -29,8 +31,14 @@ public class Nurse {
     private String licenseCode;
 
     @Enumerated(EnumType.STRING)
-    private WardType majorWard;
+    private Major major;
 
-    @Enumerated(EnumType.STRING)
-    private NurseRank rank;
+    public Nurse(String loginId, String loginPw, Information info, String licenseCode, Major major) {
+        this.approvalAdmin = null;
+        this.loginId = loginId;
+        this.loginPw = loginPw;
+        this.info = info;
+        this.licenseCode = licenseCode;
+        this.major = major;
+    }
 }

@@ -1,5 +1,6 @@
 package capstone.hospital.controller;
 
+import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.KCDCode;
 import capstone.hospital.repository.DoctorRepository;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +27,8 @@ public class AdminController {
     private final KCDCodeRepository kcdCodeRepository;
 
     @GetMapping
-    public String admin() {
+    public String admin(@Login Object loginMember, Model model) {
+        model.addAttribute("loginMember", loginMember);
         return "admin/adminHome";
     }
 

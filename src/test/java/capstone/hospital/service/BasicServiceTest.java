@@ -27,7 +27,7 @@ class BasicServiceTest {
     public void changeInfo() throws Exception {
         // given
         Patient patient = createMember("220412", "1111111", "loginId");
-        Long memberId = joinService.joinMember(patient);
+        Long memberId = joinService.joinPatient(patient);
         InformationDto informationDto = new InformationDto("010-2222-2222", "newCity", "newStreet", "newZipcode");
         // when
         basicService.changeMemberInfo(memberId, informationDto);

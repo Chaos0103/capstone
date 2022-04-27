@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,25 +30,27 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(
+            @Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
+            @RequestParam(defaultValue = "/") String redirectURL,
+             HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
             return "login/loginForm";
         }
 
-        Patient loginPatient = loginService.login(form.getLoginId(), form.getLoginPw());
+        Object loginMember = loginService.login(form.getLoginId(), form.getLoginPw());
 
-        if (loginPatient == null) {
+        if (loginMember == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
             return "login/loginForm";
         }
-
         // login success
         HttpSession session = request.getSession();
-        session.setAttribute("loginPatient", loginPatient);
+        session.setAttribute("loginMember", loginMember);
 
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
     @GetMapping("/logout")

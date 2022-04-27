@@ -39,7 +39,7 @@ class JoinServiceTest {
     @BeforeEach
     public void before() {
         Patient patient = createMember("123456", "1000000", "loginId");
-        joinService.joinMember(patient);
+        joinService.joinPatient(patient);
         em.flush();
         em.clear();
     }
@@ -51,7 +51,7 @@ class JoinServiceTest {
         Patient patient = createMember("210415", "1000000", "memberId");
 
         // when
-        Long memberId = joinService.joinMember(patient);
+        Long memberId = joinService.joinPatient(patient);
 
         em.flush();
         em.clear();
@@ -70,7 +70,7 @@ class JoinServiceTest {
         Patient newPatient = createMember("123456", "1000000", "newLoginId");
 
         // when
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> joinService.joinMember(newPatient));
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> joinService.joinPatient(newPatient));
 
         // then
         assertThat(exception.getMessage()).isEqualTo("이미 가입된 회원입니다.");
@@ -83,7 +83,7 @@ class JoinServiceTest {
         Patient newPatient = createMember("222222", "2222222", "loginId");
 
         // when
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> joinService.joinMember(newPatient));
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> joinService.joinPatient(newPatient));
 
         // then
         assertThat(exception.getMessage()).isEqualTo("이미 사용중인 아이디입니다.");
@@ -118,6 +118,6 @@ class JoinServiceTest {
     private Doctor createDoctor(String rrnFront, String rrnBack, String loginId) {
         Address address = new Address("city", "street", "zipcode");
         Information info = new Information("member", rrnFront, rrnBack, "010-1111-1111", address);
-        return new Doctor(loginId, "loginPw", info, "123456", Major.NONE, DoctorPosition.NONE, DoctorRank.NONE);
+        return new Doctor(loginId, "loginPw", info, "123456", Major.OBGY, DoctorRank.PROFESSOR);
     }
 }

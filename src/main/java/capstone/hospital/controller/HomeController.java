@@ -1,5 +1,6 @@
 package capstone.hospital.controller;
 
+import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.domain.Patient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +15,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 public class HomeController {
 
     @GetMapping("/")
-    public String homeLogin(
-            @SessionAttribute(name = "loginPatient", required = false) Patient loginPatient, Model model
-            ) {
-        if (loginPatient == null) {
+    public String homeLogin(@Login Object loginMember, Model model) {
+
+        if (loginMember == null) {
             return "home";
         }
 
-        model.addAttribute("patient", loginPatient);
+        model.addAttribute("loginMember", loginMember);
         log.info("login");
         return "loginHome";
     }

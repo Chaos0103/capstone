@@ -1,11 +1,14 @@
 package capstone.hospital.controller;
 
+import capstone.hospital.domain.Doctor;
+import capstone.hospital.domain.Nurse;
 import capstone.hospital.form.JoinDoctorForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.form.JoinNurseForm;
 import capstone.hospital.form.JoinPatientForm;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;
@@ -72,21 +75,43 @@ public class JoinController {
         return "join/userJoinDoctor";
     }
 
-//    @PostMapping("/patient")
-//    public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form) {
-//        log.info("saveDoctor");
-//
-//         success
-//        Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
-//        Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
-//        new Doctor(form.getLoginId(), form.getLoginPw(), newInfo);
-//        Long savedId = joinService.joinDoctor(patient);
-//        return "redirect:/";
-//    }
+    @PostMapping("/doctor")
+    public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form, BindingResult bindingResult) {
+        log.info("saveDoctor");
+
+        if (bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "join/userJoinDoctor";
+        }
+
+        // success
+        Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
+        Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank());
+        Long savedId = joinService.joinDoctor(doctor);
+        return "redirect:/";
+    }
 
     @GetMapping("/nurse")
-    public String joinNurse() {
+    public String joinNurse(@ModelAttribute("nurse") JoinNurseForm form) {
         log.info("joinNurse success");
         return "join/userJoinNurse";
+    }
+
+    @PostMapping("/nurse")
+    public String saveNurse(@Validated @ModelAttribute("nurse") JoinNurseForm form, BindingResult bindingResult) {
+        log.info("saveNurse");
+
+        if (bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "join/userJoinNurse";
+        }
+
+        // success
+        Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
+        Nurse nurse = new Nurse(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor());
+        Long savedId = joinService.joinNurse(nurse);
+        return "redirect:/";
     }
 }
