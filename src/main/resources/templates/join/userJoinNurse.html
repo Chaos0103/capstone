@@ -44,6 +44,11 @@
                                 <label class = "form-label" for = "id">아이디</label>
                                 <input type="text" id="id" th:field="*{loginId}" class="form-control" th:errorclass="field-error">
                                 <div class="field-error" th:errors="*{loginId}" />
+                                <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
+                                    <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
+                                       th:if="${err.code == 'idCheckFail'}"
+                                       th:text="|${err.message}|">아이디 중복 오류 메시지</p>
+                                </div>
                             </div>
                 
                             <div class="form-group col-md-6 mb-4">
@@ -61,6 +66,11 @@
 
                         <div class = "row">
                             <label class = "form-label" for = "human-number">주민등록번호</label>
+                            <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
+                                <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
+                                   th:if="${err.code == 'rrnCheckFail'}"
+                                   th:text="|${err.message}|">주민등록번호 중복 오류 메시지</p>
+                            </div>
 
                             <div class="form-group col-md-6">
                                 <input type="text" id="human-number" th:field="*{rrnFront}" class="form-control" placeholder = "생년월일 YYMMDD" th:errorclass="field-error">

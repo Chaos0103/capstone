@@ -25,4 +25,7 @@ public class JoinPatientForm {
     private String street;
     @NotBlank
     private String zipcode;
+
+    @NotBlank
+    private String checkPw;
 }

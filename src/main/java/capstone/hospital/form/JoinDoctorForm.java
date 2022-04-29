@@ -27,9 +27,13 @@ public class JoinDoctorForm {
     private String street;
     @NotBlank
     private String zipcode;
-
+    @NotBlank
     private String licenseCode;
-
+    @NotBlank
     private Major major;
+    @NotBlank
     private DoctorRank rank;
+
+    @NotBlank
+    private String checkPw;
 }

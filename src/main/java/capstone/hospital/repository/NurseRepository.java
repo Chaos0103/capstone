@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface NurseRepository extends JpaRepository<Nurse, Long> {
 
     Optional<Nurse> findByLoginId(String loginId);
+
+    Optional<Nurse> findByInfoRrn(String rrn);
 }

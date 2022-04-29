@@ -10,16 +10,14 @@ import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.form.JoinNurseForm;
 import capstone.hospital.form.JoinPatientForm;
+import capstone.hospital.form.PhoneCheckForm;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -28,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class JoinController {
 
     private final JoinService joinService;
+    private final ValidateController validateController;
+    String type = null;
 
+    // ModelAttribute
     @ModelAttribute("ranks")
     public DoctorRank[] itemTypes() {
         return DoctorRank.values();
@@ -39,24 +40,62 @@ public class JoinController {
         return Major.values();
     }
 
+    // Mapping
     @GetMapping
     public String joinSelect() {
-        log.info("joinSelect success");
         return "join/userJobSelect";
     }
 
     @GetMapping("/patient")
-    public String joinPatient(@ModelAttribute("patient") JoinPatientForm form) {
-        log.info("joinPatient success");
-        return "join/userJoinPatient";
+    public String agreement() {
+        type = "patient";
+        return "join/termsAndConditions";
     }
+
+    @GetMapping("/phoneCheck")
+    public String validate(@ModelAttribute("phone") PhoneCheckForm form) {
+        return "join/phoneCheck";
+    }
+
+    @PostMapping("/phoneCheck")
+    public String sendSms(@ModelAttribute("phone") PhoneCheckForm form) {
+        validateController.sendSMS(form);
+        return "join/phoneCheck";
+    }
+
+
+
+
+//    @GetMapping("/patient")
+//    public String joinPatient(@ModelAttribute("patient") JoinPatientForm form) {
+//        return "join/termsAndConditions";
+//        return "join/userJoinPatient";
+//    }
 
     @PostMapping("/patient")
     public String savePatient(@Validated @ModelAttribute("patient") JoinPatientForm form, BindingResult bindingResult) {
-        log.info("savePatient");
 
         if (bindingResult.hasErrors()) {
-            log.info("error={}", bindingResult);
+            return "join/userJoinPatient";
+        }
+
+        // 아이디 중복 체크
+        boolean idCheck = joinService.validateDuplicateLoginId(form.getLoginId());
+        if (!idCheck) {
+            bindingResult.reject("idCheckFail", "이미 사용중인 아이디입니다.");
+            return "join/userJoinPatient";
+        }
+
+        // 비밀번호 확인
+        if (form.getLoginPw().equals(form.getCheckPw())) {
+            bindingResult.reject("pwCheckFail", "입력된 비밀번호가 다릅니다.");
+            return "join/userJoinPatient";
+        }
+
+        // 회원 중복 체크
+        boolean rrnCheck = joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
+        if (!rrnCheck) {
+            bindingResult.reject("rrnCheckFail", "이미 가입된 회원입니다.");
             return "join/userJoinPatient";
         }
 
@@ -71,16 +110,33 @@ public class JoinController {
 
     @GetMapping("/doctor")
     public String joinDoctor(@ModelAttribute("doctor") JoinDoctorForm form) {
-        log.info("joinDoctor success");
         return "join/userJoinDoctor";
     }
 
     @PostMapping("/doctor")
     public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form, BindingResult bindingResult) {
-        log.info("saveDoctor");
 
         if (bindingResult.hasErrors()) {
-            log.info("error={}", bindingResult);
+            return "join/userJoinDoctor";
+        }
+
+        // 아이디 중복 체크
+        boolean idCheck = joinService.validateDuplicateLoginId(form.getLoginId());
+        if (!idCheck) {
+            bindingResult.reject("idCheckFail", "이미 사용중인 아이디입니다.");
+            return "join/userJoinDoctor";
+        }
+
+        // 비밀번호 확인
+        if (form.getLoginPw().equals(form.getCheckPw())) {
+            bindingResult.reject("pwCheckFail", "입력된 비밀번호가 다릅니다.");
+            return "join/userJoinDoctor";
+        }
+
+        // 회원 중복 체크
+        boolean rrnCheck = joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
+        if (!rrnCheck) {
+            bindingResult.reject("rrnCheckFail", "이미 가입된 회원입니다.");
             return "join/userJoinDoctor";
         }
 
@@ -94,16 +150,33 @@ public class JoinController {
 
     @GetMapping("/nurse")
     public String joinNurse(@ModelAttribute("nurse") JoinNurseForm form) {
-        log.info("joinNurse success");
         return "join/userJoinNurse";
     }
 
     @PostMapping("/nurse")
     public String saveNurse(@Validated @ModelAttribute("nurse") JoinNurseForm form, BindingResult bindingResult) {
-        log.info("saveNurse");
 
         if (bindingResult.hasErrors()) {
-            log.info("error={}", bindingResult);
+            return "join/userJoinNurse";
+        }
+
+        // 아이디 중복 체크
+        boolean idCheck = joinService.validateDuplicateLoginId(form.getLoginId());
+        if (!idCheck) {
+            bindingResult.reject("idCheckFail", "이미 사용중인 아이디입니다.");
+            return "join/userJoinNurse";
+        }
+
+        // 비밀번호 확인
+        if (form.getLoginPw().equals(form.getCheckPw())) {
+            bindingResult.reject("pwCheckFail", "입력된 비밀번호가 다릅니다.");
+            return "join/userJoinNurse";
+        }
+
+        // 회원 중복 체크
+        boolean rrnCheck = joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
+        if (!rrnCheck) {
+            bindingResult.reject("rrnCheckFail", "이미 가입된 회원입니다.");
             return "join/userJoinNurse";
         }
 

@@ -26,8 +26,11 @@ public class JoinNurseForm {
     private String street;
     @NotBlank
     private String zipcode;
-
+    @NotBlank
     private String licenseCode;
-
+    @NotBlank
     private Major major;
+
+    @NotBlank
+    private String checkPw;
 }

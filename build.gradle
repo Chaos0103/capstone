@@ -27,7 +27,6 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -49,6 +48,12 @@ dependencies {
 	//테스트에서 lombok 사용
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// 문자 인증
+	compile group: 'net.nurigo', name:'javaSDK', version: '2.2'
+
+	// json
+	implementation group: 'org.json', name: 'json', version: '20090211'
 }
 
 tasks.named('test') {

@@ -1,7 +1,6 @@
 package capstone.hospital.controller;
 
 import capstone.hospital.form.LoginForm;
-import capstone.hospital.domain.Patient;
 import capstone.hospital.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
-        log.info("login success");
         return "login/loginForm";
     }
 
@@ -36,7 +34,6 @@ public class LoginController {
              HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
-            log.info("error={}", bindingResult);
             return "login/loginForm";
         }
 
@@ -46,6 +43,7 @@ public class LoginController {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
             return "login/loginForm";
         }
+
         // login success
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", loginMember);
@@ -59,7 +57,6 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
-        log.info("logout");
         return "redirect:/";
     }
 }

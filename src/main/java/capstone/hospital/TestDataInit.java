@@ -20,7 +20,7 @@ public class TestDataInit {
     private final KCDCodeRepository kcdCodeRepository;
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
         Address address = new Address("서울특별시", "광진구", "12345");
 
         initPatient(address);
@@ -32,13 +32,13 @@ public class TestDataInit {
         kcdCodeRepository.save(code);
     }
 
-    private void initPatient(Address address) {
+    private void initPatient(Address address) throws Exception {
         Information info = new Information("세종대", "010101", "1000000", "010-1111-1111", address);
         Patient patient = new Patient("test", "test!", info);
         joinService.joinPatient(patient);
     }
 
-    private void initDoctor(Address address) {
+    private void initDoctor(Address address) throws Exception {
         Information info1 = new Information("이익준", "990101", "1000000", "010-2222-2222", address);
         Information info2 = new Information("채송화", "990202", "2000000", "010-3333-3333", address);
         Information info3 = new Information("김준환", "990303", "1000000", "010-4444-4444", address);
@@ -58,7 +58,7 @@ public class TestDataInit {
         joinService.joinDoctor(doctor5);
     }
 
-    private void initNurse(Address address) {
+    private void initNurse(Address address) throws Exception {
         Information info = new Information("송수빈", "700101", "2000000", "010-7777-7777", address);
         Nurse nurse = new Nurse("nurse1", "1234", info, "1", Major.GS);
         joinService.joinNurse(nurse);

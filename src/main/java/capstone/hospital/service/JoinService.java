@@ -24,25 +24,25 @@ public class JoinService {
     private final AdminRepository adminRepository;
     private final PatientQueryRepository patientQueryRepository;
 
-    @Transactional  // type: 0
+    @Transactional
     public Long joinPatient(Patient patient) {
-        validateDuplicateRRN(patient.getInfo().getRrn(), 0);
+        validateDuplicateRRN(patient.getInfo().getRrn());
         validateDuplicateLoginId(patient.getLoginId());
         patientRepository.save(patient);
         return patient.getId();
     }
 
-    @Transactional  // type: 1
+    @Transactional
     public Long joinDoctor(Doctor doctor) {
-        validateDuplicateRRN(doctor.getInfo().getRrn(), 1);
+        validateDuplicateRRN(doctor.getInfo().getRrn());
         validateDuplicateLoginId(doctor.getLoginId());
         doctorRepository.save(doctor);
         return doctor.getId();
     }
 
-    @Transactional  // type: 2
+    @Transactional
     public Long joinNurse(Nurse nurse) {
-        validateDuplicateRRN(nurse.getInfo().getRrn(), 2);
+        validateDuplicateRRN(nurse.getInfo().getRrn());
         validateDuplicateLoginId(nurse.getLoginId());
         nurseRepository.save(nurse);
         return nurse.getId();
@@ -56,27 +56,41 @@ public class JoinService {
         return admin.getId();
     }
 
-
     //== 검증 메서드 ==//
-    private void validateDuplicateRRN(String RRN, int type) {
+    public boolean validateDuplicateRRN(String Rrn) {
 
-        List<String> find = new ArrayList<>();
-        if (type == 0) {
-            find = patientQueryRepository.findByRrn(RRN);
-        } else if (type == 1) {
-            find = patientQueryRepository.findByRrn(RRN);
-        } else if (type == 2) {
-            find = patientQueryRepository.findByRrn(RRN);
+        Object findMember = patientRepository.findByInfoRrn(Rrn)
+                .orElse(null);
+        if (findMember == null) {
+            findMember = doctorRepository.findByInfoRrn(Rrn)
+                    .orElse(null);
         }
-        if (!find.isEmpty()) {
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+        if (findMember == null) {
+            findMember = nurseRepository.findByInfoRrn(Rrn)
+                    .orElse(null);
         }
+        System.out.println("findMember = " + findMember);
+        return findMember == null;
+//        throw new IllegalStateException("이미 가입된 회원입니다.");
     }
 
-    private void validateDuplicateLoginId(String loginId) {
-        Optional<Patient> findMember = patientRepository.findByLoginId(loginId);
-        if (findMember.isPresent()) {
-            throw new IllegalStateException("이미 사용중인 아이디입니다.");
+    public boolean validateDuplicateLoginId(String loginId) {
+
+        Object findMember = patientRepository.findByLoginId(loginId)
+                .orElse(null);
+        if (findMember == null) {
+            findMember = doctorRepository.findByLoginId(loginId)
+                    .orElse(null);
         }
+        if (findMember == null) {
+            findMember = nurseRepository.findByLoginId(loginId)
+                    .orElse(null);
+        }
+        if (findMember == null) {
+            findMember = adminRepository.findByLoginId(loginId)
+                    .orElse(null);
+        }
+        return findMember == null;
+//        throw new IllegalStateException("이미 사용중인 아이디입니다.");
     }
 }
