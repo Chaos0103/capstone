@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <!-- error -->
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+    <link rel = "stylesheet" th:href="@{/css/test.css}">
+</head>
+<body>
+<!-- Top -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container px-5">
+        <div th:replace="fragments/bodyTopLogo :: bodyTopLogo"/>
+    </div>
+</nav>
+
+    <!--단계 표시-->
+    <header class="container mb-4">
+        <h1 class="text-center">회원가입</h1>
+<!--        <p class="text-center">현재 본인 인증 페이지입니다.<br> <strong> 인증을 하지 않을시 다음 단계로 진행이 불가합니다.</strong></p>-->
+<!--        <div class="progress" style="height: 30px;">-->
+<!--            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"-->
+<!--                aria-valuemin="0" aria-valuemax="100" style="width:75%">-->
+<!--                진행률 75%-->
+<!--            </div>-->
+<!--        </div>-->
+    </header>
+<div class="content-body">
+    <div class="container">
+        <div class="join join4">
+            <div class="step login-step d-up-lg">
+                <ol>
+                    <li>
+                        <div class="box">약관동의 하기</div>
+                    </li>
+                    <li class="on">
+                        <div class="box">본인인증 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">정보입력 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">회원가입 완료</div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--본인 인증-->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <form method="post" th:action th:object="${phone}">
+
+                                <!--휴대폰 번호 form-->
+                                <div class="row">
+                                    <label class="form-label" for="phone-number">휴대폰 번호</label>
+
+                                    <div class="input-group mb-4">
+                                        <input type="text" id="phone-number1" class="form-control" th:field="*{phoneNumberFront}">
+                                        <span class="input-group-text">-</span>
+                                        <input type="text" id="phone-number2" class="form-control" th:field="*{phoneNumberMid}">
+                                        <span class='input-group-text'>-</span>
+                                        <input type="text" id="phone-number3" class="form-control" th:field="*{phoneNumberBack}">
+                                        <button class="btn btn-outline-primary" type="submit" onclick="alert('인증번호가 전송되었습니다.');">인증번호발송</button>
+                                    </div>
+                                    <!-- 글로벌 오류 메세지 -->
+                                    <div th:if="${#fields.hasGlobalErrors()}" class="text-center mb-4">
+                                        <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+                                           th:text="${err}">전체 오류 메시지</p>
+                                    </div>
+                                </div>
+
+                                <!--인증 번호 form-->
+                                <div class="row">
+                                    <label class="form-label" for="phoneAuthentication">인증 번호</label>
+
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" id="phoneAuthentication" class="form-control" aria-describedby="addonCheck" th:field="*{inputNumber}">
+                                            <button class="btn btn-outline-primary" type = "submit" id="addonCheck">인증번호확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--이전 다음 버튼-->
+    <div class="text-center mb-4">
+        <button class="btn btn-light" type="button" th:onclick="|location.href='@{/join/patient}'|">이전</button>
+        <button class="btn btn-primary" type="button" th:if="${session.checkForm} and ${phone.onOff}" th:onclick="|location.href='@{/join/patient/joinForm}'|">다음</button>
+    </div>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

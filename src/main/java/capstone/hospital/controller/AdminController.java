@@ -52,4 +52,13 @@ public class AdminController {
         model.addAttribute("loginMember", loginMember);
         return "admin/disease/diseaseView";
     }
+
+    // test
+    @GetMapping("/test")
+    public String test(Model model){
+        List<Doctor> doctors = doctorRepository.findAll();
+        model.addAttribute("doctors", doctors);
+        return "admin/test";
+    }
+
 }

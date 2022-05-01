@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>세종대병원 ESL 인트로</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!--Table Collapse CSS-->
+    <link rel = "stylesheet" th:href="@{/css/tableCollapse.css}">
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <!-- !border: 3px solid rgb(0, 0, 0); -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="./index.html">
+                <img src="assets/images/sejong_black.png" width="37" style="                 
+                  border-radius: 70px;
+                  -moz-border-radius: 70px;
+                  -khtml-border-radius: 70px;
+                  -webkit-border-radius: 70px;
+                  " alt="My Logo">
+                세종대병원</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <!--List Add-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Side Bar-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                    <div
+                        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                            id="menu">
+                            <li class="nav-item">
+                                <a href="./index.html" class="nav-link align-middle px-0 text-white">
+                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">메인 페이지</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#submenu1" data-bs-toggle="collapse"
+                                    class="nav-link px-0 align-middle text-white">
+                                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자 정보</span>
+                                </a>
+                                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                    <li class="w-100">
+                                        <a href="doctorManagementPatient.html" class="nav-link px-0 text-white"> <span
+                                                class="d-none d-sm-inline">환자 정보 조회</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#submenu2" data-bs-toggle="collapse"
+                                    class="nav-link px-0 align-middle text-white">
+                                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">처방
+                                        내역</span></a>
+                                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                    <li class="w-100">
+                                        <a href="doctorManagementPrescript.html" class="nav-link px-0 text-white"> <span
+                                                class="d-none d-sm-inline">처방 내역 관리</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#submenu3" data-bs-toggle="collapse"
+                                    class="nav-link px-0 align-middle text-white">
+                                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">진료 예약</span>
+                                </a>
+                                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                    <li class="w-100">
+                                        <a href="doctorManagementTreatment.html" class="nav-link px-0 text-white"> <span
+                                                class="d-none d-sm-inline">진료 예약 조회</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+                <!--Add react-->
+                <div class="col py-3 container">
+                    <h2>환자 정보</h2>
+                    <table class="table table-bordered table-hover" id = "patientDetail">
+                        <thead>
+                            <tr>
+                                <th scope="col">이름</th>
+                                <th scope="col">성별</th>
+                                <th scope="col">전화번호</th>
+                                <th scope="col">질병</th>
+                                <th scope="col">처방</th>
+                                <th scope="col">주치의</th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="doctor:${doctors}">
+                            <tr class = "accordion-toggle" data-bs-toggle = "collapse" th:data-bs-target="'#doctorPatientDetail' + ${doctor.id}">
+                                <td th:text="${doctor.info.name}">김철수</td>
+                                <td>남</td>
+                                <td>010-1234-2345</td>
+                                <td>관절염</td>
+                                <td>물파스</td>
+                                <td>윤광오</td>
+                            </tr>
+
+                            <!--Collapse-->  
+                            <tr>
+                                <td colspan="6" class="hiddenRow">
+                                    <div th:id="'doctorPatientDetail' + ${doctor.id}" class="accordian-body collapse" >
+                                        <table>
+                                            <tr>
+                                                <td th:text="${doctor.info.name}">none</td>
+                                                <td th:text="${doctor.info.phoneNumber}">none</td>
+                                                <td th:text="${doctor.info.name}">none</td>
+                                                <td th:text="${doctor.info.name}">none</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                </td>
+                            </tr>    
+                            <!--Collapse End-->   
+
+                            <!--Collapse End-->  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

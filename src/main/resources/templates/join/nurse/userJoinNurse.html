@@ -14,20 +14,12 @@
     </style>
 </head>
 <body>
-    <!-- Responsive navbar-->
-    <!-- !border: 3px solid rgb(0, 0, 0); -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-        <div class="container px-5">
-            <div th:replace="fragments/bodyTopLogo :: bodyTopLogo"/>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link"
-                                            th:onclick="|location.href='@{/login}'|"
-                                            style=" font-size:1.0em; width:90px; height:39px">로그인</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<!-- Top -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container px-5">
+        <div th:replace="fragments/bodyTopLogo :: bodyTopLogo"/>
+    </div>
+</nav>
 
     <!--Register Section-->
     <section>
@@ -37,7 +29,7 @@
                 <div class="card card-signin my-5">
                   <div class="card-body">
                     <h2 class="card-title text-center mb-5">세종대병원</h2>
-                    <form class="form-user-register" method="post" action="login"  th:action th:object="${nurse}">
+                    <form class="form-user-register" method="post" action="login" th:action th:object="${nurse}">
                         <hr>
                         <div class = "row">
                             <div class="form-group col-md-6 ">

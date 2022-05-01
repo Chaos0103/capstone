@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+    <link rel = "stylesheet" th:href="@{/css/test.css}">
+</head>
+<body>
+<!-- top: logo, login -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <div th:replace="fragments/bodyTopLogo :: bodyTopLogo"/>
+    </div>
+</nav>
+<div class="content-body">
+    <div class="container">
+        <div class="join join4">
+            <div class="step login-step d-up-lg">
+                <ol>
+                    <li>
+                        <div class="box">약관동의 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">본인인증 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">정보입력 하기</div>
+                    </li>
+                    <li class="on">
+                        <div class="box">회원가입 완료</div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--Log-in Section-->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-5">회원 가입 완료</h2>
+                            <div class = "text-center mb-4">
+                                <h7 th:text="|${name}님 회원이 되신걸 축하드립니다!|">찾기</h7>
+                            </div>
+                            <div class="text-center mb-4">
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" th:onclick="|location.href='@{/login}'|">로그인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
+       
