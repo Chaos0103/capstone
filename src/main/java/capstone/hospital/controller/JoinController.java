@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 public class JoinController {
 
     private final JoinService joinService;
-    private final ValidateController validateController;
     String type = null;
 
     // ModelAttribute
@@ -59,7 +58,7 @@ public class JoinController {
 
     @PostMapping("/phoneCheck")
     public String sendSms(@ModelAttribute("phone") PhoneCheckForm form) {
-        validateController.sendSMS(form);
+//        .sendSMS(form);
         return "join/phoneCheck";
     }
 

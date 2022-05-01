@@ -1,0 +1,21 @@
+.hiddenRow {
+    padding: 0 !important;
+}
+
+input[type="checkbox"]{
+
+    width: 20px; /*Desired width*/
+    
+    height: 20px; /*Desired height*/
+    
+    cursor: pointer;
+    
+    -webkit-appearance: none;
+    
+    appearance: none;
+    
+}    
+
+.divHover:hover {
+    opacity: 0.6;
+}

@@ -1,13 +1,12 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.Patient;
-import capstone.hospital.repository.AdminRepository;
-import capstone.hospital.repository.DoctorRepository;
-import capstone.hospital.repository.NurseRepository;
-import capstone.hospital.repository.PatientRepository;
+import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,29 +17,60 @@ public class LoginService {
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
     private final AdminRepository adminRepository;
+    private final PatientQueryRepository patientQueryRepository;
+    private final DoctorQueryRepository doctorQueryRepository;
+    private final NurseQueryRepository nurseQueryRepository;
 
     public Object login(String loginId, String loginPw) {
 
-        Object fineMember = patientRepository.findByLoginId(loginId)
+        Object findMember = patientRepository.findByLoginId(loginId)
                 .filter(patient -> patient.getLoginPw().equals(loginPw))
                 .orElse(null);
-        if (fineMember == null) {
-            fineMember = doctorRepository.findByLoginId(loginId)
+        if (findMember == null) {
+            findMember = doctorRepository.findByLoginId(loginId)
                     .filter(patient -> patient.getLoginPw().equals(loginPw))
                     .orElse(null);
         }
-        if (fineMember == null) {
-            fineMember = nurseRepository.findByLoginId(loginId)
+        if (findMember == null) {
+            findMember = nurseRepository.findByLoginId(loginId)
                     .filter(patient -> patient.getLoginPw().equals(loginPw))
                     .orElse(null);
         }
-        if (fineMember == null) {
-            fineMember = adminRepository.findByLoginId(loginId)
+        if (findMember == null) {
+            findMember = adminRepository.findByLoginId(loginId)
                     .filter(patient -> patient.getLoginPw().equals(loginPw))
                     .orElse(null);
         }
 
-        return fineMember;
+        return findMember;
+    }
+
+    public String findLoginId(String name, String phoneNumber) {
+        List<String> loginId = patientQueryRepository.findLoginId(name, phoneNumber);
+        if (loginId.isEmpty()) {
+            loginId = doctorQueryRepository.findLoginId(name, phoneNumber);
+        }
+        if (loginId.isEmpty()) {
+            loginId = nurseQueryRepository.findLoginId(name, phoneNumber);
+        }
+        if (loginId.isEmpty()) {
+            return "존재하지 않는 회원입니다.";
+        }
+        return name + "님의 아이디는 " + loginId.get(0) + "입니다.";
+    }
+
+    public String findLoginPw(String name, String phoneNumber, String loginId) {
+        List<String> loginPw = patientQueryRepository.findLoginPw(name, phoneNumber, loginId);
+        if (loginPw.isEmpty()) {
+            loginPw = doctorQueryRepository.findLoginPw(name, phoneNumber, loginId);
+        }
+        if (loginPw.isEmpty()) {
+            loginPw = nurseQueryRepository.findLoginPw(name, phoneNumber, loginId);
+        }
+        if (loginPw.isEmpty()) {
+            return "존재하지 않는 회원입니다.";
+        }
+        return name + "님의 비밀번호는 " + loginPw.get(0) + "입니다.";
     }
 
     @Transactional
