@@ -51,8 +51,7 @@ public class JoinPatientController {
     public String sendSms(@ModelAttribute("phone") PatientCheckForm form, BindingResult bindingResult, HttpServletRequest request) {
 
         log.info("form={}", form);
-        if (form.getPhoneNumberFront().isEmpty() || form.getPhoneNumberMid().isEmpty() || form.getPhoneNumberBack().isEmpty()) {
-
+        if (form.getPhoneNumber().isEmpty()) {
             bindingResult.reject("nullFail", "핸드폰 번호를 입력해주세요.");
             return "join/patient/phoneCheck";
         }
@@ -60,10 +59,9 @@ public class JoinPatientController {
         HttpSession session = request.getSession();
         if (session.getAttribute("checkForm") == null) {
             log.info("인증번호 발송");
-            String phoneNumber = form.getPhoneNumberFront() + form.getPhoneNumberMid() + form.getPhoneNumberBack();
 //            String checkNumber = validateService.sendSMS(phoneNumber);
             String checkNumber = "1234";
-            PatientCheckForm checkForm = new PatientCheckForm(form.getPhoneNumberFront(), form.getPhoneNumberMid(), form.getPhoneNumberBack(), checkNumber);
+            PatientCheckForm checkForm = new PatientCheckForm(form.getName(), form.getPhoneNumber(), checkNumber);
             session.setAttribute("checkForm", checkForm);
             session.setMaxInactiveInterval(3 * 60);
             return "join/patient/phoneCheck";
