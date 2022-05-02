@@ -2,17 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <head>
+    <title>회원가입</title>
     <!--우편번호 api-->
     <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
     <script type="text/javascript" th:src="@{/js/address_number.js}"></script>
-    <!-- error -->
     <style>
         .field-error {
             border-color: #dc3545;
             color: #dc3545;
         }
+        .info {
+            color: #dc3545;
+            font-size: 90%;
+            line-height: 50%;
+        }
     </style>
 </head>
+
 <body>
 <!-- Top -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
@@ -21,125 +27,206 @@
     </div>
 </nav>
 
+    <!--단계 표시-->
+    <header class="container mb-4">
+        <h1 class="text-center">회원가입</h1><br><br>
+<!--        <p class="text-center">현재 회원 가입 페이지입니다.<br> <strong> 가입 정보가 미흡한 경우, 다음 단계로 진행이 불가합니다.</strong></p><br>-->
+<!--        <div class="progress" style="height: 30px;">-->
+<!--            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="99"-->
+<!--                aria-valuemin="0" aria-valuemax="100" style="width:99%">-->
+<!--                진행률 99%-->
+<!--            </div>-->
+<!--        </div>-->
+    </header>
+
+<div class="content-body">
+    <div class="container">
+        <div class="join join4">
+            <div class="step login-step d-up-lg">
+                <ol>
+                    <li>
+                        <div class="box">약관동의 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">본인인증 하기</div>
+                    </li>
+                    <li class="on">
+                        <div class="box">정보입력 하기</div>
+                    </li>
+                    <li>
+                        <div class="box">회원가입 완료</div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
     <!--Register Section-->
     <section>
         <div class="container">
             <div class="row">
-              <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div class="card card-signin my-5">
-                  <div class="card-body">
-                    <h2 class="card-title text-center mb-5">세종대병원</h2>
-                    <form class="form-user-register" method="post" action="login" th:action th:object="${nurse}">
-                        <hr>
-                        <div class = "row">
-                            <div class="form-group col-md-6 ">
-                                <label class = "form-label" for = "id">아이디</label>
-                                <input type="text" id="id" th:field="*{loginId}" class="form-control" th:errorclass="field-error">
-                                <div class="field-error" th:errors="*{loginId}" />
-                                <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
-                                    <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
-                                       th:if="${err.code == 'idCheckFail'}"
-                                       th:text="|${err.message}|">아이디 중복 오류 메시지</p>
+                <div class="col-sm-9 col-md-7 col-lg-6 mx-auto">
+                    <div class="card my-5">
+                        <div class="card-body">
+                            <form class="needs-validation" method="post" novalidate th:action th:object="${nurse}">
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="id"><strong>* 아이디</strong></label>
+                                    <div class = "input-group" style="padding-bottom: 20px">
+                                        <input type="text" id="id" th:field="*{loginId}" class="form-control" aria-describedby="addon1" maxlength="20" th:errorclass="field-error">
+                                        <button class="btn btn-outline-primary" type = "submit" id = "addon1">중복 확인</button>
+                                    </div>
+                                    <!-- 오류 메세지 -->
+                                    <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
+                                        <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
+                                           th:if="${err.code == 'idCheckFail'}"
+                                           th:text="|${err.message}|">아이디 중복 오류 메시지</p>
+                                    </div>
+                                    <div class="info">
+                                        <p>※ 6자 이상, 20자 이내로 설정이 가능합니다.</p>
+                                        <p>※ 한글/특수문자는 입력이 불가능 합니다.</p>
+                                    </div>
+
                                 </div>
-                            </div>
-                
-                            <div class="form-group col-md-6 mb-4">
-                                <label class = "form-label" for = "pwd">비밀번호</label>
-                                <input type="password" id="pwd" th:field="*{loginPw}" class="form-control" th:errorclass="field-error">
-                                <div class="field-error" th:errors="*{loginPw}" />
-                            </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="pwd"><strong>* 비밀번호</strong></label>
+                                    <div class = "input-group" style="padding-bottom: 20px">
+                                        <input type="password" id="pwd" th:field="*{loginPw}" class="form-control" maxlength="20">
+                                    </div>
+                                    <div class="info">
+                                        <p>※ 8자 이상 ~ 20자 이내로 설정해주세요.</p>
+                                        <p>※ 영문, 숫자, 특수문자를 모두 포함해주세요.</p>
+                                        <p>※ 비밀번호 예시: password121!</p>
+                                        <p>※ 문자열이 3자리 이상 연속되거나 동일하지 않게 해주세요. (ex. 111, 123, 321, aaa, abc 등)</p>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="pwdCheck"><strong>* 비밀번호확인</strong></label>
+                                    <div class = "input-group" style="padding-bottom: 20px">
+                                        <input type="password" id="pwdCheck" th:field="*{checkPw}" class="form-control" maxlength="20">
+                                    </div>
+                                    <!-- 오류 메세지 -->
+                                    <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
+                                        <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
+                                           th:if="${err.code == 'pwCheckFail'}"
+                                           th:text="|${err.message}|">비밀번호 불일치 오류 메시지</p>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="name"><strong>이름</strong></label>
+                                    <input type="text" id="name" th:field="*{name}" class="form-control" readonly>
+                                </div>
+
+                                <div class="row">
+                                    <label class="form-label" for="human-number"><strong>주민등록번호</strong></label>
+
+                                    <div class="col-md-6">
+                                        <input type="text" id="human-number" th:field="*{rrnFront}" class="form-control" placeholder="생년월일 YYMMDD" maxlength="6" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <input type="password" id="human-number" th:field="*{rrnBack}" class="form-control" placeholder="주민번호 뒷 7자리" maxlength="7">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="form-label" for="phoneNumber"><strong>휴대폰 번호</strong></label>
+
+                                    <div class="input-group mb-4">
+                                        <input type="text" id="phoneNumber" class="form-control" th:field="*{phoneNumber}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="form-label" for="post-number"><strong>* 우편번호</strong></label>
+
+                                    <div class="input-group mb-4 col-md-6">
+                                        <input type="text" id="post-number" th:field="*{zipcode}" class="form-control" placeholder="05006"
+                                            aria-describedby="addonPost" >
+                                        <button class="btn btn-outline-primary" type = "button" id = "addonPost" onclick="postcode()">우편번호검색</button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="address"><strong>* 주소</strong></label>
+                                    <input type="text" id="address" th:field="*{city}" class="form-control" placeholder="ex) 서울특별시 광진구 능동로">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="detail-address"><strong>* 상세주소</strong></label>
+                                    <input type="text" id="detail-address" th:field="*{street}" class="form-control">
+                                </div>
+
+                                <!-- 사진 -->
+<!--                                <div class="mb-4">-->
+<!--                                    <label for="preview" class="form-label">미리보기</label>-->
+<!--                                    <img class="img-thumbnail form-control" accept="image/*" id="preview"-->
+<!--                                         alt="faceImage" style="width: 200px; height: 200px;"  readonly />-->
+<!--                                </div>-->
+
+                                <div class="mb-4">
+                                    <label for="formFile" class="form-label"><strong>* 사진</strong></label>
+
+                                    <div class = "input-group">
+                                        <button class = "btn btn-outline-primary" id = "addonPhoto" type = "button" onclick="location.href = '#'">업로드</button>
+                                        <input class="form-control" type="file" id="formFile" aria-describedby="addonPhoto" onchange="imgPreview()">
+                                    </div>
+                                </div>
+
+                                <!-- 추가 major, rank -->
+                                <div class = "form-row mb-4">
+                                    <label class = "form-label" for = "code"><strong>* 간호사 면허 코드</strong></label>
+                                    <input type="text" id="code" th:field="*{licenseCode}" class="form-control" th:errorclass="field-error">
+                                </div>
+
+                                <div>
+                                    <div><strong>* 전공</strong></div>
+                                    <select th:field="*{major}" class="form-select">
+                                        <option value="">==전공 선택==</option>
+                                        <option th:each="major : ${majors}" th:value="${major.name()}"
+                                                th:text="${major.description}">none</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="text-center mb-4">
+                                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">회원가입</button>
+                                </div>
+
+                            </form>
                         </div>
-
-                        <div class="form-group mb-4">
-                          <label class = "form-label" for = "name">이름</label>
-                            <input type="text" id="name" th:field="*{name}" class="form-control" th:errorclass="field-error">
-                            <div class="field-error" th:errors="*{name}" />
-                        </div>
-
-                        <div class = "row">
-                            <label class = "form-label" for = "human-number">주민등록번호</label>
-                            <div th:if="${#fields.hasGlobalErrors()}" class="text-left">
-                                <p class="field-error" th:each="err : ${#fields.globalDetailedErrors()}"
-                                   th:if="${err.code == 'rrnCheckFail'}"
-                                   th:text="|${err.message}|">주민등록번호 중복 오류 메시지</p>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <input type="text" id="human-number" th:field="*{rrnFront}" class="form-control" placeholder = "생년월일 YYMMDD" th:errorclass="field-error">
-                                <div class="field-error" th:errors="*{rrnFront}" />
-                            </div>
-                            
-                            <div class="form-group col-md-6 mb-4">
-                                <input type="password" id="human-number" th:field="*{rrnBack}" class="form-control" placeholder = "주민번호 뒷 7자리" th:errorclass="field-error">
-                                <div class="field-error" th:errors="*{rrnBack}" />
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label class = "form-label" for = "phone-number">전화 번호</label>
-                            <input type="text" id="phone-number" th:field="*{phoneNumber}" class="form-control" placeholder = "010-XXXX-XXXX" th:errorclass="field-error">
-                            <div class="field-error" th:errors="*{phoneNumber}" />
-                        </div>
-
-                        <div class = "row">
-                            <label class = "form-label" for = "post-number">우편번호</label>
-
-                            <div class = "form-group mb-4 col-md-5">
-                                <input type="text" id="post-number" th:field="*{zipcode}" class="form-control" placeholder = "05006" th:errorclass="field-error">
-                                <div class="field-error" th:errors="*{zipcode}" />
-                            </div>
-
-                            <div class ="form-group mb-4 col-md-4">
-                                <button class = "btn btn-primary" onclick="postcode()">우편번호검색</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label class = "form-label" for = "address">주소</label>
-                            <input type="text" id="address" th:field="*{city}" class="form-control" placeholder="ex) 서울특별시 광진구 능동로" th:errorclass="field-error">
-                            <div class="field-error" th:errors="*{city}" />
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label class = "form-label" for = "detail-address">상세주소</label>
-                            <input type="text" id="detail-address" th:field="*{street}" class="form-control" th:errorclass="field-error">
-                            <div class="field-error" th:errors="*{street}" />
-                        </div>
-                        <div class = "form-row mb-4">                 
-                            <label class = "form-label" for = "code">간호사 면허 코드</label>
-                            <input type="text" id="code" th:field="*{licenseCode}" class="form-control" placeholder="XXX-0000" th:errorclass="field-error">
-                            <div class="field-error" th:errors="*{licenseCode}" />
-                        </div>
-
-                        <!-- 추가 major -->
-
-                        <div>
-                            <div>전공</div>
-                            <select th:field="*{major}" class="form-select">
-                                <option value="">==전공 선택==</option>
-                                <option th:each="major : ${majors}" th:value="${major.name()}"
-                                        th:text="${major.description}">none</option>
-                            </select>
-                        </div>
-
-                        <div class="text-center mb-4">
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">회원가입</button>
-                        </div>
-
-                        <div class ="text-center mb-4">
-                            <h7>이미 회원이시라면, <a th:onclick="|location.href='@{/login}'|">이 링크를 클릭하여주십시오.</a></h7>
-                        </div>
-
-                    </form>
-                  </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>  
+        </div>
     </section>
 
-    <!-- Footer-->
-    <div th:replace="fragments/footer :: footer"/>
-</body>
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
 
+    <!--form validation js-->
+<!--    <script>-->
+<!--        // Example starter JavaScript for disabling form submissions if there are invalid fields-->
+<!--        (function () {-->
+<!--            'use strict'-->
+
+<!--            // Fetch all the forms we want to apply custom Bootstrap validation styles to-->
+<!--            var forms = document.querySelectorAll('.needs-validation')-->
+
+<!--            // Loop over them and prevent submission-->
+<!--            Array.prototype.slice.call(forms)-->
+<!--                .forEach(function (form) {-->
+<!--                    form.addEventListener('submit', function (event) {-->
+<!--                        if (!form.checkValidity()) {-->
+<!--                            event.preventDefault()-->
+<!--                            event.stopPropagation()-->
+<!--                        }-->
+
+<!--                        form.classList.add('was-validated')-->
+<!--                    }, false)-->
+<!--                })-->
+<!--        })()-->
+<!--    </script>-->
+</body>
 </html>

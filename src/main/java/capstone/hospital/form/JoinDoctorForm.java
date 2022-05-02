@@ -29,11 +29,11 @@ public class JoinDoctorForm {
     private String zipcode;
     @NotBlank
     private String licenseCode;
-    @NotBlank
-    private Major major;
-    @NotBlank
-    private DoctorRank rank;
 
+    //    @NotBlank
+    private Major major;
+//    @NotBlank
+    private DoctorRank rank;
     @NotBlank
     private String checkPw;
 }

@@ -20,11 +20,7 @@ public class JoinPatientForm {
     @NotBlank
     private String rrnBack;
     @NotBlank
-    private String phoneNumberFront;
-    @NotBlank
-    private String phoneNumberMid;
-    @NotBlank
-    private String phoneNumberBack;
+    private String phoneNumber;
     @NotBlank
     private String city;
     @NotBlank
