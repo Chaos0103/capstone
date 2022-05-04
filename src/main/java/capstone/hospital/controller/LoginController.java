@@ -71,7 +71,8 @@ public class LoginController {
         if (session.getAttribute("checkForm") == null) {
             log.info("인증번호 발송");
             String phoneNumber = form.getPhoneNumberFront() + form.getPhoneNumberMid() + form.getPhoneNumberBack();
-            String checkNumber = validateService.sendSMS(phoneNumber);
+//            String checkNumber = validateService.sendSMS(phoneNumber);
+            String checkNumber = "123456";
             FindLoginIdForm checkForm = new FindLoginIdForm(form.getName(), form.getPhoneNumberFront(), form.getPhoneNumberMid(), form.getPhoneNumberBack(), checkNumber);
             session.setAttribute("checkForm", checkForm);
             session.setMaxInactiveInterval(3 * 60);

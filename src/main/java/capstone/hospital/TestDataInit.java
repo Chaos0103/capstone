@@ -5,6 +5,7 @@ import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.dto.UploadFile;
 import capstone.hospital.repository.KCDCodeRepository;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;

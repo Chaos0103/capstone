@@ -6,6 +6,8 @@ import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.dto.UploadFile;
+import capstone.hospital.file.FileStore;
 import capstone.hospital.form.JoinDoctorForm;
 import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -31,6 +34,7 @@ import javax.servlet.http.HttpSession;
 public class JoinDoctorController {
 
     private final JoinService joinService;
+    private final FileStore fileStore;
     private final ValidateService validateService;
 
     // ModelAttribute
@@ -110,7 +114,7 @@ public class JoinDoctorController {
     }
 
     @PostMapping("/joinForm")
-    public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
         log.info("input={}", form);
         // 아이디 중복 체크
@@ -145,7 +149,8 @@ public class JoinDoctorController {
         return "redirect:/join/success";
     }
 
-    private void doctorSave(JoinDoctorForm form) {
+    private void doctorSave(JoinDoctorForm form) throws IOException {
+        UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
         Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
         Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank());

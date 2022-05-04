@@ -3,6 +3,7 @@ package capstone.hospital.domain;
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.dto.UploadFile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,10 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Inpatient> inpatients = new ArrayList<>();
 
+//    private UploadFile profile;
+
+
+
     public Doctor(String loginId, String loginPw, Information info, String licenseCode, Major major, DoctorRank rank) {
         this.approvalAdmin = null;
         this.loginId = loginId;
@@ -50,5 +55,6 @@ public class Doctor {
         this.licenseCode = licenseCode;
         this.major = major;
         this.rank = rank;
+//        this.profile = profile;
     }
 }

@@ -3,6 +3,7 @@ package capstone.hospital.form;
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 
@@ -30,6 +31,7 @@ public class JoinDoctorForm {
     @NotBlank
     private String licenseCode;
 
+    private MultipartFile attachFile;
     //    @NotBlank
     private Major major;
 //    @NotBlank
