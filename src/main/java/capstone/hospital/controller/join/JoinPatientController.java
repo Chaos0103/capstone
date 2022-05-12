@@ -69,15 +69,19 @@ public class JoinPatientController {
             if (checkForm.getCheckNumber().equals(form.getInputNumber())) {
                 log.info("인증 성공");
                 // 중복 검사
-                boolean check = joinService.validateDuplicateRRN(checkForm.getRrn());
-                if (!check) {
+                try {
+                    joinService.validateDuplicateRRN(checkForm.getRrn());
+                } catch (IllegalStateException e) {
                     return "/join/joinFail";
                 }
+
                 redirectAttributes.addFlashAttribute("name", checkForm.getName());
                 redirectAttributes.addFlashAttribute("phone", checkForm.getPhoneNumber());
                 redirectAttributes.addFlashAttribute("rrnFront", checkForm.getRrnFront());
+
                 log.info("session={}", session.getAttribute("checkForm"));
                 session.invalidate();
+
                 return "redirect:/join/patient/joinForm";
             } else {
                 log.info("인증 실패");
@@ -101,10 +105,11 @@ public class JoinPatientController {
         log.info("input={}", form);
 
         // 아이디 중복 체크
-        boolean idCheck = joinService.validateDuplicateLoginId(form.getLoginId());
-        if (!idCheck) {
+        try {
+            joinService.validateDuplicateLoginId(form.getLoginId());
+        } catch (IllegalStateException e) {
             log.info("idCheckFail");
-            bindingResult.reject("idCheckFail", "이미 사용중인 아이디입니다.");
+            bindingResult.reject("idCheckFail", e.getMessage());
             return "join/patient/userJoinPatient";
         }
 
@@ -119,9 +124,10 @@ public class JoinPatientController {
         }
 
         // 회원 중복 체크
-        boolean rrnCheck = joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
-        if (!rrnCheck) {
-            bindingResult.reject("rrnCheckFail", "이미 가입된 회원입니다.");
+        try {
+            joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
+        } catch (IllegalStateException e) {
+            bindingResult.reject("rrnCheckFail", e.getMessage());
             return "join/patient/userJoinPatient";
         }
 
@@ -136,7 +142,7 @@ public class JoinPatientController {
         Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
         Patient patient = new Patient(form.getLoginId(), form.getLoginPw(), newInfo);
-        Long savedId = joinService.joinPatient(patient);
+        joinService.joinPatient(patient);
     }
 
 

@@ -1,23 +1,14 @@
 package capstone.hospital.controller;
 
-import capstone.hospital.domain.Doctor;
-import capstone.hospital.domain.Nurse;
-import capstone.hospital.form.JoinDoctorForm;
-import capstone.hospital.domain.enumtype.DoctorRank;
-import capstone.hospital.domain.enumtype.Major;
-import capstone.hospital.domain.valuetype.Address;
-import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.form.JoinNurseForm;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -25,6 +16,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @RequestMapping("/join")
 public class JoinController {
+
+    private final JoinService joinService;
 
     // Mapping
     @GetMapping
@@ -37,4 +30,22 @@ public class JoinController {
         model.addAttribute("name", (String) model.asMap().get("name"));
         return "join/joinSuccess";
     }
+
+//    @PostMapping("/loginIdCheck")
+//    @ResponseBody
+//    public String idCheck(@RequestBody String loginId, HttpSession session) {
+//        log.info("id={}", loginId);
+//        try {
+//            JSONObject json = new JSONObject(loginId);
+//            String id = json.getString("loginId");
+//            log.info("id={}", id);
+//            boolean sdd = joinService.validateDuplicateLoginId(id);
+//            log.info("data={}", sdd);
+//
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return "ok";
+//    }
 }

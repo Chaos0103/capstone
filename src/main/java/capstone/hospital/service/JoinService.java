@@ -22,7 +22,6 @@ public class JoinService {
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
     private final AdminRepository adminRepository;
-    private final PatientQueryRepository patientQueryRepository;
 
     @Transactional
     public Long joinPatient(Patient patient) {
@@ -57,7 +56,7 @@ public class JoinService {
     }
 
     //== 검증 메서드 ==//
-    public boolean validateDuplicateRRN(String Rrn) {
+    public void validateDuplicateRRN(String Rrn) {
 
         Object findMember = patientRepository.findByInfoRrn(Rrn)
                 .orElse(null);
@@ -69,12 +68,13 @@ public class JoinService {
             findMember = nurseRepository.findByInfoRrn(Rrn)
                     .orElse(null);
         }
-        System.out.println("findMember = " + findMember);
-        return findMember == null;
-//        throw new IllegalStateException("이미 가입된 회원입니다.");
+
+        if (findMember != null) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
     }
 
-    public boolean validateDuplicateLoginId(String loginId) {
+    public void validateDuplicateLoginId(String loginId) {
 
         Object findMember = patientRepository.findByLoginId(loginId)
                 .orElse(null);
@@ -90,7 +90,9 @@ public class JoinService {
             findMember = adminRepository.findByLoginId(loginId)
                     .orElse(null);
         }
-        return findMember == null;
-//        throw new IllegalStateException("이미 사용중인 아이디입니다.");
+
+        if (findMember != null) {
+            throw new IllegalStateException("이미 사용중인 아이디입니다.");
+        }
     }
 }

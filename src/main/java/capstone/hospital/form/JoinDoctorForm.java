@@ -31,7 +31,7 @@ public class JoinDoctorForm {
     @NotBlank
     private String licenseCode;
 
-    private MultipartFile attachFile;
+    private MultipartFile file;
     //    @NotBlank
     private Major major;
 //    @NotBlank

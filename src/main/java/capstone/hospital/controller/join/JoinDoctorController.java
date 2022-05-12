@@ -13,6 +13,7 @@ import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 
 @Slf4j
@@ -36,6 +38,9 @@ public class JoinDoctorController {
     private final JoinService joinService;
     private final FileStore fileStore;
     private final ValidateService validateService;
+
+    @Value("file.dir")
+    private String fileDir;
 
     // ModelAttribute
     @ModelAttribute("ranks")
@@ -87,13 +92,16 @@ public class JoinDoctorController {
             if (checkForm.getCheckNumber().equals(form.getInputNumber())) {
                 log.info("인증 성공");
                 // 중복 검사
-                boolean check = joinService.validateDuplicateRRN(checkForm.getRrn());
-                if (!check) {
+                try {
+                    joinService.validateDuplicateRRN(checkForm.getRrn());
+                } catch (IllegalStateException e) {
                     return "/join/joinFail";
                 }
+
                 redirectAttributes.addFlashAttribute("name", checkForm.getName());
                 redirectAttributes.addFlashAttribute("phone", checkForm.getPhoneNumber());
                 redirectAttributes.addFlashAttribute("rrnFront", checkForm.getRrnFront());
+
                 log.info("session={}", session.getAttribute("checkForm"));
                 session.invalidate();
                 return "redirect:/join/doctor/joinForm";
@@ -116,18 +124,20 @@ public class JoinDoctorController {
     @PostMapping("/joinForm")
     public String saveDoctor(@Validated @ModelAttribute("doctor") JoinDoctorForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
-        log.info("input={}", form);
+        log.info("file={}", form.getFile());
+
         // 아이디 중복 체크
-        boolean idCheck = joinService.validateDuplicateLoginId(form.getLoginId());
-        if (!idCheck) {
-            bindingResult.reject("idCheckFail", "이미 사용중인 아이디입니다.");
-            return "join/doctor/userJoinDoctor";
+        try {
+            joinService.validateDuplicateLoginId(form.getLoginId());
+        } catch (IllegalStateException e) {
+            log.info("idCheckFail");
+            bindingResult.reject("idCheckFail", e.getMessage());
+            return "join/patient/userJoinNurse";
         }
 
         if (bindingResult.hasErrors()) {
             return "join/doctor/userJoinDoctor";
         }
-
 
         // 비밀번호 확인
         if (!form.getLoginPw().equals(form.getCheckPw())) {
@@ -136,10 +146,11 @@ public class JoinDoctorController {
         }
 
         // 회원 중복 체크
-        boolean rrnCheck = joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
-        if (!rrnCheck) {
-            bindingResult.reject("rrnCheckFail", "이미 가입된 회원입니다.");
-            return "join/doctor/userJoinDoctor";
+        try {
+            joinService.validateDuplicateRRN(form.getRrnFront() + "-" + form.getRrnBack());
+        } catch (IllegalStateException e) {
+            bindingResult.reject("rrnCheckFail", e.getMessage());
+            return "join/patient/userJoinPatient";
         }
 
         // success
@@ -150,10 +161,10 @@ public class JoinDoctorController {
     }
 
     private void doctorSave(JoinDoctorForm form) throws IOException {
-        UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
+        UploadFile attachFile = fileStore.storeFile(form.getFile());
         Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
-        Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank());
-        Long savedId = joinService.joinDoctor(doctor);
+        Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank(), attachFile);
+        joinService.joinDoctor(doctor);
     }
 }

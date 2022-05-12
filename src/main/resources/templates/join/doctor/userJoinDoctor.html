@@ -161,10 +161,9 @@
 
                                 <div class="mb-4">
                                     <label for="formFile" class="form-label"><strong>* 사진</strong></label>
-
                                     <div class = "input-group">
-                                        <button class = "btn btn-outline-primary" id = "addonPhoto" type = "button" onclick="location.href = '#'">업로드</button>
-                                        <input class="form-control" type="file" id="formFile" aria-describedby="addonPhoto" onchange="imgPreview()" multiple="multiple">
+<!--                                        <button class = "btn btn-outline-primary" id = "addonPhoto" type = "button" onclick="location.href = '#'">업로드</button>-->
+                                        <input class="form-control" type="file" id="formFile" th:field="*{file}" aria-describedby="addonPhoto" multiple="multiple">
                                     </div>
                                 </div>
 

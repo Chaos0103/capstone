@@ -43,11 +43,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Inpatient> inpatients = new ArrayList<>();
 
-//    private UploadFile profile;
+    private UploadFile profile;
 
-
-
-    public Doctor(String loginId, String loginPw, Information info, String licenseCode, Major major, DoctorRank rank) {
+    public Doctor(String loginId, String loginPw, Information info, String licenseCode, Major major, DoctorRank rank, UploadFile profile) {
         this.approvalAdmin = null;
         this.loginId = loginId;
         this.loginPw = loginPw;
@@ -55,6 +53,6 @@ public class Doctor {
         this.licenseCode = licenseCode;
         this.major = major;
         this.rank = rank;
-//        this.profile = profile;
+        this.profile = profile;
     }
 }

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>진료 예약 내역</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!-- 진료예약내역글씨, 설명카트, 취소버튼 start -->
+    <div class="container-fluid pt-4 px-4">
+        <h2 class="text-center fw-bold " style="margin-top:50px;margin-bottom:60px;color:rgb(85, 85, 85)">진료 예약 내역</h2>
+        <!--설명카트-->
+        <div style="margin-left:150px;margin-right:150px;margin-top:0px;height:120px;">
+            <!--todo list-->
+            <div class="h-100 bg-light rounded  p-4" style="border:1px solid rgb(184, 184, 184);height:1000px;">
+                <h6 style="color:rgb(85, 85, 85)"><i class="bi bi-dot" href="#" onclick="history.go(-1);"
+                        style="color:#4770d9"></i> 인터넷으로 본인이 직접 진료예약을 하셨거나, 진료비 수납이 안된 경우, 예약취소가 가능합니다.</h6>
+                <h6 style="margin-top:20px;color:rgb(85, 85, 85)"><i class="bi bi-dot" href="#"
+                        onclick="history.go(-1);" style="color:#4770d9"></i> 예약 내역 클릭시 상세내역을 볼 수 있습니다.</h6>
+
+            </div>
+            <a class=" btn btn-primary btn-lg" href="patientCurrent.html"
+                style=" font-size:1.0em; width:110px;margin-left:890px; height:41px;margin-top:70px;float: right;background-color:#ffffff;border: 1px solid #2d8be3;border-radius: 7px;color:#2d8be3">예약취소</a>
+        </div>
+        <!--설명카트 End-->
+    </div>
+    <!-- 진료예약내역글씨, 설명카트, 취소버튼 start -->
+    <!--예약테이블-->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row flex-nowrap" style="margin-left:150px;margin-right:150px;margin-top:170px">
+            <!--Add Table-->
+            <div class="col py-3 container">
+
+
+                <!--검색 form-->
+
+
+                <!--Table List {1}-->
+                <table class="table table-bordered table-hover" id="patientDetail">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">예약자</th>
+                            <th scope="col">연락처</th>
+                            <th scope="col">진료과</th>
+                            <th scope="col">의료진</th>
+                            <th scope="col">예약일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1">
+                            <td>신채원</td>
+                            <td>010-8345-3157</td>
+                            <td>가정의학과</td>
+                            <td>김지혜</td>
+                            <td>2022/05/17</td>
+                        </tr>
+                        <!--Collapse-->
+                        <tr>
+                            <td colspan="6" class="hiddenRow">
+                                <div id="doctorPatientDetail1" class="accordian-body collapse mb-4">
+                                    <div class="container">
+                                        <div class="card card-body mt-4">
+                                            <!--예약자 정보-->
+                                            <hr>
+                                            <h5 class="mb-4">예약자 정보</h5>
+                                            <table class="table table-borderd">
+                                                <thead class="table-primary">
+                                                    <tr>
+                                                        <th scope="col">예약자</th>
+                                                        <th scope="col">연락처</th>
+                                                        <th scope="col">신청일시</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>신채원</td>
+                                                        <td>010-8345-3157</td>
+                                                        <td>2022-05-11 05:12:27</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <!--진료 정보-->
+                                            <hr>
+                                            <h5 class="mb-4">진료 정보</h5>
+                                            <table class="table table-borderd">
+                                                <thead class="table-primary">
+                                                    <tr>
+                                                        <th scope="col">예약일</th>
+                                                        <th scope="col">진료과</th>
+                                                        <th scope="col">의료진</th>
+                                                        <th scope="col">진료장소</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>2022/05/17 15:10</td>
+                                                        <td>가정의학과</td>
+                                                        <td>김지혜</td>
+                                                        <td>본관 4층 가정의학과</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--Collapse End-->
+                    </tbody>
+                </table>
+                <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id=page>
+                            <!--이전 버튼-->
+                            <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                -->
+
+                            <!--페이지 표시 버튼-->
+                            <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                                -->
+
+                            <!--다음 버튼-->
+                            <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--예약테이블 End-->
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+            <hr>
+            <p class="m-0 text-center text-white">서울특별시 광진구 능동로 206 세종대학교 대양 AI센터</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--JS-->
+    <!--<script src = "../otherFunction.js"></script>-->
+    <script src="../pagiNation.js"></script>
+</body>
+
+</html>

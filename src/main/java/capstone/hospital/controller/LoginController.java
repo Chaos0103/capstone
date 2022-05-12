@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,7 +66,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/findLoginId")
-    public String findLoginIdCheck(@ModelAttribute("findLoginId") FindLoginIdForm form, BindingResult bindingResult, HttpServletRequest request) {
+    public String findLoginIdCheck(@ModelAttribute("findLoginId") FindLoginIdForm form, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("checkForm") == null) {
@@ -81,6 +82,9 @@ public class LoginController {
             FindLoginIdForm checkForm = (FindLoginIdForm) session.getAttribute("checkForm");
             if (checkForm.getCheckNumber().equals(form.getInputNumber())) {
                 log.info("인증 성공");
+                redirectAttributes.addFlashAttribute("name", form.getName());
+                redirectAttributes.addFlashAttribute("phoneNumber", form.getPhoneNumberFront() + form.getPhoneNumberMid() + form.getPhoneNumberBack());
+                session.invalidate();
                 return "redirect:/login/findId";
             } else {
                 log.info("인증 실패");
@@ -91,14 +95,13 @@ public class LoginController {
     }
 
     @GetMapping("/login/findId")
-    public String findId(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        FindLoginIdForm checkForm = (FindLoginIdForm) session.getAttribute("checkForm");
+    public String findId(@ModelAttribute("findLoginId") FindLoginIdForm form, Model model) {
+        form.setName((String) model.asMap().get("name"));
+        form.setPhoneNumber((String) model.asMap().get("phoneNumber"));
 
-        String loginId = loginService.findLoginId(checkForm.getName(), checkForm.getPhoneNumberFront() + checkForm.getPhoneNumberMid() + checkForm.getPhoneNumberBack());
+        String loginId = loginService.findLoginId(form.getName(), form.getPhoneNumber());
         model.addAttribute("title", "아이디 찾기");
         model.addAttribute("login", loginId);
-        session.invalidate();
         return "login/find";
     }
 
@@ -111,13 +114,14 @@ public class LoginController {
     }
 
     @PostMapping("/login/findLoginPw")
-    public String findLoginPwCheck(@ModelAttribute("findLoginPw") FindLoginPwForm form, BindingResult bindingResult, HttpServletRequest request) {
+    public String findLoginPwCheck(@ModelAttribute("findLoginPw") FindLoginPwForm form, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("checkForm") == null) {
             log.info("인증번호 발송");
             String phoneNumber = form.getPhoneNumberFront() + form.getPhoneNumberMid() + form.getPhoneNumberBack();
-            String checkNumber = validateService.sendSMS(phoneNumber);
+//            String checkNumber = validateService.sendSMS(phoneNumber);
+            String checkNumber = "123456";
             FindLoginPwForm checkForm = new FindLoginPwForm(form.getName(), form.getPhoneNumberFront(), form.getPhoneNumberMid(), form.getPhoneNumberBack(), form.getLoginId(), checkNumber);
             session.setAttribute("checkForm", checkForm);
             session.setMaxInactiveInterval(3 * 60);
@@ -126,6 +130,10 @@ public class LoginController {
             FindLoginPwForm checkForm = (FindLoginPwForm) session.getAttribute("checkForm");
             if (checkForm.getCheckNumber().equals(form.getInputNumber())) {
                 log.info("인증 성공");
+                redirectAttributes.addFlashAttribute("name", form.getName());
+                redirectAttributes.addFlashAttribute("phoneNumber", form.getPhoneNumberFront() + form.getPhoneNumberMid() + form.getPhoneNumberBack());
+                redirectAttributes.addFlashAttribute("loginId", form.getLoginId());
+                session.invalidate();
                 return "redirect:/login/findPw";
             } else {
                 log.info("인증 실패");
@@ -136,14 +144,14 @@ public class LoginController {
     }
 
     @GetMapping("/login/findPw")
-    public String findPw(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        FindLoginPwForm checkForm = (FindLoginPwForm) session.getAttribute("checkForm");
+    public String findPw(@ModelAttribute("findLoginPw") FindLoginPwForm form, Model model) {
+        form.setName((String) model.asMap().get("name"));
+        form.setPhoneNumber((String) model.asMap().get("phoneNumber"));
+        form.setLoginId((String) model.asMap().get("loginId"));
 
-        String loginPw = loginService.findLoginPw(checkForm.getName(), checkForm.getPhoneNumberFront() + checkForm.getPhoneNumberMid() + checkForm.getPhoneNumberBack(), checkForm.getLoginId());
+        String loginPw = loginService.findLoginPw(form.getName(), form.getPhoneNumber(), form.getLoginId());
         model.addAttribute("title", "비밀번호 찾기");
         model.addAttribute("login", loginPw);
-        session.invalidate();
         return "login/find";
     }
 

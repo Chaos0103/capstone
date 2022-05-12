@@ -46,6 +46,9 @@ public class AppointmentService {
         }
     }
 
+    /**
+     * update
+     */
     public void updateAppointment(Long memberId) {
         Optional<Patient> findMember = patientRepository.findById(memberId);
 

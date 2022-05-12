@@ -54,6 +54,7 @@ public class LoginService {
             loginId = nurseQueryRepository.findLoginId(name, phoneNumber);
         }
         if (loginId.isEmpty()) {
+//            throw new IllegalStateException("존재하지 않는 회원입니다.");
             return "존재하지 않는 회원입니다.";
         }
         return name + "님의 아이디는 " + loginId.get(0) + "입니다.";
@@ -68,6 +69,7 @@ public class LoginService {
             loginPw = nurseQueryRepository.findLoginPw(name, phoneNumber, loginId);
         }
         if (loginPw.isEmpty()) {
+//            throw new IllegalStateException("존재하지 않는 회원입니다.");
             return "존재하지 않는 회원입니다.";
         }
         return name + "님의 비밀번호는 " + loginPw.get(0) + "입니다.";

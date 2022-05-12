@@ -16,6 +16,7 @@ public class FindLoginIdForm {
     @NotBlank
     private String phoneNumberBack;
 
+    private String phoneNumber;
     private String checkNumber;
     private String inputNumber;
 

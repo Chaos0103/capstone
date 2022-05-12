@@ -16,6 +16,7 @@ public class BasicService {
 
     private final PatientRepository patientRepository;
 
+    @Transactional
     public void changeMemberInfo(Long memberId ,InformationDto info) {
         Optional<Patient> findMember = patientRepository.findById(memberId);
         findMember.get().changeInfo(info);

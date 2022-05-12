@@ -2,7 +2,10 @@ package capstone.hospital.dto;
 
 import lombok.Data;
 
+import javax.persistence.Embeddable;
+
 @Data
+@Embeddable
 public class UploadFile {
 
     private String uploadFileName;
@@ -11,5 +14,8 @@ public class UploadFile {
     public UploadFile(String uploadFileName, String storeFileName) {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
+    }
+
+    protected UploadFile() {
     }
 }

@@ -18,6 +18,7 @@ public class FindLoginPwForm {
     @NotBlank
     private String loginId;
 
+    private String phoneNumber;
     private String checkNumber;
     private String inputNumber;
 

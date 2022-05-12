@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>진료과 찾기</title>
+</head>
+<body class = "">
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <header>
+        <div class="container mt-5 mb-5">
+            <h1 class="text-center fw-bold">진료과 찾기</h1>
+        </div>
+    </header>
+
+    <section class="mb-4">
+        <form method="post">
+            <div class="container">
+                <div class="col-lg-9 mx-auto">
+                    <div class="card">
+                        <div class="card-body row">
+                            <div class="col-lg-9 mx-auto">
+                                <div class="input-group">
+                                    <input type="text" id="doctorSearch" class="form-control" placeholder="진료과 또는 질병명을 입력해주세요">
+                                    <button class="btn btn-primary" type="button" onclick=""><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="mb-4">
+        <div class="container">
+            <div class="col-lg-10 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">진료과 목록</h2>
+                        <hr class="mb-4">
+                        <div class="row mx-auto mb-3">
+                            <div class="col-lg-3" onclick="location.href ='#'">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">산부인과</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" onclick="location.href ='#'">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">신경외과</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" onclick="location.href ='#'">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">간담췌외과</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" onclick="location.href ='#'">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">흉부외과</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-auto mb-3">
+                            <div class="col-lg-3" onclick="location.href ='#'">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">소아외과</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="row mt-5 mb-5"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+
+    </div>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+            <hr>
+            <p class="m-0 text-center text-white">서울특별시 광진구 능동로 206 세종대학교 대양 AI센터</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Ohter JS-->
+    <script src="otherFunction.js"></script>
+</body>
+
+</html>
