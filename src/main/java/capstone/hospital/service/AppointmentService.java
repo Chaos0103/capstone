@@ -1,57 +1,60 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.Appointment;
-import capstone.hospital.domain.Medical;
+import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
-import capstone.hospital.domain.enumtype.AppointmentStatus;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class AppointmentService {
 
     private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
     private final AppointmentRepository appointmentRepository;
-    private final MedicalRepository medicalRepository;
 
-    public Long createAppointment(Long memberId, Long medicalId) {
-        Optional<Patient> findMember = patientRepository.findById(memberId);
-        Optional<Medical> findMedical = medicalRepository.findById(medicalId);
-        if (findMember.isEmpty() || findMedical.isEmpty()) {
+    /**
+     * create
+     */
+    public Long createAppointment(Long patientId, Long doctorId, String medicalDate, String medicalDay) {
+        Optional<Patient> findPatient = patientRepository.findById(patientId);
+        Optional<Doctor> findDoctor = doctorRepository.findById(doctorId);
+
+        if (findPatient.isEmpty() || findDoctor.isEmpty()) {
             throw new IllegalStateException("예약에 실패했습니다.");
         } else {
-            Appointment appointment = new Appointment(findMember.get(), findMedical.get());
-            findMedical.get().success();
-            appointmentRepository.save(appointment);
-            return appointment.getId();
+            return appointmentRepository.save(new Appointment(findPatient.get(), findDoctor.get(), medicalDate, medicalDay)).getId();
         }
     }
 
-    public void cancelAppointment(Long memberId, Long appointmentId) {
-        Optional<Patient> findMember = patientRepository.findById(memberId);
-        Optional<Appointment> findAppointment = appointmentRepository.findById(appointmentId);
-        if (findAppointment.isEmpty()) {
-            throw new IllegalStateException("예약된 진료가 없습니다.");
-        } else if (findAppointment.get().getStatus().equals(AppointmentStatus.CANCEL)) {
-            throw new IllegalStateException("이미 취소된 예약입니다.");
-        } else {
-            findAppointment.get().cancel();
-            findAppointment.get().getMedical().cancel();
-        }
+    /**
+     * read
+     */
+    @Transactional(readOnly = true)
+    public List<Appointment> readAppointment(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
     }
 
     /**
      * update
      */
-    public void updateAppointment(Long memberId) {
-        Optional<Patient> findMember = patientRepository.findById(memberId);
+    public void updateAppointment(Long appointmentId, Long doctorId, String medicalDate, String medicalDay) {
+        Optional<Appointment> findInfo = appointmentRepository.findById(appointmentId);
+        Optional<Doctor> findDoctor = doctorRepository.findById(doctorId);
+        findInfo.get().update(findDoctor.get(), medicalDate, medicalDay);
+    }
 
-
+    /**
+     * delete
+     */
+    public void deleteAppointment(Long appointmentId) {
+        appointmentRepository.deleteById(appointmentId);
     }
 }

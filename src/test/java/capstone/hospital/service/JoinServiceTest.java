@@ -7,6 +7,7 @@ import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.enumtype.SexType;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.dto.UploadFile;
 import capstone.hospital.repository.DoctorRepository;
 import capstone.hospital.repository.PatientQueryRepository;
 import capstone.hospital.repository.PatientRepository;
@@ -29,11 +30,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class JoinServiceTest {
 
     @Autowired JoinService joinService;
-    @Autowired
-    PatientRepository patientRepository;
+    @Autowired PatientRepository patientRepository;
     @Autowired DoctorRepository doctorRepository;
-    @Autowired
-    PatientQueryRepository patientQueryRepository;
+    @Autowired PatientQueryRepository patientQueryRepository;
     @Autowired EntityManager em;
 
     @BeforeEach
@@ -118,6 +117,6 @@ class JoinServiceTest {
     private Doctor createDoctor(String rrnFront, String rrnBack, String loginId) {
         Address address = new Address("city", "street", "zipcode");
         Information info = new Information("member", rrnFront, rrnBack, "010-1111-1111", address);
-        return new Doctor(loginId, "loginPw", info, "123456", Major.OBGY, DoctorRank.PROFESSOR);
+        return new Doctor(loginId, "loginPw", info, "123456", Major.OBGY, DoctorRank.PROFESSOR, new UploadFile(null, null));
     }
 }

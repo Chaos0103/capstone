@@ -1,6 +1,10 @@
 package capstone.hospital.repository;
 
-import capstone.hospital.domain.QDoctor;
+import capstone.hospital.controller.patient.form.SearchForm;
+import capstone.hospital.domain.Doctor;
+import capstone.hospital.domain.enumtype.Major;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +12,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static capstone.hospital.domain.QDoctor.*;
+import static org.springframework.util.StringUtils.hasText;
 
 @Repository
 public class DoctorQueryRepository {
@@ -35,4 +40,23 @@ public class DoctorQueryRepository {
                 .where(doctor.info.name.eq(name), doctor.info.phoneNumber.eq(phoneNumber), doctor.loginId.eq(loginId))
                 .fetch();
     }
+
+    public List<Doctor> searchByDoctor(SearchForm form) {
+        return queryFactory
+                .selectFrom(doctor)
+                .where(
+                        majorEq(form.getMajor()),
+                        nameEq(form.getDoctorName())
+                )
+                .fetch();
+    }
+
+    private BooleanExpression majorEq(Major major) {
+        return major != null ? doctor.major.eq(major) : null;
+    }
+
+    private Predicate nameEq(String name) {
+        return hasText(name) ? doctor.info.name.eq(name) : null;
+    }
+
 }

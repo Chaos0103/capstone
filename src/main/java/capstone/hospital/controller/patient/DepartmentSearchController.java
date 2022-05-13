@@ -1,7 +1,8 @@
 package capstone.hospital.controller.patient;
 
 import capstone.hospital.argumentresolver.Login;
-import capstone.hospital.controller.patient.form.MajorForm;
+import capstone.hospital.controller.patient.form.SearchForm;
+import capstone.hospital.domain.enumtype.Major;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/patient")
 public class DepartmentSearchController {
 
-//    @GetMapping("/departmentSearch")
-    public String departmentSearch(@Login Object loginMember, @ModelAttribute("form") MajorForm major, Model model) {
+    @ModelAttribute("majors")
+    public Major[] majorTypes() {
+        return Major.values();
+    }
+
+    @GetMapping("/departmentSearch")
+    public String departmentSearch(@Login Object loginMember, @ModelAttribute("form") SearchForm form, Model model) {
         model.addAttribute("loginMember", loginMember);
         return "patient/departmentSearch";
     }
+
+
 }

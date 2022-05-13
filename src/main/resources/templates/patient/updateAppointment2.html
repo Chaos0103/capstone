@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>진료 수정</title>
+</head>
+
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!-- 페이지 Start -->
+    <div class="container-fluid pt-4 px-4" style="margin-left:120px;margin-right:120px; margin-bottom:30px">
+        <form class="row g-4" method="post">
+            <!--step2-->
+            <div class="col-sm-12 col-md-6 col-xl-7" style=" height: 780px;">
+                <div class="h-100 bg-light rounded p-4" style="border:1px solid rgb(184, 184, 184);overflow:auto">
+                    <div style="border-bottom:1px solid rgb(66, 66, 66);">
+                        <h3 style="font-weight:bold;display:inline"><i class="bi bi-arrow-left-circle" href="#"
+                                onclick="history.go(-1);" style="color:#4770d9"></i>
+                        </h3>
+                        <h4 style="font-weight:bold;margin-left:180px;display:inline">
+                            진료예약 - STEP2
+                        </h4>
+                        <h6 style="font-weight:bold; color:gray;margin-top:30px;">의료진 선택</h6>
+                    </div>
+
+                    <div class="row">
+
+<!--                        의사 출력 -->
+
+                        <div class="col-lg-4" th:each="doctor : ${doctors}">
+                            <label class="box-radio" style="margin-top:20px">
+                                <input type="radio" name="card" value="옵션1" th:field="${form.doctorId}" th:value="${doctor.getId()}">
+                                <span style="background-color:white;width: 11rem;height:15rem;">
+                                    <img th:src="${doctor.getProfile().getStoreFileName()}" style="width: 10rem;height:10rem;">
+                                    <h6 style=" margin-top:10px;margin-left:5px;margin-right:5px;text-align: center;font-weight:bold;"
+                                        th:text="${doctor.info.name}">
+                                        의사
+                                    </h6>
+                                    <h6 style="margin-left:5px;margin-right:5px;text-align: center;"
+                                        th:text="${doctor.major.description}">
+                                        전공
+                                    </h6>
+
+                                </span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!--자바스크립트-->
+                    <script>
+                        var isSomethingTrue = true;
+                        $(document).on("click", ".card", function () {
+                            if (isSomethingTrue) {
+                                $(this).css("border-color", "#4770d9");
+                                isSomethingTrue = false;
+                            } else {
+                                $(this).css("border-color", "");
+                                isSomethingTrue = true;
+                            }
+                        });
+                    </script>
+                    <!--css-->
+                    <style type="text/css">
+                        /*시간선택 css*/
+                        .box-radio input[type="radio"] {
+                            display: none;
+                        }
+
+                        .box-radio input[type="radio"]+span {
+                            /*시간선택 전css*/
+                            border-radius: 3px;
+                            display: inline-block;
+                            background: #2d8be3;
+                            border: 1px solid #cdcdcd;
+                            padding: 0px 6px;
+                            text-align: center;
+                            height: 35px;
+                            line-height: 33px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            width: 67px;
+                        }
+
+                        .box-radio input[type="radio"]:checked+span {
+                            /*시간선택 후css*/
+                            border-radius: 3px;
+                            border: 1.3px solid #2d8be3;
+                            /*background: #2d8be3;*/
+                            /*color: rgb(255, 255, 255);*/
+                            /*font-size: 13px;*/
+
+                        }
+                    </style>
+                </div>
+            </div>
+            <!--진료예약2 End-->
+            <!--진료예약3-->
+            <div class="col-sm-12 col-md-6 col-xl-4" style=" height: 780px;">
+                <div class="h-100 bg-light rounded p-4" style="border:1px solid rgb(184, 184, 184);overflow:auto">
+                    <div style="border-bottom:1px solid rgb(66, 66, 66);">
+                        <h4 style="font-weight:bold;text-align:center">진료예약 - STEP3</h4>
+                        <h6 style="font-weight:bold; color:gray;margin-top:30px">시간/날짜 선택</h6>
+                    </div>
+                    <!--달력시작-->
+                    <div class="my-calendar clearfix" style="margin-top:20px;margin-left:10px">
+                        <div class="clicked-date">
+                            <div class="cal-day"></div>
+                            <div class="cal-date"></div>
+                        </div>
+                        <div class="calendar-box">
+                            <div class="ctr-box clearfix">
+                                <button type="button" title="prev" class="btn-cal prev">
+                                </button>
+                                <span class="cal-year"></span>
+                                <span class="cal-month"></span>
+                                <button type="button" title="next" class="btn-cal next">
+                                </button>
+                            </div>
+                            <table class="cal-table">
+                                <thead>
+                                    <tr>
+                                        <th>일</th>
+                                        <th>월</th>
+                                        <th>화</th>
+                                        <th>수</th>
+                                        <th>목</th>
+                                        <th>금</th>
+                                        <th>토</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cal-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--달력시작 끝-->
+                    <!--달력 입력폼-->
+                    <label for="input_date" class="col-sm-2 control-label" style="padding-top:20px">날짜:</label>
+                    <input type="text" id="input_date" style="border: 1px solid #c9c9c9;border-radius: 5px;" th:field="${form.date}"/><br><br>
+                    <!--달력 입력폼 끝-->
+                    <!--시간 예약-->
+                    <div class="row">
+                        <div class="col-xl-3" style="margin-top:10px">
+                            <label class="box-radio-input"><input type="radio" name="cp_item" value="옵션1"
+                                    th:field="${form.time}" th:value="|12:00|"><span>12:00</span></label>
+                        </div>
+                        <div class="col-xl-3" style="margin-top:10px">
+                            <label class="box-radio-input"><input type="radio" name="cp_item" value="옵션1"
+                                    th:field="${form.time}" th:value="|14:00|"><span>14:00</span></label>
+                        </div>
+                        <div class="col-xl-3" style="margin-top:10px">
+                            <label class="box-radio-input"><input type="radio" name="cp_item" value="옵션1"
+                                    th:field="${form.time}" th:value="|16:00|"><span>16:00</span></label>
+                        </div>
+                        <div class="col-xl-3" style="margin-top:10px">
+                            <label class="box-radio-input"><input type="radio" name="cp_item" value="옵션1"
+                                    th:field="${form.time}" th:value="|18:00|"><span>14:00</span></label>
+                        </div>
+                    </div>
+                    <!--시간예약 끝-->
+                    <!--예약신청 버튼-->
+                    <button class=" btn btn-primary btn-lg"
+                        style=" font-size:1.0em; width:110px; height:41px;margin-top:30px;float: right;background-color:#2d8be3;border: 1px solid #2d8be3;border-radius: 20px;"
+                       type = "submit">예약신청</button>
+                    <!--예약신청 버튼 끝-->
+                    <!--달력/시간css-->
+                    <!--css-->
+                    <style type="text/css">
+                        /*시간선택 css*/
+                        .box-radio-input input[type="radio"] {
+                            display: none;
+                        }
+
+                        .box-radio-input input[type="radio"]+span {
+                            /*시간선택 전css*/
+                            border-radius: 3px;
+                            display: inline-block;
+                            background: none;
+                            border: 1px solid #dfdfdf;
+                            padding: 0px 6px;
+                            text-align: center;
+                            height: 35px;
+                            line-height: 33px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            width: 67px;
+                        }
+
+                        .box-radio-input input[type="radio"]:checked+span {
+                            /*시간선택 후css*/
+                            border-radius: 3px;
+                            border: 1px solid #2d8be3;
+                            background: #2d8be3;
+                            color: rgb(255, 255, 255);
+                            /*font-size: 13px;*/
+
+                        }
+
+                        /*달력 css*/
+                        .my-calendar {
+                            width: 290px;
+                            height: 330px;
+
+                            padding: 20px 20px 20px;
+                            text-align: center;
+                            font-weight: 800;
+                            font-size: 2px;
+                            border: solid #ddd;
+                            cursor: default;
+                        }
+
+                        .my-calendar .clicked-date {
+                            border-radius: 5px;
+                            margin-top: 0px;
+                            float: left;
+                            width: 0%;
+                            padding: 0px 0 0px;
+                            background: #ddd;
+                        }
+
+                        .my-calendar .calendar-box {
+                            float: center;
+                            width: 100%;
+
+                        }
+
+                        .clicked-date .cal-day {
+                            font-size: 0px;
+                        }
+
+                        .clicked-date .cal-date {
+                            font-size: 0px;
+                        }
+
+                        .clicked-date .cal-month {
+                            font-size: 24px;
+                        }
+
+                        .ctr-box {
+                            padding: 0 16px;
+                            margin-bottom: 20px;
+                            font-size: 20px;
+                        }
+
+                        .ctr-box .btn-cal {
+                            position: relative;
+                            float: left;
+                            width: 25px;
+                            height: 25px;
+                            margin-top: 5px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            border: none;
+                            background: none;
+                        }
+
+                        .ctr-box .btn-cal:after {
+                            content: '<';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            line-height: 25px;
+                            font-weight: bold;
+                            font-size: 20px;
+                        }
+
+                        .ctr-box .btn-cal.next {
+                            float: right;
+                        }
+
+                        .ctr-box .btn-cal.next:after {
+                            content: '>';
+                        }
+
+                        .cal-table {
+                            width: 100%;
+                        }
+
+                        .cal-table th {
+                            width: 14.2857%;
+                            padding-bottom: 5px;
+                            font-size: 16px;
+                            font-weight: 900;
+                        }
+
+                        .cal-table td {
+                            padding: 3px 0;
+                            /*일 높이*/
+                            height: 37px;
+                            /*일 폰트사이즈*/
+                            font-size: 14px;
+                            vertical-align: middle;
+                        }
+
+                        .cal-table td.day {
+                            position: relative;
+                            cursor: pointer;
+                        }
+
+                        .cal-table td.today {
+                            background: #ffd255;
+                            /*오늘날짜의 라운드모양*/
+                            border-radius: 50%;
+                            color: #fff;
+                        }
+
+                        .cal-table td.day-active {
+                            background: #4ba4fd;
+                            /*선택날짜의 라운드모양*/
+                            border-radius: 50%;
+                            color: #fff;
+                        }
+
+                        .cal-table td.has-event:after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 4px;
+                            background: #FFC107;
+                        }
+                    </style>
+                    <!--css End-->
+                    <!--script-->
+                    <script type='text/javascript'>
+                        const init = {
+                            monList: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                            dayList: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                            today: new Date(),
+                            monForChange: new Date().getMonth(),
+                            activeDate: new Date(),
+                            getFirstDay: (yy, mm) => new Date(yy, mm, 1),
+                            getLastDay: (yy, mm) => new Date(yy, mm + 1, 0),
+                            nextMonth: function () {
+                                let d = new Date();
+                                d.setDate(1);
+                                d.setMonth(++this.monForChange);
+                                this.activeDate = d;
+                                return d;
+                            },
+                            prevMonth: function () {
+                                let d = new Date();
+                                d.setDate(1);
+                                d.setMonth(--this.monForChange);
+                                this.activeDate = d;
+                                return d;
+                            },
+                            addZero: (num) => (num < 10) ? '0' + num : num,
+                            activeDTag: null,
+                            getIndex: function (node) {
+                                let index = 0;
+                                while (node = node.previousElementSibling) {
+                                    index++;
+                                }
+                                return index;
+                            }
+                        };
+                        const $calBody = document.querySelector('.cal-body');
+                        const $btnNext = document.querySelector('.btn-cal.next');
+                        const $btnPrev = document.querySelector('.btn-cal.prev');
+
+                        function loadDate(date, dayIn) {
+                            document.querySelector('.cal-date').textContent = date;
+                            document.querySelector('.cal-day').textContent = init.dayList[dayIn];
+                        }
+
+                        function loadYYMM(fullDate) {
+                            let yy = fullDate.getFullYear();
+                            let mm = fullDate.getMonth();
+                            let firstDay = init.getFirstDay(yy, mm);
+                            let lastDay = init.getLastDay(yy, mm);
+                            let markToday;  // for marking today date
+
+                            if (mm === init.today.getMonth() && yy === init.today.getFullYear()) {
+                                markToday = init.today.getDate();
+                            }
+                            document.querySelector('.cal-month').textContent = init.monList[mm];
+                            document.querySelector('.cal-year').textContent = yy;
+
+                            let trtd = '';
+                            let startCount;
+                            let countDay = 0;
+                            for (let i = 0; i < 6; i++) {
+                                trtd += '<tr>';
+                                for (let j = 0; j < 7; j++) {
+                                    if (i === 0 && !startCount && j === firstDay.getDay()) {
+                                        startCount = 1;
+                                    }
+                                    if (!startCount) {
+                                        trtd += '<td>'
+                                    } else {
+                                        let fullDate = yy + '.' + init.addZero(mm + 1) + '.' + init.addZero(countDay + 1);
+                                        trtd += '<td class="day';
+                                        trtd += (markToday && markToday === countDay + 1) ? ' today" ' : '"';
+                                        trtd += ` data-date="${countDay + 1}" data-fdate="${fullDate}">`;
+                                    }
+                                    trtd += (startCount) ? ++countDay : '';
+                                    if (countDay === lastDay.getDate()) {
+                                        startCount = 0;
+                                    }
+                                    trtd += '</td>';
+                                }
+                                trtd += '</tr>';
+                            }
+                            $calBody.innerHTML = trtd;
+                        }
+
+                        function createNewList(val) {
+                            let id = new Date().getTime() + '';
+                            let yy = init.activeDate.getFullYear();
+                            let mm = init.activeDate.getMonth() + 1;
+                            let dd = init.activeDate.getDate();
+                            const $target = $calBody.querySelector(`.day[data-date="${dd}"]`);
+
+                            let date = yy + '.' + init.addZero(mm) + '.' + init.addZero(dd);
+
+                            let eventData = {};
+                            eventData['date'] = date;
+                            eventData['memo'] = val;
+                            eventData['complete'] = false;
+                            eventData['id'] = id;
+                            init.event.push(eventData);
+                            $todoList.appendChild(createLi(id, val, date));
+                        }
+
+                        loadYYMM(init.today);
+                        loadDate(init.today.getDate(), init.today.getDay());
+
+                        $btnNext.addEventListener('click', () => {
+
+                            loadYYMM(init.nextMonth())
+                        }
+
+                        );
+                        $btnPrev.addEventListener('click', () => loadYYMM(init.prevMonth()));
+
+                        $calBody.addEventListener('click', (e) => {
+
+                            if (e.target.classList.contains('day')) {
+                                let ddd = e.target.textContent
+                                if ((init.activeDate.getMonth() + 1) < 10) {
+
+                                    if (ddd < 10) {
+                                        $('#input_date').val(init.activeDate.getFullYear() + "/0" + (init.activeDate.getMonth() + 1) + "/0" + ddd);
+
+                                    }
+                                    else {
+                                        $('#input_date').val(init.activeDate.getFullYear() + "/0" + (init.activeDate.getMonth() + 1) + "/" + ddd);
+                                    }
+                                }
+                                else {
+                                    if (ddd < 10) {
+                                        $('#input_date').val(init.activeDate.getFullYear() + "/" + (init.activeDate.getMonth() + 1) + "/0" + ddd);
+
+                                    }
+                                    else {
+                                        $('#input_date').val(init.activeDate.getFullYear() + "/" + (init.activeDate.getMonth() + 1) + "/" + ddd);
+                                    }
+                                }
+
+                                if (init.activeDTag) {
+                                    init.activeDTag.classList.remove('day-active');
+                                }
+                                let day = Number(e.target.textContent);
+                                loadDate(day, e.target.cellIndex);
+                                e.target.classList.add('day-active');
+                                init.activeDTag = e.target;
+                                init.activeDate.setDate(day);
+                                reloadTodo();
+                            }
+                        });
+                    </script>
+                    <!--script End-->
+                </div>
+            </div>
+            <!--진료예약2 End-->
+        </form>
+        <!--컨테이너 css-->
+        <style type="text/css">
+            .container-fluid {
+                width: 1200px;
+                max-width: none !important;
+            }
+        </style>
+    </div>
+    <!-- 페이지 End -->
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

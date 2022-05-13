@@ -4,6 +4,7 @@
 <head>
     <title>진료 예약 내역</title>
 </head>
+
 <body>
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
@@ -21,24 +22,19 @@
                         onclick="history.go(-1);" style="color:#4770d9"></i> 예약 내역 클릭시 상세내역을 볼 수 있습니다.</h6>
 
             </div>
-            <a class=" btn btn-primary btn-lg" href="patientCurrent.html"
-                style=" font-size:1.0em; width:110px;margin-left:890px; height:41px;margin-top:70px;float: right;background-color:#ffffff;border: 1px solid #2d8be3;border-radius: 7px;color:#2d8be3">예약취소</a>
+
         </div>
         <!--설명카트 End-->
     </div>
     <!-- 진료예약내역글씨, 설명카트, 취소버튼 start -->
     <!--예약테이블-->
     <div class="container-fluid pt-4 px-4">
-        <div class="row flex-nowrap" style="margin-left:150px;margin-right:150px;margin-top:170px">
+        <div class="row flex-nowrap" style="margin-left:150px;margin-right:150px;margin-top:70px">
             <!--Add Table-->
             <div class="col py-3 container">
 
-
-                <!--검색 form-->
-
-
                 <!--Table List {1}-->
-                <table class="table table-bordered table-hover" id="patientDetail">
+                <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">예약자</th>
@@ -46,20 +42,33 @@
                             <th scope="col">진료과</th>
                             <th scope="col">의료진</th>
                             <th scope="col">예약일</th>
+                            <th scope="col">수정</th>
+                            <th scope="col">삭제</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1">
-                            <td>신채원</td>
-                            <td>010-8345-3157</td>
-                            <td>가정의학과</td>
-                            <td>김지혜</td>
-                            <td>2022/05/17</td>
+
+                    <tbody th:each="appointment : ${appointments}">
+                        <tr class="accordion-toggle" data-bs-toggle="collapse" th:data-bs-target="'#doctorPatientDetail' + ${appointment.id}">
+                            <td th:text="${appointment.patient.info.name}">예약자</td>
+                            <td th:text="${appointment.patient.info.phoneNumber}">연락처</td>
+                            <td th:text="${appointment.doctor.major.description}">진료과</td>
+                            <td th:text="${appointment.doctor.info.name}">의료진</td>
+                            <td th:text="${appointment.medicalDate}">예약일</td>
+                            <td>
+                                <h6 style="font-weight:bold;display:inline"><i class="bi bi-pencil-fill"
+                                        th:onclick="|location.href='@{/patient/updateAppointment/{appointmentId}/update (appointmentId=${appointment.id})}'|" style="color:dodgerblue"></i>
+                                </h6>
+                            </td>
+                            <td>
+                                <h6 style="font-weight:bold;display:inline"><i class="bi bi-trash-fill"
+                                        th:onclick="|location.href='@{/patient/deleteAppointment/{appointmentId} (appointmentId=${appointment.id})}'|" style="color:crimson"></i>
+                                </h6>
+                            </td>
                         </tr>
                         <!--Collapse-->
                         <tr>
-                            <td colspan="6" class="hiddenRow">
-                                <div id="doctorPatientDetail1" class="accordian-body collapse mb-4">
+                            <td colspan="7" class="hiddenRow">
+                                <div th:id="'doctorPatientDetail' + ${appointment.id}" class="accordian-body collapse mb-4">
                                     <div class="container">
                                         <div class="card card-body mt-4">
                                             <!--예약자 정보-->
@@ -75,9 +84,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>신채원</td>
-                                                        <td>010-8345-3157</td>
-                                                        <td>2022-05-11 05:12:27</td>
+                                                        <td th:text="${appointment.patient.info.name}">예약자</td>
+                                                        <td th:text="${appointment.patient.info.phoneNumber}">연락처</td>
+                                                        <td th:text="${appointment.appointmentDate}">신청일</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -96,9 +105,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>2022/05/17 15:10</td>
-                                                        <td>가정의학과</td>
-                                                        <td>김지혜</td>
+                                                        <td th:text="${appointment.medicalDate}">진료일</td>
+                                                        <td th:text="${appointment.doctor.major.description}">가정의학과</td>
+                                                        <td th:text="${appointment.doctor.info.name}">김지혜</td>
                                                         <td>본관 4층 가정의학과</td>
                                                     </tr>
                                                 </tbody>
@@ -111,6 +120,7 @@
                         </tr>
                         <!--Collapse End-->
                     </tbody>
+
                 </table>
                 <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
                 <div class="d-flex justify-content-center">
@@ -145,21 +155,8 @@
     </div>
     <!--예약테이블 End-->
 
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container px-5">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-            <hr>
-            <p class="m-0 text-center text-white">서울특별시 광진구 능동로 206 세종대학교 대양 AI센터</p>
-        </div>
-    </footer>
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!--JS-->
-    <!--<script src = "../otherFunction.js"></script>-->
-    <script src="../pagiNation.js"></script>
 </body>
-
 </html>

@@ -1,14 +1,12 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.Appointment;
-import capstone.hospital.domain.Medical;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.enumtype.AppointmentStatus;
 import capstone.hospital.domain.enumtype.MedicalStatus;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.repository.AppointmentRepository;
-import capstone.hospital.repository.MedicalRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppointmentServiceTest {
 
     @Autowired AppointmentService appointmentService;
-    @Autowired AppointmentRepository appointmentRepository;
-    @Autowired MedicalRepository medicalRepository;
+//    @Autowired AppointmentRepository appointmentRepository;
     @Autowired EntityManager em;
 
     @Test
@@ -36,26 +33,12 @@ class AppointmentServiceTest {
     public void createAppointment() throws Exception {
         // given
         Patient patient = createMember();
-        Medical medical = new Medical(null, "220413", "1500");
-        em.persist(patient);
-        em.persist(medical);
-        em.flush();
-        em.clear();
 
         // when
-        Long appointmentId = appointmentService.createAppointment(patient.getId(), medical.getId());
-        em.flush();
-        em.clear();
+        Long appointment = appointmentService.createAppointment(patient.getId(), null, "2022/01/01", "12:00");
 
         // then
-        Optional<Appointment> findAppointment = appointmentRepository.findById(appointmentId);
-        Optional<Medical> findMedical = medicalRepository.findById(medical.getId());
-
-        assertThat(findAppointment).isNotEmpty();
-        assertThat(findAppointment.get().getStatus()).isEqualTo(AppointmentStatus.APPOINTMENT);
-        assertThat(findMedical.get().getStatus()).isEqualTo(MedicalStatus.IMPOSSIBLE);
-        assertThat(findAppointment.get().getPatient().getId()).isEqualTo(patient.getId());
-        assertThat(findAppointment.get().getMedical().getId()).isEqualTo(medical.getId());
+//        assertThat();
     }
 
     @Test
@@ -64,10 +47,6 @@ class AppointmentServiceTest {
         // given
         Patient patient = createMember();
         Medical medical = new Medical(null, "220413", "1500");
-        em.persist(patient);
-        em.persist(medical);
-        em.flush();
-        em.clear();
 
         Long appointmentId = appointmentService.createAppointment(patient.getId(), medical.getId());
         // when

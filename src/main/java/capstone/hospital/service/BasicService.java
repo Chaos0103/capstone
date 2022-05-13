@@ -21,4 +21,15 @@ public class BasicService {
         Optional<Patient> findMember = patientRepository.findById(memberId);
         findMember.get().changeInfo(info);
     }
+
+    @Transactional
+    public void changePw(Long memberId, String oldPw, String newPw) {
+        Patient findPatient = patientRepository.findById(memberId).get();
+        findPatient.changePw(oldPw, newPw);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        patientRepository.deleteById(id);
+    }
 }

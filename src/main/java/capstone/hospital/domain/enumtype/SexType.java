@@ -1,7 +1,7 @@
 package capstone.hospital.domain.enumtype;
 
 public enum SexType {
-    MALE("남성"), FEMALE("여성");
+    MALE("남"), FEMALE("여");
 
     private final String description;
 

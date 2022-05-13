@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <div class="input-group">
-                                    <input type="text" id="doctorSearch" class="form-control" placeholder="의료진 또는 질병명을 입력해주세요">
+                                    <input type="text" id="doctorSearch" class="form-control" th:field="${form.doctorName}" placeholder="의료진 또는 질병명을 입력해주세요">
                                     <button type = "submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                         <!---->
                         <div class="row">
 
-                            <div class="col-lg-3 doctor" id="doctor" th:each="doctor: ${doctors}">
+                            <div class="col-lg-3 doctor mb-4" id="doctor" th:each="doctor: ${doctors}">
                                 <div class="card" style="width: 13rem;">
                                     <img th:src="${doctor.getProfile().getStoreFileName()}" class="card-img-top" alt="조정석">
                                     <div class="card-body">
@@ -65,20 +65,6 @@
                             </div>
 
                         </div>
-    
-<!--                        &lt;!&ndash;4명당 한 묶음 2.&ndash;&gt;-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-3 doctor" id="doctor">-->
-<!--                                <div class="card" style="width: 13rem;">-->
-<!--                                    <img src="/assets/images/common (3).jpeg" class="card-img-top" alt="김대명">-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h5 class="card-title">양석형</h5>-->
-<!--                                        <p class="card-text">위험 임신, 당뇨 및 내분비 질환 산모, 태아 기형 초음파 및 태아 치료, 외국인 산모</p>-->
-<!--                                        <a href="#" class="btn btn-primary">예약하기</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>

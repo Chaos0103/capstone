@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Appointment {
+public class Appointment extends TimeBaseEntity {
 
     @Id
     @GeneratedValue
@@ -25,20 +25,25 @@ public class Appointment {
     private Patient patient;
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "medical_id")
-    private Medical medical;
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     private LocalDateTime appointmentDate;
 
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
+    private String medicalDate;
+    private String medicalTime;
+
     //== 생성 메서드 ==//
-    public Appointment(Patient patient, Medical medical) {
+    public Appointment(Patient patient, Doctor doctor, String medicalDate, String medicalTime) {
         this.patient = patient;
-        this.medical = medical;
-        this.appointmentDate = LocalDateTime.now();
+        this.doctor = doctor;
         this.status = AppointmentStatus.APPOINTMENT;
+        this.medicalDate = medicalDate;
+        this.medicalTime = medicalTime;
+        this.appointmentDate = LocalDateTime.now();
     }
 
     //== 비즈니스 로직==//
@@ -46,7 +51,10 @@ public class Appointment {
         this.status = AppointmentStatus.CANCEL;
     }
 
-    public void updateAppointment(Medical medical) {
-        this.medical = medical;
+    public void update(Doctor doctor, String medicalDate, String medicalTime) {
+        this.doctor = doctor;
+        this.medicalDate = medicalDate;
+        this.medicalTime = medicalTime;
+        this.appointmentDate = LocalDateTime.now();
     }
 }

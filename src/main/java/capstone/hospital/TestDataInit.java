@@ -34,9 +34,15 @@ public class TestDataInit {
     }
 
     private void initPatient(Address address) throws Exception {
+        Address testAddress = new Address("인천광역시 남동구 석산로 123", "101동 101호", "12345");
         Information info = new Information("세종대", "010101", "1000000", "01000000000", address);
         Patient patient = new Patient("test", "test!", info);
+
+        Information myInfo = new Information("임우택", "980103", "1234567", "01084725498", testAddress);
+        Patient my = new Patient("lyt1228", "pw!", myInfo);
+
         joinService.joinPatient(patient);
+        joinService.joinPatient(my);
     }
 
     private void initDoctor(Address address) throws Exception {

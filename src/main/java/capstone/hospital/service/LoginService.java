@@ -75,9 +75,5 @@ public class LoginService {
         return name + "님의 비밀번호는 " + loginPw.get(0) + "입니다.";
     }
 
-    @Transactional
-    public void changePw(Long memberId, String oldPw, String newPw) {
-        Patient findPatient = patientRepository.findById(memberId).get();
-        findPatient.changePw(oldPw, newPw);
-    }
+
 }

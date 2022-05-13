@@ -45,19 +45,19 @@ class LoginServiceTest {
         assertThat(patient.getInfo().getName()).isEqualTo("member");
     }
 
-//    @Test
-//    @DisplayName("맴버 로그인 실패")
-//    public void loginFailMember() throws Exception {
-//        // given
-//
-//        // when
-//        IllegalStateException failLoginId = assertThrows(IllegalStateException.class, () -> loginService.login("none", "loginPw"));
-//        IllegalStateException failLoginPw = assertThrows(IllegalStateException.class, () -> loginService.login("loginId", "none"));
-//
-//        // then
-//        assertThat(failLoginId.getMessage()).isEqualTo("존재하지 않는 아이디입니다.");
-//        assertThat(failLoginPw.getMessage()).isEqualTo("비밀번호가 틀렸습니다.");
-//    }
+    @Test
+    @DisplayName("맴버 로그인 실패")
+    public void loginFailMember() throws Exception {
+        // given
+
+        // when
+        IllegalStateException failLoginId = assertThrows(IllegalStateException.class, () -> loginService.login("none", "loginPw"));
+        IllegalStateException failLoginPw = assertThrows(IllegalStateException.class, () -> loginService.login("loginId", "none"));
+
+        // then
+        assertThat(failLoginId.getMessage()).isEqualTo("존재하지 않는 아이디입니다.");
+        assertThat(failLoginPw.getMessage()).isEqualTo("비밀번호가 틀렸습니다.");
+    }
 
     @Test
     @DisplayName("맴버 비밀번호 변경")

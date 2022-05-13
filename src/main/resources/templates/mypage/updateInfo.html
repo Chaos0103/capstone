@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>개인정보수정</title>
+</head>
+<body class = "">
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--마이페이지 리스트-->
+    <section>
+        <div class="container">
+            <div class="row mb-4 mt-4">
+                <h1 class="text-center fw-bold">마이 페이지</h1>
+            </div>
+            <div class="row justify-content-start">
+                <span class="col-lg-1"></span>
+                <div class="col-lg-2">
+                    <div class="list-group">
+                        <a th:href="@{/myPage}" class="list-group-item list-group-item-action active">개인 정보 수정</a>
+                        <a th:href="@{/myPage/changePw}" class="list-group-item list-group-item-action">비밀번호 변경</a>
+                        <a th:href="@{/myPage/delete}" class="list-group-item list-group-item-action">회원 탈퇴</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title text-center fw-bold">개인 정보 수정</h3>
+                            <hr>
+                            <form method="post">
+                                <div class="mb-4">
+                                    <label class="form-label" for="id">아이디</label>
+                                    <div class = "input-group">
+                                        <input type="text" id="id" class="form-control" pattern="^[A-za-z0-9]{4,12}$"
+                                            aria-describedby="addon1" required>
+                                        <button class="btn btn-outline-primary" type = "button" id = "addon1">중복 확인</button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="name">이름</label>
+                                    <input type="text" id="name" class="form-control" required>
+                                </div>
+
+                                <div class="row">
+                                    <label class="form-label" for="human-number-first">주민등록번호</label>
+
+                                    <div class="col-md-6">
+                                        <input type="text" id="human-number-first" class="form-control"
+                                            placeholder="생년월일 YYMMDD"
+                                            pattern="^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1])$"
+                                         required>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <input type="password" id="human-number-last" class="form-control"
+                                            placeholder="주민번호 뒷 7자리" pattern="[1-4]\d{6}$" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="phone-number">전화 번호</label>
+                                    <input type="text" id="phone-number" class="form-control"
+                                        placeholder="010-XXXX-XXXX" pattern="(010)-\d{4}-\d{4}$" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="E-mail">이메일</label>
+                                    <input type="text" id="E-mail" class="form-control" placeholder="Sejong@Example.com"
+                                        pattern="^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$"
+                                     required>
+                                </div>
+
+                                <div class="row">
+                                    <label class="form-label" for="post-number">우편번호</label>
+
+                                    <div class="input-group mb-4 col-md-6">
+                                        <input type="text" id="post-number" class="form-control" placeholder="05006"
+                                            aria-describedby="addonPost" required readonly>
+                                        <button class="btn btn-outline-primary" type = "button" id = "addonPost" onclick="postcode()">우편번호검색</button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="address">주소</label>
+                                    <input type="text" id="address" class="form-control" placeholder="ex) 서울특별시 광진구 능동로"
+                                     required readonly>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="detail-address">상세주소</label>
+                                    <input type="text" id="detail-address" class="form-control" required>
+                                </div>
+
+                                <div class="text-center mb-4">
+                                    <button class="btn btn-lg btn-primary btn-block text-uppercase"
+                                        type="submit">수정</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

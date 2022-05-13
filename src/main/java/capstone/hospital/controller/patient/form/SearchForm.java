@@ -4,7 +4,9 @@ import capstone.hospital.domain.enumtype.Major;
 import lombok.Data;
 
 @Data
-public class MajorForm {
+public class SearchForm {
 
     private Major major;
+    private String doctorName;
+
 }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>진료 수정</title>
+</head>
+
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!-- 페이지 Start -->
+    <div class="container-fluid pt-4 px-4" style="margin-left:120px;margin-right:120px; margin-bottom:30px" >
+        <div class="row g-4">
+            <!--진료예약1-->
+            <div class="col-sm-12 col-md-6 col-xl-4 " style=" height: 650px;" id='mydiv'>
+                <div class="h-100 bg-light rounded p-4 "
+                    style="border:1px solid rgb(184, 184, 184);overflow:auto;width:340px;" data-bs-spy="scroll"
+                    data-bs-target="#list-example" data-bs-offset="0" tabindex="0">
+
+                    <div style="border-bottom:1px solid rgb(66, 66, 66);">
+                        <h4 style="font-weight:bold;text-align:center">진료예약 - STEP1 </h4>
+
+                        <h6 style="font-weight:bold; color:gray;margin-top:30px">진료과 선택</h6>
+                    </div>
+
+                    <div class="d-flex align-items-center border-bottom py-2" style="padding: top 0px;" th:each="major:${majors}">
+                        <label class="box-radio-input">
+                            <input type="radio" name="cp_item" th:value="${major.name()}" checked="checked"
+                                   th:onclick="|location.href='@{/patient/updateAppointment/{appointmentId}/update/{major} (appointmentId=${appointmentId}, major=${major.name()})}'|">
+                            <span th:text="${major.description}">진료과</span>
+                        </label>
+                    </div>
+
+                    <!--css-->
+                    <style>
+                        /*라디오버튼 css*/
+                        .box-radio-input input[type="radio"] {
+                            display: none;
+                        }
+
+                        .box-radio-input input[type="radio"]+span {
+                            display: inline-block;
+                            background: none;
+                            border: 1px solid #dfdfdf00;
+                            padding: 0px 16px;
+                            text-align: center;
+                            height: 35px;
+                            line-height: 33px;
+                            font-weight: 500;
+                            cursor: pointer;
+                        }
+
+                        .box-radio-input input[type="radio"]:checked+span {
+                            /*border: 1px solid #23a3a7;*/
+                            background: #23a3a700;
+                            color: rgb(58, 138, 251);
+                            font-weight: bold;
+                        }
+
+                        /*스크롤 css*/
+                        .mydiv {
+
+                            height: 600px;
+                            overflow: auto;
+                        }
+                    </style>
+                    <!--자바스크립트-->
+                    <script>
+                        $(document).ready(function () {
+                            $("input:checkbox").on('click', function () {
+                                if ($(this).prop('checked')) {
+                                    $(this).parent().addClass("selected");
+                                }
+                                else { $(this).parent().removeClass("selected"); }
+                            });
+                        }); </script>
+                </div>
+            </div>
+            <!--진료예약1 End-->
+            <!--진료예약2(비활성화 모습)-->
+            <div class="col-sm-12 col-md-6 col-xl-7">
+                <div class="h-100 bg-light rounded p-4" style="border:1px solid rgb(184, 184, 184);">
+                    <div style="border-bottom:1px solid gray;">
+                        <h4 style="font-weight:bold;text-align:center; color:gray">진료예약 - STEP2</h4>
+                        <h6 style="font-weight:bold; color:gray;margin-top:30px">의료진 선택</h6>
+                    </div>
+                    <div class="grayscale" style="padding:200px 260px;position:relative">
+                        <div style="position:absolute; background-color:rgba(0, 0, 0, 0.97); z-index:10; height:90px; width:90px ; filter: invert(96%);border-radius: 70px;
+                            -moz-border-radius: 70px;
+                            -khtml-border-radius: 70px;
+                            -webkit-border-radius: 70px;">
+                        </div>
+
+                        <img th:src="@{/assets/images/sejong_black.png}" width="90" style="
+                            border-radius: 70px;
+                            -moz-border-radius: 70px;
+                            -khtml-border-radius: 70px;
+                            -webkit-border-radius: 70px;
+                            border: 3px solid #ffffff;                                 
+                            " alt="My Logo">
+                    </div>
+                </div>
+            </div>
+            <!--진료예약2 End-->
+        </div>
+        <!--컨테이너 css-->
+        <style type="text/css">
+            .container-fluid {
+                width: 1200px;
+                max-width: none !important;
+            }
+        </style>
+    </div>
+    <!--페이지 End-->
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
