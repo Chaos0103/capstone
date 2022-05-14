@@ -51,6 +51,20 @@ public class DoctorQueryRepository {
                 .fetch();
     }
 
+    public List<Doctor> approvedDoctor() {
+        return queryFactory
+                .selectFrom(doctor)
+                .where(doctor.approvalAdmin.isNotNull())
+                .fetch();
+    }
+
+    public List<Doctor> waitDoctor() {
+        return queryFactory
+                .selectFrom(doctor)
+                .where(doctor.approvalAdmin.isNull())
+                .fetch();
+    }
+
     private BooleanExpression majorEq(Major major) {
         return major != null ? doctor.major.eq(major) : null;
     }

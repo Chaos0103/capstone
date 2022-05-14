@@ -1,8 +1,8 @@
 package capstone.hospital.controller.mypage;
 
 import capstone.hospital.argumentresolver.Login;
-import capstone.hospital.controller.mypage.form.DeleteForm;
-import capstone.hospital.controller.mypage.form.PasswordForm;
+import capstone.hospital.controller.mypage.form.ChangePwForm;
+import capstone.hospital.controller.mypage.form.CheckPwForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.service.BasicService;
 import lombok.RequiredArgsConstructor;
@@ -30,30 +30,33 @@ public class MyPageController {
     }
 
     @GetMapping("/changePw")
-    public String changePw(@Login Object loginMember, @ModelAttribute("form") PasswordForm form, Model model) {
+    public String changePw(@Login Object loginMember, @ModelAttribute("form") ChangePwForm form, Model model) {
         model.addAttribute("loginMember", loginMember);
         return "/mypage/changePw";
     }
 
     @PostMapping("/changePw")
-    public String changePw(@Login Object loginMember, @ModelAttribute("form") PasswordForm form) {
+    public String changePw(@Login Object loginMember, @ModelAttribute("form") ChangePwForm form) {
         Patient patient = (Patient) loginMember;
         basicService.changePw(patient.getId(), form.getNowPw(), form.getNewPw());
         return "redirect:/logout";
     }
 
     @GetMapping("/delete")
-    public String delete(@Login Object loginMember, @ModelAttribute("pw") String password, Model model) {
+    public String delete(@Login Object loginMember, @ModelAttribute("form") CheckPwForm password, Model model) {
         model.addAttribute("loginMember", loginMember);
 
         return "/mypage/delete";
     }
 
     @PostMapping("/delete")
-    public String delete(@Login Object loginMember, @ModelAttribute("pw") String password) {
+    public String delete(@Login Object loginMember, @ModelAttribute("form") CheckPwForm form) {
         Patient patient = (Patient) loginMember;
-        log.info("password={}", password);
-        basicService.delete(patient.getId());
+        if (form.getPassword().equals(patient.getLoginPw())) {
+            basicService.delete(patient.getId());
+        } else {
+            log.info("password not equal");
+        }
         return "redirect:/logout";
     }
 }

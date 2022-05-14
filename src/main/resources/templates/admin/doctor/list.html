@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>의사 승인</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--Side Bar And Table-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+<!--                sidebar start-->
+                <div th:replace="fragments/admin/sidebar :: sidebar" />
+
+<!--sidebar end-->
+                <!--Add Table-->
+                <div class="col py-3 container">
+                    <h2 class="text-center fw-bold mb-2">의사 조회</h2>
+
+                    <!--검색 form-->
+                    <div class="d-flex justify-content-start">
+                        <div class="mb-4 col-lg-3">
+                            <form class="" method="post">
+                                <div class="input-group form-floting">
+                                    <input type="text" id="searchPatientInfo" class="form-control" placeholder="의사 검색"/>
+                                    <button class="btn btn-outline-primary" type="submit">검색</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--Table List {1}-->
+                    <table class="table table-bordered table-hover" id = "patientDetail">
+                        <thead class = "table-dark">
+                            <tr>
+                                <th scope="col" style="width: 200px;">의사 면허 번호</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">성별</th>
+                                <th scope="col">전화번호</th>
+                                <th scope="col">진료과</th>
+                                <th scope="col">직급</th>
+                                <th scope="col">수정 및 삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1">
+                                <td>55555</td>
+                                <td>김철수</td>
+                                <td>남</td>
+                                <td>010-1234-2345</td>
+                                <td>정형외과</td>
+                                <td>교수</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" type = "button" onclick="">수정</button>
+                                    <button class="btn btn-danger btn-sm" type= "button" onclick="">삭제</button>
+                                </td>
+                            </tr>   
+                        </tbody>
+                    </table> 
+
+                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id = page>
+                    
+                                <!--이전 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                    
+                                <!--페이지 표시 버튼-->
+                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                                -->
+
+                                <!--다음 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

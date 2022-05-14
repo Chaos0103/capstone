@@ -1,5 +1,6 @@
 package capstone.hospital.service;
 
+import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -47,9 +48,12 @@ public class LoginService {
 
     public String findLoginId(String name, String phoneNumber) {
         List<String> loginId = patientQueryRepository.findLoginId(name, phoneNumber);
-        if (loginId.isEmpty()) {
-            loginId = doctorQueryRepository.findLoginId(name, phoneNumber);
-        }
+        // 수정중
+//        if (loginId.isEmpty()) {
+//            List<Object> test = doctorRepository.findByInfoNameAndInfoPhoneNumber(name, phoneNumber);
+//            Doctor doctor = (Doctor) test.get(0);
+//            loginId.add(doctor.getLoginId());
+//        }
         if (loginId.isEmpty()) {
             loginId = nurseQueryRepository.findLoginId(name, phoneNumber);
         }

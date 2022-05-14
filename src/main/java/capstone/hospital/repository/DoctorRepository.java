@@ -14,4 +14,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Optional<Doctor> findByInfoRrn(String rrn);
 
     List<Doctor> findByMajor(Major major);
+
+    List<Object> findByInfoNameAndInfoPhoneNumber(String name, String phoneNumber);
 }

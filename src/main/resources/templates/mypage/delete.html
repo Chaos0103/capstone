@@ -40,7 +40,7 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="text-left" style="background-color: #f9f9f9">성명</th>
-                                            <td th:text="|${loginMember.info.name} (${loginMember.info.rrn.substring(0, 6)} ${loginMember.info.sex.description})|">임우택 (1998.01.03 남)</td>
+                                            <td th:text="|${loginMember.info.name} (${loginMember.info.rrn.substring(0, 6)} ${loginMember.info.sex.description})|">이름 (생년월일 성별)</td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="text-left" style="background-color: #f9f9f9">아이디</th>
@@ -48,7 +48,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="text-left" style="background-color: #f9f9f9"><label for="inputPW">현재 비밀번호</label></th>
-                                            <td><input type="password" th:field="${pw}" autocomplete="off" id="curPw" class="form-control" style="width: 355px" maxlength="20">
+                                            <td><input type="password" th:field="${form.password}" autocomplete="off" id="curPw" class="form-control" style="width: 355px" maxlength="20">
                                             </td>
                                         </tr>
 
@@ -79,7 +79,7 @@
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href ='userWithdraw.html'">돌아가기</button>
                                           <button type="submit" class="btn btn-primary" onclick="">확인</button>
                                         </div>
-                                        
+
                                       </div>
                                     </div>
                                   </div>
