@@ -29,7 +29,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class JoinServiceTest {
 
-    @Autowired JoinService joinService;
+    @Autowired
+    JoinService joinService;
     @Autowired PatientRepository patientRepository;
     @Autowired DoctorRepository doctorRepository;
     @Autowired PatientQueryRepository patientQueryRepository;

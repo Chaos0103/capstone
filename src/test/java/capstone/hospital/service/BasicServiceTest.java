@@ -17,8 +17,10 @@ import javax.persistence.EntityManager;
 @Transactional
 class BasicServiceTest {
 
-    @Autowired BasicService basicService;
-    @Autowired JoinService joinService;
+    @Autowired
+    BasicService basicService;
+    @Autowired
+    JoinService joinService;
     @Autowired EntityManager em;
 
     @Test
