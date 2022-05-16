@@ -3,8 +3,10 @@ package capstone.hospital.controller.patient;
 import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.controller.patient.form.AppointmentForm;
 import capstone.hospital.controller.patient.form.SearchForm;
+import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.enumtype.Major;
+import capstone.hospital.exception.AppointmentException;
 import capstone.hospital.service.AppointmentService;
 import capstone.hospital.service.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ public class AppointmentController {
 
     @GetMapping("/createAppointment/{major}")
     public String createAppointment2(@Login Object loginMember, @PathVariable Major major,
-                               @ModelAttribute("form") AppointmentForm form, Model model) {
+                                     @ModelAttribute("form") AppointmentForm form, Model model) {
         model.addAttribute("loginMember", loginMember);
         model.addAttribute("doctors", searchService.doctorSearchByMajor(major));
 
@@ -44,14 +46,18 @@ public class AppointmentController {
 
     @PostMapping("/createAppointment/{major}")
     public String createAppointment(@Login Object loginMember, @ModelAttribute("form") AppointmentForm form, @PathVariable String major) {
-        appointmentService.createAppointment(((Patient) loginMember).getId(), form.getDoctorId(), form.getDate(), form.getTime());
+        try {
+            appointmentService.createAppointment(((Patient) loginMember).getId(), form.getDoctorId(), form.getDate(), form.getTime());
+        } catch (AppointmentException e) {
+            log.info("AppointmentException 발생");
+        }
         return "redirect:/patient/appointmentList";
     }
 
     // 진료 수정
     @GetMapping("/updateAppointment/{appointmentId}/update")
     public String updateAppointment1(@Login Object loginMember, @PathVariable Long appointmentId,
-                                    @ModelAttribute("form") AppointmentForm form, Model model) {
+                                     @ModelAttribute("form") AppointmentForm form, Model model) {
         model.addAttribute("loginMember", loginMember);
         return "/patient/updateAppointment1";
     }
@@ -75,6 +81,24 @@ public class AppointmentController {
     public String deleteAppointment(@Login Object loginMember, @PathVariable Long appointmentId, Model model) {
         model.addAttribute("loginMember", loginMember);
         appointmentService.deleteAppointment(appointmentId);
+        return "redirect:/patient/appointmentList";
+    }
+
+    @GetMapping("/appointment/{doctorId}")
+    public String searchAppointment(@Login Object loginMember, @PathVariable Long doctorId, @ModelAttribute("form") AppointmentForm form, Model model) {
+        model.addAttribute("loginMember", loginMember);
+        log.info("doctorId={}", doctorId);
+        model.addAttribute("doctors", searchService.doctorSearchById(doctorId).get());
+        return "/patient/createAppointment2";
+    }
+
+    @PostMapping("/appointment/{doctorId}")
+    public String appointment(@Login Object loginMember, @PathVariable Long doctorId, @ModelAttribute("form") AppointmentForm form) {
+        try {
+            appointmentService.createAppointment(((Patient) loginMember).getId(), doctorId, form.getDate(), form.getTime());
+        } catch (AppointmentException e) {
+            log.info("AppointmentException 발생");
+        }
         return "redirect:/patient/appointmentList";
     }
 }

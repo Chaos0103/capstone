@@ -3,6 +3,7 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Appointment;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
+import capstone.hospital.exception.AppointmentException;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,18 @@ public class AppointmentService {
     /**
      * create
      */
-    public Long createAppointment(Long patientId, Long doctorId, String medicalDate, String medicalDay) {
+    public Long createAppointment(Long patientId, Long doctorId, String medicalDate, String medicalTime) {
         Optional<Patient> findPatient = patientRepository.findById(patientId);
         Optional<Doctor> findDoctor = doctorRepository.findById(doctorId);
 
         if (findPatient.isEmpty() || findDoctor.isEmpty()) {
-            throw new IllegalStateException("예약에 실패했습니다.");
+            throw new AppointmentException("예약에 실패했습니다.");
         } else {
-            return appointmentRepository.save(new Appointment(findPatient.get(), findDoctor.get(), medicalDate, medicalDay)).getId();
+            Optional<Appointment> findAppointment = appointmentRepository.findByPatientIdAndMedicalDateAndMedicalTime(patientId, medicalDate, medicalTime);
+            if (findAppointment.isPresent()) {
+                throw new AppointmentException("같은 시간에 예약 내역이 존재합니다.");
+            }
+            return appointmentRepository.save(new Appointment(findPatient.get(), findDoctor.get(), medicalDate, medicalTime)).getId();
         }
     }
 

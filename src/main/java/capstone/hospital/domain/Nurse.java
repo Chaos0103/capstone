@@ -41,4 +41,10 @@ public class Nurse {
         this.licenseCode = licenseCode;
         this.major = major;
     }
+
+    //==비즈니스 로직==//
+    public void approve(Admin admin) {
+        this.approvalAdmin = admin;
+    }
+
 }

@@ -1,5 +1,6 @@
 package capstone.hospital.controller;
 
+import capstone.hospital.exception.LoginException;
 import capstone.hospital.form.FindLoginIdForm;
 import capstone.hospital.form.FindLoginPwForm;
 import capstone.hospital.form.LoginForm;
@@ -98,10 +99,14 @@ public class LoginController {
     public String findId(@ModelAttribute("findLoginId") FindLoginIdForm form, Model model) {
         form.setName((String) model.asMap().get("name"));
         form.setPhoneNumber((String) model.asMap().get("phoneNumber"));
+        try {
+            String loginId = loginService.findLoginId(form.getName(), form.getPhoneNumber());
+            model.addAttribute("title", "아이디 찾기");
+            model.addAttribute("login", loginId);
+        } catch (LoginException e) {
+            model.addAttribute("login", e.getMessage());
+        }
 
-        String loginId = loginService.findLoginId(form.getName(), form.getPhoneNumber());
-        model.addAttribute("title", "아이디 찾기");
-        model.addAttribute("login", loginId);
         return "login/find";
     }
 
@@ -148,10 +153,13 @@ public class LoginController {
         form.setName((String) model.asMap().get("name"));
         form.setPhoneNumber((String) model.asMap().get("phoneNumber"));
         form.setLoginId((String) model.asMap().get("loginId"));
-
-        String loginPw = loginService.findLoginPw(form.getName(), form.getPhoneNumber(), form.getLoginId());
-        model.addAttribute("title", "비밀번호 찾기");
-        model.addAttribute("login", loginPw);
+        try {
+            String loginPw = loginService.findLoginPw(form.getName(), form.getPhoneNumber(), form.getLoginId());
+            model.addAttribute("title", "비밀번호 찾기");
+            model.addAttribute("login", loginPw);
+        } catch (LoginException e) {
+            model.addAttribute("login", e.getMessage());
+        }
         return "login/find";
     }
 

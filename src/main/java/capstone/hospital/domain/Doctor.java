@@ -55,4 +55,13 @@ public class Doctor {
         this.rank = rank;
         this.profile = profile;
     }
+
+    //==비즈니스 로직==//
+
+    /**
+     * 승인
+     */
+    public void approve(Admin admin) {
+        this.approvalAdmin = admin;
+    }
 }

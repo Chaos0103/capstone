@@ -22,4 +22,10 @@ public class HomeController {
         model.addAttribute("loginMember", loginMember);
         return "loginHome";
     }
+
+    @GetMapping("/staff")
+    public String staffHome(@Login Object loginMember, Model model) {
+        model.addAttribute("loginMember", loginMember);
+        return "staffHome";
+    }
 }

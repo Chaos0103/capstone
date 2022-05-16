@@ -4,6 +4,7 @@ import capstone.hospital.domain.Admin;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.Nurse;
+import capstone.hospital.exception.JoinException;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,7 @@ public class JoinService {
         }
 
         if (findMember != null) {
-            throw new IllegalStateException("이미 가입된 회원입니다.");
+            throw new JoinException("이미 가입된 회원입니다.");
         }
     }
 
@@ -92,7 +93,7 @@ public class JoinService {
         }
 
         if (findMember != null) {
-            throw new IllegalStateException("이미 사용중인 아이디입니다.");
+            throw new JoinException("이미 사용중인 아이디입니다.");
         }
     }
 }

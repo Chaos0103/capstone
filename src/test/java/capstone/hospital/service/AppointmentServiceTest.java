@@ -6,7 +6,6 @@ import capstone.hospital.domain.enumtype.AppointmentStatus;
 import capstone.hospital.domain.enumtype.MedicalStatus;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.repository.AppointmentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class AppointmentServiceTest {
 
-    @Autowired AppointmentService appointmentService;
+    @Autowired
+    AppointmentService appointmentService;
 //    @Autowired AppointmentRepository appointmentRepository;
     @Autowired EntityManager em;
 

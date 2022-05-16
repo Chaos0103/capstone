@@ -2,6 +2,7 @@ package capstone.hospital.service;
 
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
+import capstone.hospital.exception.LoginException;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -58,8 +59,7 @@ public class LoginService {
             loginId = nurseQueryRepository.findLoginId(name, phoneNumber);
         }
         if (loginId.isEmpty()) {
-//            throw new IllegalStateException("존재하지 않는 회원입니다.");
-            return "존재하지 않는 회원입니다.";
+            throw new LoginException("존재하지 않는 회원입니다.");
         }
         return name + "님의 아이디는 " + loginId.get(0) + "입니다.";
     }
@@ -73,8 +73,7 @@ public class LoginService {
             loginPw = nurseQueryRepository.findLoginPw(name, phoneNumber, loginId);
         }
         if (loginPw.isEmpty()) {
-//            throw new IllegalStateException("존재하지 않는 회원입니다.");
-            return "존재하지 않는 회원입니다.";
+            throw new LoginException("존재하지 않는 회원입니다.");
         }
         return name + "님의 비밀번호는 " + loginPw.get(0) + "입니다.";
     }

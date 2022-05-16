@@ -9,6 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.print.Doc;
 import java.util.List;
 
 import static capstone.hospital.domain.QDoctor.*;
@@ -51,17 +52,29 @@ public class DoctorQueryRepository {
                 .fetch();
     }
 
-    public List<Doctor> approvedDoctor() {
+    /**
+     * 승인되지 않은 의사 조회
+     */
+    public List<Doctor> notApproveDoctor(String name) {
         return queryFactory
                 .selectFrom(doctor)
-                .where(doctor.approvalAdmin.isNotNull())
+                .where(
+                        nameEq(name),
+                        doctor.approvalAdmin.isNull()
+                )
                 .fetch();
     }
 
-    public List<Doctor> waitDoctor() {
+    /**
+     * 승인된 의사 조회
+     */
+    public List<Doctor> approveDoctor(String name) {
         return queryFactory
                 .selectFrom(doctor)
-                .where(doctor.approvalAdmin.isNull())
+                .where(
+                        nameEq(name),
+                        doctor.approvalAdmin.isNotNull()
+                )
                 .fetch();
     }
 

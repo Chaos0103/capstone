@@ -1,15 +1,14 @@
 package capstone.hospital;
 
 import capstone.hospital.argumentresolver.LoginArgumentResolver;
-import capstone.hospital.interceptor.AdminCheckInterceptor;
-import capstone.hospital.interceptor.DoctorCheckInterceptor;
-import capstone.hospital.interceptor.LoginCheckInterceptor;
-import capstone.hospital.interceptor.NurseCheckInterceptor;
+import capstone.hospital.interceptor.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -22,24 +21,33 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        List<String> whitePath = Arrays.asList("/", "/join/**", "/login/**", "/logout", "/css/**", "/error", "/*.ico",
+                "/assets/**", "/images/**", "/js/**", "/check/**", "/file/**");
+
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/join/**", "/login/**", "/logout", "/css/**", "/error", "/*.ico", "/assets/**", "/images/**", "/js/**", "/check/**", "/file/**");
+                .excludePathPatterns(whitePath);
+
+        registry.addInterceptor(new StaffCheckInterceptor())
+                .order(2)
+                .addPathPatterns("/staff")
+                .excludePathPatterns(whitePath);
 
         registry.addInterceptor(new DoctorCheckInterceptor())
-                .order(2)
+                .order(3)
                 .addPathPatterns("/doctor/**")
-                .excludePathPatterns("/", "/join/**", "/login/**", "/logout", "/css/**", "/error", "/*.ico", "/assets/**", "/images/**", "/js/**", "/check/**", "/file/**");
+                .excludePathPatterns(whitePath);
 
         registry.addInterceptor(new NurseCheckInterceptor())
-                .order(2)
+                .order(3)
                 .addPathPatterns("/nurse/**")
-                .excludePathPatterns("/", "/join/**", "/login/**", "/logout", "/css/**", "/error", "/*.ico", "/assets/**", "/images/**", "/js/**", "/check/**", "/file/**");
+                .excludePathPatterns(whitePath);
 
         registry.addInterceptor(new AdminCheckInterceptor())
-                .order(2)
+                .order(3)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/", "/join/**", "/login/**", "/logout", "/css/**", "/error", "/*.ico", "/assets/**", "/images/**", "/js/**", "/check/**", "/file/**");
+                .excludePathPatterns(whitePath);
     }
 }
