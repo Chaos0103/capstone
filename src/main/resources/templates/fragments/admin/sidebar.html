@@ -7,7 +7,7 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu">
             <li class="nav-item">
-                <a href="/index.html" class="nav-link align-middle px-0 text-white">
+                <a th:onclick="|location.href='@{/admin}'|" class="nav-link align-middle px-0 text-white">
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">메인 페이지</span>
                 </a>
             </li>
@@ -18,12 +18,12 @@
                 </a>
                 <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="adminDoctorApprove.html" class="nav-link px-0 text-white">
+                        <a th:onclick="|location.href='@{/admin/doctor/approve}'|" class="nav-link px-0 text-white">
                             <span class="d-none d-sm-inline">승인</span>
                         </a>
                     </li>
                     <li class="w-100">
-                        <a href="adminDoctor.html" class="nav-link px-0 text-white">
+                        <a th:onclick="|location.href='@{/admin/doctor/list}'|" class="nav-link px-0 text-white">
                             <span class="d-none d-sm-inline fw-bold">조회</span>
                         </a>
                     </li>
@@ -36,11 +36,11 @@
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="adminNurseApprove.html" class="nav-link px-0 text-white"> <span
+                        <a th:onclick="|location.href='@{/admin/nurse/approve}'|" class="nav-link px-0 text-white"> <span
                                 class="d-none d-sm-inline">승인</span></a>
                     </li>
                     <li class="w-100">
-                        <a href="adminNurse.html" class="nav-link px-0 text-white"> <span
+                        <a th:onclick="|location.href='@{/admin/nurse/list}'|" class="nav-link px-0 text-white"> <span
                                 class="d-none d-sm-inline">조회</span></a>
                     </li>
                 </ul>
@@ -68,7 +68,7 @@
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="adminEsl.html" class="nav-link px-0 text-white"> <span
+                        <a th:onclick="|location.href='@{/admin/esl}'|" class="nav-link px-0 text-white"> <span
                                 class="d-none d-sm-inline">ESL 등록</span></a>
                     </li>
                 </ul>

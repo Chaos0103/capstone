@@ -10,43 +10,29 @@
 
 <body class = "">
 <!--top bar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-5">
-        <!-- bodyTopLogo -->
-        <div th:replace="fragments/bodyTopLogo :: bodyTopLogo"/>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link"
-                                        th:onclick="|location.href='@{/join}'|"
-                                        style=" font-size:1.0em; width:90px; height:39px">회원가입</a></li>
-                <li class="nav-item"><a class="nav-link"
-                                        th:onclick="|location.href='@{/login}'|"
-                                        style=" font-size:1.0em; width:90px; height:39px">로그인</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<nav th:replace="fragments/bodyTop :: bodyTop" />
 
     <article>
         <!--환자 직원 토글-->
         <ul class="user-type-nav">
-            <li class="on">
-                <a th:href="@{/}">
+            <li>
+                <a href="index.html">
                     <span>
                         환자<br>&nbsp;보호자
                     </span>
                     <i class="ico ico-patient-carer-white"></i>
                 </a>
             </li>
-            <li>
-                <a th:href="@{/home2}">
+            <li class="on">
+                <a href="home2.html">
                     <span>
-                       직원<br>&nbsp;의료진
+                        직원<br>&nbsp;의료진
                     </span>
                     <i class="ico ico-expert-white"></i>
                 </a>
             </li>
         </ul>
+    
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-5">
@@ -84,53 +70,37 @@
                         <div class="container px-5 my-5">
                             <div class="row gx-5">
     
-                                <!--의료진 찾기-->
+                                <!--간호사 part-->
                                 <span class="col-lg-1"></span>
-                                <div class="col-lg-3 mb-5 mb-lg-0" th:onclick="|location.href='@{/patient/doctorSearch}'|">
+                                <div class="col-lg-3 mb-5 mb-lg-0"
+                                    onclick="location.href = 'nursePart/nurseManagement.html'">
                                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
                                             class="bi bi-person"></i>
                                     </div>
-                                    <h2 class="h4 fw-bolder">의료진 찾기</h2>
-                                    <p>전문 의료진을 빠르게 찾을 수 있습니다.</p>
+                                    <h2 class="h4 fw-bolder">간호사 Part</h2>
+                                    <p>부가 설명 칸입니다.</p>
                                 </div>
     
-                                <!--진료과 찾기-->
+                                <!--의사 part-->
                                 <span class="col-lg-1"></span>
-                                <div class="col-lg-3 mb-5 mb-lg-0" th:onclick="|location.href='@{/patient/departmentSearch}'|">
+                                <div class="col-lg-3 mb-5 mb-lg-0"
+                                    onclick="location.href = 'doctorPart/doctorManagement.html'">
                                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
                                             class="bi bi-person"></i>
                                     </div>
-                                    <h2 class="h4 fw-bolder">진료과 찾기</h2>
-                                    <p>진료 전 진료과를 안내해드립니다.</p>
+                                    <h2 class="h4 fw-bolder">의사 Part</h2>
+                                    <p>부가 설명 칸입니다.</p>
                                 </div>
     
-                                <!--진료 예약-->
+                                <!--관리자 part-->
                                 <span class="col-lg-1"></span>
-                                <div class="col-lg-3 mb-5 mb-lg-0" th:onclick="|location.href='@{/patient/createAppointment}'|">
+                                <div class="col-lg-3 mb-5 mb-lg-0"
+                                    onclick="location.href = 'adminPart/adminManagement.html'">
                                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                            class="bi bi-person"></i>
-                                    </div>
-                                    <h2 class="h4 fw-bolder">진료 예약</h2>
-                                    <p>회원은 편리하게 예약이 가능합니다.</p>
+                                            class="bi bi-wrench-adjustable"></i></div>
+                                    <h2 class="h4 fw-bolder">관리자 Part</h2>
+                                    <p>관리자의 권한으로만 접근가능합니다.</p>
                                 </div>
-    
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="2000">
-                        <div class="container px-5 my-5">
-                            <div class="row gx-5">
-    
-                                <!--예약 현황-->
-                                <span class="col-lg-1"></span>
-                                <div class="col-lg-3 mb-5 mb-lg-0" th:onclick="|location.href='@{/patient/appointmentList}'|">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                            class="bi bi-person"></i>
-                                    </div>
-                                    <h2 class="h4 fw-bolder">예약 현황</h2>
-                                    <p>회원 예약 내역을 확인할 수 있습니다.</p><br/>
-                                </div>
-    
                             </div>
                         </div>
                     </div>
@@ -149,11 +119,8 @@
         </section>
     </article>
 
-    <!-- Features section--> 
-    <!--아직 미완성된 직원 페이지. -> 후에 분할-->
-    <!---->
-
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
+
 </html>

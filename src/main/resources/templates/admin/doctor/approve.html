@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <head>
-    <title>의사 목록</title>
+    <title>의사 승인</title>
 </head>
+
 <body>
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
@@ -14,9 +15,10 @@
             <div class="row flex-nowrap">
                 <!--sidebar-->
                 <div th:replace="fragments/admin/sidebar :: sidebar" />
+
                 <!--Add Table-->
                 <div class="col py-3 container">
-                    <h2 class="text-center fw-bold mb-2">의사 조회</h2>
+                    <h2 class="text-center fw-bold mb-2">의사 승인</h2>
 
                     <!--검색 form-->
                     <div class="d-flex justify-content-start">
@@ -35,28 +37,22 @@
                         <thead class = "table-dark">
                             <tr>
                                 <th scope="col" style="width: 200px;">의사 면허 번호</th>
-                                <th scope="col">이름</th>
-                                <th scope="col">성별</th>
-                                <th scope="col">전화번호</th>
-                                <th scope="col">진료과</th>
+                                <th scope="col" style="width: 200px;">이름</th>
+                                <th scope="col" style="width: 200px;">진료과</th>
                                 <th scope="col">직급</th>
-                                <th scope="col">수정 및 삭제</th>
+                                <th scope="col" style="width: 150px;">승인</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1"
                             th:each="doctor:${doctors}">
-                                <td th:text="${doctor.licenseCode}">의사 면허 번호</td>
+                                <td th:text="${doctor.licenseCode}">면허번호</td>
                                 <td th:text="${doctor.info.name}">이름</td>
-                                <td th:text="${doctor.info.sex.description}">성별</td>
-                                <td th:text="${doctor.info.phoneNumber}">연락처</td>
                                 <td th:text="${doctor.major.description}">전공</td>
                                 <td th:text="${doctor.rank.description}">직책</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" type = "button"
-                                            th:onclick="|location.href='@{/admin/doctor/list/{doctorId}/edit (doctorId=${doctor.getId()})}'|">수정</button>
-                                    <button class="btn btn-danger btn-sm" type= "button"
-                                            th:onclick="|location.href='@{/admin/doctor/list/{doctorId}/delete (doctorId=${doctor.getId()})}'|">삭제</button>
+                                    <button class="btn btn-primary btn-sm" type="button"
+                                            th:onclick="|location.href='@{/admin/doctor/approve/{doctorId} (doctorId=${doctor.getId()})}'|">승인</button>
                                 </td>
                             </tr>   
                         </tbody>
@@ -91,6 +87,7 @@
                             </ul>
                         </nav>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -99,5 +96,4 @@
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
-
 </html>
