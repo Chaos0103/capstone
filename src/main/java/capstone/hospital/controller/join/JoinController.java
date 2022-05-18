@@ -1,4 +1,4 @@
-package capstone.hospital.controller;
+package capstone.hospital.controller.join;
 
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;

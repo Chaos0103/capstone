@@ -4,7 +4,7 @@ import capstone.hospital.controller.join.form.CheckForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.form.JoinPatientForm;
+import capstone.hospital.controller.join.form.JoinPatientForm;
 import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;

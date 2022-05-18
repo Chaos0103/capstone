@@ -8,7 +8,7 @@ import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.dto.UploadFile;
 import capstone.hospital.file.FileStore;
-import capstone.hospital.form.JoinDoctorForm;
+import capstone.hospital.controller.join.form.JoinDoctorForm;
 import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;

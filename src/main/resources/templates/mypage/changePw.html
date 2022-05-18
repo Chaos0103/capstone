@@ -4,6 +4,7 @@
 <head>
     <title>비밀번호 변경</title>
 </head>
+
 <body class = "">
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
@@ -18,9 +19,9 @@
                 <span class="col-lg-1"></span>
                 <div class="col-lg-2">
                     <div class="list-group">
-                        <a th:href="@{/myPage}" class="list-group-item list-group-item-action">개인 정보 수정</a>
-                        <a th:href="@{/myPage/changePw}" class="list-group-item list-group-item-action active">비밀번호 변경</a>
-                        <a th:href="@{/myPage/delete}" class="list-group-item list-group-item-action">회원 탈퇴</a>
+                        <a th:href="@{/mypage}" class="list-group-item list-group-item-action">개인 정보 수정</a>
+                        <a th:href="@{/mypage/changePw}" class="list-group-item list-group-item-action active">비밀번호 변경</a>
+                        <a th:href="@{/mypage/delete}" class="list-group-item list-group-item-action">회원 탈퇴</a>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
@@ -29,26 +30,35 @@
                             <h3 class="card-title text-center fw-bold">비밀번호 변경</h3>
                             <hr>
                             <form method="post" th:action th:object="${form}">
-                                <tr>
-                                    <td></td>
-                                </tr>
-                                <div class="mb-4">
-                                    <label class="form-label" for="current_pwd">현재 비밀번호</label>
-                                    <input type="password" id="current_pwd" class="form-control" required
-                                    th:field="*{nowPw}">
-                                </div>
 
-                                <div class="mb-4">
-                                    <label class="form-label" for="current_pwd">새로운 비밀번호</label>
-                                    <input type="password" id="current_pwd" class="form-control" required
-                                    th:field="*{newPw}">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="form-label" for="current_pwd">새로운 비밀번호 확인</label>
-                                    <input type="password" id="current_pwd" class="form-control" required
-                                    th:field="*{checkNewPw}">
-                                </div>
+                                <!--마이페이지 수정 테이블-->
+                                <table class="table table-bordered">
+                                    <thead></thead>
+                                    <tbody>
+                                        <!--참고 vertical-align: middle 상하중앙정렬 height 표 폭 조절-->
+                                        <tr>
+                                            <td class="table-light fw-bold" style="vertical-align: middle;">현재 비밀번호</td>
+                                            <td style="width: 430px; height: 60px; vertical-align: middle; padding: 2%;">
+                                                <input th:field="*{nowPw}" type="password" class="form-control" id = "currentpwd" style="width: 200px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light fw-bold" style="vertical-align: middle;">새 비밀번호</td>
+                                            <td style="width: 430px; height: 60px; vertical-align: middle; padding: 2%;">
+                                                <input th:field="*{newPw}" type="password" class="form-control" id = "newpwd" style="width: 200px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-light fw-bold" style="vertical-align: middle;">새 비밀번호 확인</td>
+                                            <td style="width: 430px; height: 60px; vertical-align: middle; padding: 2%;">
+                                                <input th:field="*{checkNewPw}" type = "password" class="form-control" id = "pwd" style="width: 200px;"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!--하단에 굵은 줄-->
+                                    <tfoot><td style="padding:0%"></td></tfoot>          
+                                </table>
+                                <!--테이블 end-->
                                 
                                 <div class="mb-4 text-center">
                                     <button class="btn btn-primary btn-lg" type="submit">변경</button>

@@ -5,7 +5,7 @@ import capstone.hospital.domain.Nurse;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.form.JoinNurseForm;
+import capstone.hospital.controller.join.form.JoinNurseForm;
 import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
-package capstone.hospital.controller;
+package capstone.hospital.controller.login;
 
 import capstone.hospital.exception.LoginException;
-import capstone.hospital.form.FindLoginIdForm;
-import capstone.hospital.form.FindLoginPwForm;
-import capstone.hospital.form.LoginForm;
+import capstone.hospital.controller.login.form.FindLoginIdForm;
+import capstone.hospital.controller.login.form.FindLoginPwForm;
+import capstone.hospital.controller.login.form.LoginForm;
 import capstone.hospital.service.LoginService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;

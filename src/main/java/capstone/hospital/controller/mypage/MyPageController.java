@@ -3,6 +3,7 @@ package capstone.hospital.controller.mypage;
 import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.controller.mypage.form.ChangePwForm;
 import capstone.hospital.controller.mypage.form.CheckPwForm;
+import capstone.hospital.controller.mypage.form.InfoForm;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.service.BasicService;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/myPage")
+@RequestMapping("/mypage")
 public class MyPageController {
 
     private final BasicService basicService;
 
     @GetMapping
-    public String myPage(@Login Object loginMember, Model model) {
+    public String myPage(@Login Object loginMember, @ModelAttribute("form") InfoForm form, Model model) {
         model.addAttribute("loginMember", loginMember);
         Patient patient = (Patient) loginMember;
         return "/mypage/updateInfo";
+    }
+
+    @PostMapping
+    public String infoUpdate(@Login Object loginMember, @ModelAttribute("form") InfoForm form, Model model) {
+        model.addAttribute("loginMember", loginMember);
+        return "redirect:/mypage/updateInfo";
     }
 
     @GetMapping("/changePw")

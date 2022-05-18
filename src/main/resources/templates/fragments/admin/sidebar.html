@@ -52,11 +52,11 @@
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a href="adminMedicine.html" class="nav-link px-0 text-white"> <span
+                        <a th:onclick="|location.href='@{/admin/medicine}'|" class="nav-link px-0 text-white"> <span
                                 class="d-none d-sm-inline">약 조회</span></a>
                     </li>
                     <li class="w-100">
-                        <a href="adminDisease.html" class="nav-link px-0 text-white"> <span
+                        <a th:onclick="|location.href='@{/admin/disease}'|" class="nav-link px-0 text-white"> <span
                                 class="d-none d-sm-inline">질병 조회</span></a>
                     </li>
                 </ul>

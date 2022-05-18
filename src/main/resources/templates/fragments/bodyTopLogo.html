@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="bodyTopLogo">
-<a class="navbar-brand" th:onclick="|location.href='@{/}'|" style="cursor:pointer">
-    <img src="../../assets/images/sejong_black.png" width="37" style="
+    <a class="navbar-brand" th:onclick="|location.href='@{/}'|" style="cursor:pointer">
+        <img th:src="@{/assets/images/sejong_black.png}" width="37" style="
                   border-radius: 70px;
                   -moz-border-radius: 70px;
                   -khtml-border-radius: 70px;
                   -webkit-border-radius: 70px;
                   " alt="My Logo">
-세종대병원</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-</button>
+        세종대병원</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </div>

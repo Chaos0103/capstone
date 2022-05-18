@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>약물 등록</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--Side Bar And Table-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <!--sidebar-->
+                <div th:replace="fragments/admin/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <div class="container d-flex justify-content-center mb-4">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center fw-bold">약 등록</h2>
+                                    <hr class="text-dark">
+                                    <form method="post" th:action th:object="${form}">
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="code">코드</label>
+                                            <input th:field="*{code}" class="form-control" type="text" id="code" />
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="name">이름</label>
+                                            <input th:field="*{name}" class="form-control" type="text" id="name" />
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="company">제조사</label>
+                                            <input th:field="*{company}" class="form-control" type="text" id="company" />
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="type">형태</label>
+                                            <input th:field="*{type}" class="form-control" type="text" id="type" />
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="stock">재고</label>
+                                            <input th:field="*{stock}" class="form-control" type="text" id="stock" />
+                                        </div>
+
+                                        <div class="mb-4 text-center">
+                                            <button class="btn btn-primary" type="submit"
+                                                style="background-color:dodgerblue;width:85px;border: 1px solid dodgerblue;">등록</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--이전 버튼-->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-light" type="button" th:onclick="|location.href='@{/admin/medicine}'|"
+                            style="width:85px;">이전</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

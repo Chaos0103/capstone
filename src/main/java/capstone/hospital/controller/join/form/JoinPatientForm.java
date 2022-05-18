@@ -1,17 +1,18 @@
-package capstone.hospital.form;
+package capstone.hospital.controller.join.form;
 
-import capstone.hospital.domain.enumtype.Major;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class JoinNurseForm {
+public class JoinPatientForm {
 
-
+    @NotBlank
     private String loginId;
     @NotBlank
     private String loginPw;
+    @NotBlank
+    private String checkPw;
     @NotBlank
     private String name;
     @NotBlank
@@ -26,11 +27,4 @@ public class JoinNurseForm {
     private String street;
     @NotBlank
     private String zipcode;
-    @NotBlank
-    private String licenseCode;
-//    @NotBlank
-    private Major major;
-
-    @NotBlank
-    private String checkPw;
 }

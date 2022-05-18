@@ -1,4 +1,4 @@
-package capstone.hospital.form;
+package capstone.hospital.controller.login.form;
 
 import lombok.Data;
 

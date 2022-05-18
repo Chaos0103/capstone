@@ -6,6 +6,7 @@ import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.dto.UploadFile;
+import capstone.hospital.repository.ATCCodeRepository;
 import capstone.hospital.repository.KCDCodeRepository;
 import capstone.hospital.service.JoinService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class TestDataInit {
 
     private final JoinService joinService;
     private final KCDCodeRepository kcdCodeRepository;
+    private final ATCCodeRepository atcCodeRepository;
 
     @PostConstruct
     public void init() throws Exception {
@@ -28,9 +30,10 @@ public class TestDataInit {
         initDoctor(address);
         initNurse(address);
         initAdmin(address);
-
+        ATCCode test = new ATCCode("test-01", "타이레놀", "세종대",null, 100);
         KCDCode code = new KCDCode("COVID-19", "코로나19");
         kcdCodeRepository.save(code);
+        atcCodeRepository.save(test);
     }
 
     private void initPatient(Address address) throws Exception {

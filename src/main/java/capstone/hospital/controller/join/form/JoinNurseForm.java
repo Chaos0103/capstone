@@ -1,16 +1,14 @@
-package capstone.hospital.form;
+package capstone.hospital.controller.join.form;
 
-import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class JoinDoctorForm {
+public class JoinNurseForm {
 
-    @NotBlank
+
     private String loginId;
     @NotBlank
     private String loginPw;
@@ -30,12 +28,9 @@ public class JoinDoctorForm {
     private String zipcode;
     @NotBlank
     private String licenseCode;
-
-    private MultipartFile file;
-    //    @NotBlank
-    private Major major;
 //    @NotBlank
-    private DoctorRank rank;
+    private Major major;
+
     @NotBlank
     private String checkPw;
 }

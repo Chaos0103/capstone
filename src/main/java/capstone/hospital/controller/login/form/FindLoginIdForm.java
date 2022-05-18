@@ -1,11 +1,11 @@
-package capstone.hospital.form;
+package capstone.hospital.controller.login.form;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class FindLoginPwForm {
+public class FindLoginIdForm {
 
     @NotBlank
     private String name;
@@ -15,19 +15,16 @@ public class FindLoginPwForm {
     private String phoneNumberMid;
     @NotBlank
     private String phoneNumberBack;
-    @NotBlank
-    private String loginId;
 
     private String phoneNumber;
     private String checkNumber;
     private String inputNumber;
 
-    public FindLoginPwForm(String name, String phoneNumberFront, String phoneNumberMid, String phoneNumberBack, String loginId, String checkNumber) {
+    public FindLoginIdForm(String name, String phoneNumberFront, String phoneNumberMid, String phoneNumberBack, String checkNumber) {
         this.name = name;
         this.phoneNumberFront = phoneNumberFront;
         this.phoneNumberMid = phoneNumberMid;
         this.phoneNumberBack = phoneNumberBack;
-        this.loginId = loginId;
         this.checkNumber = checkNumber;
     }
 }
