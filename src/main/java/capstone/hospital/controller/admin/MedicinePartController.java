@@ -29,7 +29,6 @@ public class MedicinePartController {
     @GetMapping("/{code}/delete")
     public String delete(@PathVariable("code") String code) {
         medicineService.delete(code);
-        log.info("delete={}", code);
         return "redirect:/admin/medicine";
     }
 

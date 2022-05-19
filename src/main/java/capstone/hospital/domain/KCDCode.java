@@ -13,14 +13,14 @@ public class KCDCode extends BaseEntity {
 
     @Id
     @Column(name = "kcdcode_id")
-    private String id;
+    private String code;
     private String name;
 
     public KCDCode() {
     }
 
-    public KCDCode(String id, String name) {
-        this.id = id;
+    public KCDCode(String code, String name) {
+        this.code = code;
         this.name = name;
     }
 }

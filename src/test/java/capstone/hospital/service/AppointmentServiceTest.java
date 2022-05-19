@@ -3,7 +3,6 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Appointment;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.enumtype.AppointmentStatus;
-import capstone.hospital.domain.enumtype.MedicalStatus;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import org.junit.jupiter.api.DisplayName;

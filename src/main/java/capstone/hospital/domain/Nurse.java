@@ -47,4 +47,11 @@ public class Nurse {
         this.approvalAdmin = admin;
     }
 
+    public void changePw(String oldPw, String newPw) {
+        if (loginPw.equals(oldPw)) {
+            loginPw = newPw;
+        } else {
+            throw new IllegalStateException("현재 비밀번호가 다릅니다.");
+        }
+    }
 }

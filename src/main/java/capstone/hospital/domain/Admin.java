@@ -27,4 +27,13 @@ public class Admin {
         this.loginPw = loginPw;
         this.info = info;
     }
+
+    //== 비즈니스 로직 ==//
+    public void changePw(String oldPw, String newPw) {
+        if (loginPw.equals(oldPw)) {
+            loginPw = newPw;
+        } else {
+            throw new IllegalStateException("현재 비밀번호가 다릅니다.");
+        }
+    }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>간호사 페이지</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--Side Bar And Table-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <!--sidebar-->
+                <div th:replace="fragments/nurse/sidebar :: sidebar" />
+                <!--Add Table-->
+                <div class="col py-3 container">
+                    <div class="text-center">
+                        <h1 class="fw-bold">간호사 메인 페이지</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

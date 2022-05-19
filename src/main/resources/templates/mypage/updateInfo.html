@@ -61,7 +61,7 @@
                                         <tr>
                                             <td class="table-light fw-bold" style="vertical-align: middle;">전화번호</td>
                                             <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
-                                                <input type="tel" id="phone-number" class="form-control"
+                                                <input th:field="*{phoneNumber}" type="tel" id="phone-number" class="form-control"
                                                 placeholder="010-XXXX-XXXX" style="width: 250px;" required>
                                             </td>
                                         </tr>
@@ -70,7 +70,7 @@
                                             <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
                                                 <div class="row">
                                                     <div class="input-group" style="width: 250px;">
-                                                        <input type="text" id="post-number" class="form-control" placeholder="05006"
+                                                        <input th:field="*{zipcode}" type="text" id="post-number" class="form-control" placeholder="05006"
                                                             aria-describedby="addonPost" required readonly>
                                                         <button class="btn btn-outline-primary" type = "button" id = "addonPost" onclick="postcode()">우편번호검색</button>
                                                     </div>
@@ -82,10 +82,10 @@
                                             <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                        <input type="text" id="address" class="form-control" placeholder="ex) 서울특별시 광진구 능동로" required readonly>
+                                                        <input th:field="*{city}" type="text" id="address" class="form-control" placeholder="ex) 서울특별시 광진구 능동로" required readonly>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <input type="text" id="detail-address" class="form-control" placeholder="상세 주소" />
+                                                        <input th:field="*{street}" type="text" id="detail-address" class="form-control" placeholder="상세 주소" />
                                                     </div>
                                                 </div>
                                             </td>

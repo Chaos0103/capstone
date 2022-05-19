@@ -1,7 +1,5 @@
 package capstone.hospital.service;
 
-import capstone.hospital.domain.Doctor;
-import capstone.hospital.domain.Patient;
 import capstone.hospital.exception.LoginException;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;

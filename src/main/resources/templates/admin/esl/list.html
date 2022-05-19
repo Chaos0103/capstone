@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>ESL 조회</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--Side Bar And Table-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <!--sidebar-->
+                <div th:replace="fragments/admin/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <h2 class="text-center fw-bold mb-2">ESL 의사 프로필 등록</h2>
+
+                    <!--검색 form-->
+                    <div class="d-flex justify-content-start">
+                        <div class="mb-4 col-lg-3">
+                            <form class="" method="post">
+                                <div class="input-group form-floting">
+                                    <input type="text" id="searchPatientInfo" class="form-control"
+                                        placeholder="의사 검색" />
+                                    <button class="btn btn-outline-primary" type="submit">검색</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--등록버튼-->
+                        <div class="mb-4 col-lg-9" style="align:right">
+                            <button class="btn btn-primary" type="button"
+                                    th:onclick="|location.href='@{/admin/esl/create}'|"
+                                style="background-color:dodgerblue;width:85px; float: right;border: 1px solid dodgerblue;">등록</button>
+                        </div>
+                        <!--등록버튼 End-->
+                    </div>
+
+                    <!--Table List {1}-->
+                    <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">이름</th>
+                                <th scope="col">진료과</th>
+                                <th scope="col">직급</th>
+                                <th scope="col">연락처</th>
+                                <th scope="col">수정</th>
+                                <th scope="col">삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="accordion-toggle" data-bs-toggle="collapse"
+                                data-bs-target="#doctorPatientDetail1">
+                                <td>김철수</td>
+                                <td>정형외과</td>
+                                <td>교수</td>
+                                <td>010-1234-2345</td>
+                                <td>
+                                    <h6 style="font-weight:bold;display:inline"><i class="bi bi-pencil-fill" href="#"
+                                            onclick="" style="color:dodgerblue"></i>
+                                    </h6>
+                                </td>
+                                <td>
+                                    <h6 style="font-weight:bold;display:inline"><i class="bi bi-trash-fill" href="#"
+                                            onclick="" style="color:crimson"></i>
+                                    </h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id=page>
+
+                                <!--이전 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                -->
+
+                                <!--페이지 표시 버튼-->
+                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                                -->
+
+                                <!--다음 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

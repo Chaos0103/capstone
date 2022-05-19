@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>질병 등록</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <!--Side Bar And Table-->
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <!--sidebar-->
+                <div th:replace="fragments/admin/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container">
+                    <div class="container d-flex justify-content-center mb-4">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center fw-bold">질병 등록</h2>
+                                    <hr class="text-dark">
+                                    <form method="post" th:action th:object="${form}">
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for ="code">코드</label>
+                                            <input th:field="*{code}" class="form-control" type = "text" id = "code"/>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for ="name">병명</label>
+                                            <input th:field="*{name}" class="form-control" type = "text" id = "name"/>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for ="gender">증상</label>
+                                            <input class="form-control" type = "text" id = "gender"/>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for ="license">특이사항</label>
+                                            <input class="form-control" type = "text" id = "license"/>
+                                        </div>
+
+                                        <div class="mb-4 text-center">
+                                            <button class="btn btn-primary" type = "submit">등록</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--이전 버튼-->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-light" type="button" th:onclick="|location.href='@{/admin/disease}'|">이전</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>
