@@ -34,7 +34,6 @@
                     <div class="card my-5">
                         <div class="card-body">
                             <form method="post" th:action th:object="${findLoginId}">
-
                                 <!--이름 form-->
                                 <div class = "mb-4">
                                     <label class = "form-label" for = "name">이름</label>
@@ -42,11 +41,9 @@
                                         <input type = "text" id = "name" th:field="*{name}" class = "form-control" required autofocus/>
                                     </div>
                                 </div>
-
                                 <!--휴대폰 번호 form-->
                                 <div class="row">
                                     <label class="form-label" for="phone-number">휴대폰 번호</label>
-
                                     <div class="input-group mb-4">
                                         <input type="text" class="form-control" th:field="*{phoneNumberFront}" id="phoneNumber1" required autofocus/>
                                         <span class="input-group-text">-</span>

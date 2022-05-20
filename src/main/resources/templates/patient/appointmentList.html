@@ -47,7 +47,8 @@
                         </tr>
                     </thead>
 
-                    <tbody th:each="appointment : ${appointments}">
+                    <tbody>
+                    <div  th:each="appointment : ${appointments}">
                         <tr class="accordion-toggle" data-bs-toggle="collapse" th:data-bs-target="'#doctorPatientDetail' + ${appointment.id}">
                             <td th:text="${appointment.patient.info.name}">예약자</td>
                             <td th:text="${appointment.patient.info.phoneNumber}">연락처</td>
@@ -87,7 +88,7 @@
                                                     <tr>
                                                         <td th:text="${appointment.patient.info.name}">예약자</td>
                                                         <td th:text="${appointment.patient.info.phoneNumber}">연락처</td>
-                                                        <td th:text="${appointment.appointmentDate}">신청일</td>
+                                                        <td th:text="${#temporals.format(appointment.appointmentDate, 'yyyy년 MM월 dd일 HH시 mm분')}">신청일</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -120,6 +121,7 @@
                             </td>
                         </tr>
                         <!--Collapse End-->
+                    </div>
                     </tbody>
 
                 </table>

@@ -13,24 +13,32 @@
     <section>
         <div class="container">
             <div class="row mb-4 mt-4">
-                <h1 class="text-center fw-bold">마이 페이지</h1>
+                <h1 class="text-center fw-bold">비밀번호변경</h1>
             </div>
             <div class="row justify-content-start">
                 <span class="col-lg-1"></span>
                 <div class="col-lg-2">
                     <div class="list-group">
-                        <a th:href="@{/mypage}" class="list-group-item list-group-item-action">개인 정보 수정</a>
-                        <a th:href="@{/mypage/changePw}" class="list-group-item list-group-item-action active">비밀번호 변경</a>
-                        <a th:href="@{/mypage/delete}" class="list-group-item list-group-item-action">회원 탈퇴</a>
+                        <a th:href="@{/mypage}" class="list-group-item list-group-item-action">개인정보수정</a>
+                        <a th:href="@{/mypage/changePw}" class="list-group-item list-group-item-action active">비밀번호변경</a>
+                        <a th:href="@{/mypage/delete}" class="list-group-item list-group-item-action">회원탈퇴</a>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title text-center fw-bold">비밀번호 변경</h3>
-                            <hr>
-                            <form method="post" th:action th:object="${form}">
 
+                            <div class="box-guide">
+                                <ul class="list list1-gray">
+                                    <li>8자 이상 ~ 20자 이내로 설정해주세요.</li>
+                                    <li>영문, 숫자, 특수문자를 모두 포함해주세요.</li>
+                                    <li>문자열이 3자리 이상 연속되거나 동일하지 않게 해주세요. (ex. 111, 123, aaa, abc 등)</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <br/>
+                            <form method="post" th:action th:object="${form}">
                                 <!--마이페이지 수정 테이블-->
                                 <table class="table table-bordered">
                                     <thead></thead>

@@ -4,7 +4,8 @@ import capstone.hospital.domain.Admin;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Nurse;
 import capstone.hospital.domain.Patient;
-import capstone.hospital.dto.InformationDto;
+import capstone.hospital.dto.InfoDto;
+import capstone.hospital.dto.type.MemberType;
 import capstone.hospital.repository.AdminRepository;
 import capstone.hospital.repository.DoctorRepository;
 import capstone.hospital.repository.NurseRepository;
@@ -14,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static capstone.hospital.dto.type.MemberType.*;
 
 @Slf4j
 @Service
@@ -28,7 +29,7 @@ public class BasicService {
     private final AdminRepository adminRepository;
 
     @Transactional
-    public void changeMemberInfo(Object loginMember ,InformationDto info) {
+    public void changeMemberInfo(Object loginMember , InfoDto info) {
         if (patientEq(loginMember)) {
             Patient patient = patientRepository.findById(((Patient) loginMember).getId()).get();
             patient.changeInfo(info);
@@ -66,6 +67,32 @@ public class BasicService {
             adminRepository.deleteById(((Admin) loginMember).getId());
         } else {
             throw new IllegalStateException("비밀번호가 틀렸습니다.");
+        }
+    }
+
+    public InfoDto findInfo(Object loginMember) {
+        if (patientEq(loginMember)) {
+            Patient patient = patientRepository.findById(((Patient) loginMember).getId()).get();
+            return new InfoDto(patient.getInfo().getPhoneNumber(), patient.getInfo().getAddress().getCity(),
+                    patient.getInfo().getAddress().getStreet(), patient.getInfo().getAddress().getZipcode(),
+                    PATIENT);
+        } else if (doctorEq(loginMember)) {
+            Doctor doctor = doctorRepository.findById(((Doctor) loginMember).getId()).get();
+            return new InfoDto(doctor.getInfo().getPhoneNumber(), doctor.getInfo().getAddress().getCity(),
+                    doctor.getInfo().getAddress().getStreet(), doctor.getInfo().getAddress().getZipcode(),
+                    DOCTOR);
+        } else if (nurseEq(loginMember)) {
+            Nurse nurse = nurseRepository.findById(((Nurse) loginMember).getId()).get();
+            return new InfoDto(nurse.getInfo().getPhoneNumber(), nurse.getInfo().getAddress().getCity(),
+                    nurse.getInfo().getAddress().getStreet(), nurse.getInfo().getAddress().getZipcode(),
+                    NURSE);
+        } else if (adminEq(loginMember)) {
+            Admin admin = adminRepository.findById(((Admin) loginMember).getId()).get();
+            return new InfoDto(admin.getInfo().getPhoneNumber(), admin.getInfo().getAddress().getCity(),
+                    admin.getInfo().getAddress().getStreet(), admin.getInfo().getAddress().getZipcode(),
+                    ADMIN);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + loginMember.getClass());
         }
     }
 

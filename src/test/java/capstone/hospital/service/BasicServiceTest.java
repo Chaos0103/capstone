@@ -3,7 +3,7 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.dto.InformationDto;
+import capstone.hospital.dto.InfoDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,9 @@ class BasicServiceTest {
         // given
         Patient patient = createMember("220412", "1111111", "loginId");
         Long memberId = joinService.joinPatient(patient);
-        InformationDto informationDto = new InformationDto("010-2222-2222", "newCity", "newStreet", "newZipcode");
+        InfoDto infoDto = new InfoDto("010-2222-2222", "newCity", "newStreet", "newZipcode");
         // when
-        basicService.changeMemberInfo(memberId, informationDto);
+        basicService.changeMemberInfo(memberId, infoDto);
 
         // then
         em.flush();

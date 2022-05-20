@@ -14,29 +14,35 @@
     <section>
         <div class="container">
             <div class="row mb-4 mt-4">
-                <h1 class="text-center fw-bold">마이 페이지</h1>
+                <h1 class="text-center fw-bold">개인정보수정</h1>
             </div>
             <div class="row justify-content-start">
                 <span class="col-lg-1"></span>
                 <div class="col-lg-2">
                     <div class="list-group">
-                        <a th:href="@{/mypage}" class="list-group-item list-group-item-action active">개인 정보 수정</a>
-                        <a th:href="@{/mypage/changePw}" class="list-group-item list-group-item-action">비밀번호 변경</a>
-                        <a th:href="@{/mypage/delete}" class="list-group-item list-group-item-action">회원 탈퇴</a>
+                        <a th:href="@{/mypage}" class="list-group-item list-group-item-action active">개인정보수정</a>
+                        <a th:href="@{/mypage/changePw}" class="list-group-item list-group-item-action">비밀번호변경</a>
+                        <a th:href="@{/mypage/delete}" class="list-group-item list-group-item-action">회원탈퇴</a>
                     </div>
                 </div>
                 <div class="col-lg-7 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title text-center fw-bold">개인 정보 수정</h3>
+<!--                            <h3 class="card-title text-center fw-bold">개인정보수정</h3>-->
                             <hr>
                             <form method="post" th:action th:object="${form}">
-
                                 <!--마이페이지 수정 테이블-->
                                 <table class="table table-bordered">
                                     <thead></thead>
                                     <tbody>
                                         <!--참고 vertical-align: middle 상하중앙정렬 height 표 폭 조절-->
+                                        <tr>
+                                            <td class="table-light fw-bold" style="vertical-align: middle;">성명</td>
+                                            <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;"
+                                                th:text="|${loginMember.info.name} (${loginMember.info.rrn.substring(0, 2)}.${loginMember.info.rrn.substring(2, 4)}.${loginMember.info.rrn.substring(4, 6)} ${loginMember.info.sex.description})|">
+                                                이름 (YY.MM.DD 성별)
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="table-light fw-bold" style="vertical-align: middle;">아이디</td>
                                             <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;"
@@ -45,54 +51,56 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="table-light fw-bold" style="vertical-align: middle;">이름</td>
+                                            <td class="table-light fw-bold" style="vertical-align: middle;">회원구분</td>
                                             <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;"
-                                                th:text="${loginMember.info.name}">
-                                                이름
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-light fw-bold" style="vertical-align: middle;">생년월일</td>
-                                            <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;"
-                                                th:text="|${loginMember.info.rrn.substring(0, 6)}|">
-                                                생년월일
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-light fw-bold" style="vertical-align: middle;">전화번호</td>
-                                            <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
-                                                <input th:field="*{phoneNumber}" type="tel" id="phone-number" class="form-control"
-                                                placeholder="010-XXXX-XXXX" style="width: 250px;" required>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-light fw-bold" style="vertical-align: middle;">우편번호</td>
-                                            <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
-                                                <div class="row">
-                                                    <div class="input-group" style="width: 250px;">
-                                                        <input th:field="*{zipcode}" type="text" id="post-number" class="form-control" placeholder="05006"
-                                                            aria-describedby="addonPost" required readonly>
-                                                        <button class="btn btn-outline-primary" type = "button" id = "addonPost" onclick="postcode()">우편번호검색</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-light fw-bold" style="vertical-align: middle;">주소</td>
-                                            <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <input th:field="*{city}" type="text" id="address" class="form-control" placeholder="ex) 서울특별시 광진구 능동로" required readonly>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <input th:field="*{street}" type="text" id="detail-address" class="form-control" placeholder="상세 주소" />
-                                                    </div>
-                                                </div>
+                                                th:text="|${form.memberType} 회원|">
+                                                회원구분
                                             </td>
                                         </tr>
                                     </tbody>
                                     <!--하단에 굵은 줄-->
                                     <tfoot><td style="padding:0%"></td></tfoot>          
+                                </table>
+                                <br/><br/>
+                                <table class="table table-bordered">
+                                    <thead></thead>
+                                    <tbody>
+                                    <!--참고 vertical-align: middle 상하중앙정렬 height 표 폭 조절-->
+                                    <tr>
+                                        <td class="table-light fw-bold" style="vertical-align: middle;">*연락처</td>
+                                        <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
+                                            <input th:field="*{phoneNumber}" type="tel" id="phone-number" class="form-control"
+                                                   placeholder="010-XXXX-XXXX" style="width: 250px;" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-light fw-bold" style="vertical-align: middle;">*우편번호</td>
+                                        <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
+                                            <div class="row">
+                                                <div class="input-group" style="width: 250px;">
+                                                    <input th:field="*{zipcode}" type="text" id="post-number" class="form-control" placeholder="05006"
+                                                           aria-describedby="addonPost" required readonly>
+                                                    <button class="btn btn-outline-primary" type = "button" id = "addonPost" onclick="postcode()">우편번호검색</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-light fw-bold" style="vertical-align: middle;">*주소</td>
+                                        <td style="width: 530px; height: 60px; vertical-align: middle; padding: 2%;">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input th:field="*{city}" type="text" id="address" class="form-control" placeholder="ex) 서울특별시 광진구 능동로" required readonly>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input th:field="*{street}" type="text" id="detail-address" class="form-control" placeholder="상세 주소" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <!--하단에 굵은 줄-->
+                                    <tfoot><td style="padding:0%"></td></tfoot>
                                 </table>
                                 <!--테이블 end-->
 

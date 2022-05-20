@@ -2,7 +2,7 @@ package capstone.hospital.domain;
 
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
-import capstone.hospital.dto.InformationDto;
+import capstone.hospital.dto.InfoDto;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -41,8 +41,9 @@ public class Patient {
         }
     }
 
-    public void changeInfo(InformationDto informationDto) {
-        Address address = new Address(informationDto.getCity(), informationDto.getStreet(), informationDto.getZipcode());
-        info.changeInformation(informationDto.getPhoneNumber(), address);
+    public void changeInfo(InfoDto infoDto) {
+        Address address = new Address(infoDto.getCity(), infoDto.getStreet(), infoDto.getZipcode());
+        info.changeInformation(infoDto.getPhoneNumber(), address);
     }
 }
+

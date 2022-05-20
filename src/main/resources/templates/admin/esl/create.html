@@ -3,6 +3,22 @@
 <head th:replace="fragments/header :: header" />
 <head>
     <title>ESL 등록</title>
+    <style>
+        .name_search {
+            background-color: dodgerblue;
+            border: 1px solid dodgerblue;
+        }
+        .name_search:hover {
+            background-color: rgb(16, 134, 252);
+            border: 1px solid rgb(16, 134, 252);
+        }
+
+        .pre:hover {
+            background-color: #f4f4f4;
+            border: 1px solid #f4f4f4;
+        }
+
+    </style>
 </head>
 <body>
 <!-- Top -->
@@ -24,15 +40,23 @@
                                     <h2 class="card-title text-center fw-bold">ESL 등록</h2>
                                     <hr class="text-dark">
                                     <form method="post" th:action th:object="${form}">
+                                        <!--여기부터-->
 
                                         <div class="mb-4">
-                                            <label class="form-label" for="name">이름</label>
-                                            <input th:field="*{name}" class="form-control" type="text" id="name" />
+                                            <label class="form-label" for="doctor">이름</label>
+                                            <div class="input-group">
+                                                <input th:field="*{name}" type="text" id="doctor" class="form-control"
+                                                    placeholder="이름 입력">
+                                                <!--여기 바꾸고싶으면 paceholder 바꾸면됨-->
+                                                <button type="submit" class="btn btn-primary name_search"><i
+                                                        class="bi bi-search"></i></button>
+                                            </div>
                                         </div>
+                                        <!--여기까지 검색버튼 추가한부분-->
 
                                         <div class="mb-4">
                                             <label class="form-label" for="gender">진료과</label>
-                                            <input lass="form-control" type="text" id="gender" />
+                                            <input class="form-control" type="text" id="gender" />
                                         </div>
 
                                         <div class="mb-4">
@@ -46,9 +70,9 @@
                                         </div>
 
                                         <div class="mb-4 text-center">
-                                            <button class="btn btn-primary" type="button"
+                                            <button class="btn btn-primary name_search" type="button"
                                                 onclick="location.href = 'adminEslRegister.html'"
-                                                style="background-color:dodgerblue;width:85px; float: center;border: 1px solid dodgerblue;">등록</button>
+                                                style="width:85px; float: center;">등록</button>
                                         </div>
                                     </form>
                                 </div>
@@ -58,30 +82,15 @@
 
                     <!--이전 버튼-->
                     <div class="text-center mb-4">
-                        <button class="btn btn-light" type="button" onclick="location.href = 'adminEsl.html'"
+                        <button class="btn btn-light pre" type="button" onclick="location.href = 'adminEsl.html'"
                             style="width:85px; float: center;">이전</button>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container px-5">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-            <hr>
-            <p class="m-0 text-center text-white">서울특별시 광진구 능동로 206 세종대학교 대양 AI센터</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!--JS-->
-    <!--<script src = "../otherFunction.js"></script>-->
-    <script src="../pagiNation.js"></script>
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 
 </html>

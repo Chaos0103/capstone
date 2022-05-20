@@ -155,15 +155,37 @@
                         </div>
                         <div class="col-xl-3" style="margin-top:10px">
                             <label class="box-radio-input"><input type="radio" name="cp_item" value="옵션1"
-                                    th:field="${form.time}" th:value="|18:00|"><span>14:00</span></label>
+                                    th:field="${form.time}" th:value="|18:00|"><span>18:00</span></label>
                         </div>
                     </div>
                     <!--시간예약 끝-->
                     <!--예약신청 버튼-->
                     <button class=" btn btn-primary btn-lg"
                         style=" font-size:1.0em; width:110px; height:41px;margin-top:30px;float: right;background-color:#2d8be3;border: 1px solid #2d8be3;border-radius: 20px;"
-                       type = "submit">예약신청</button>
+                       type = "button" data-bs-toggle="modal" data-bs-target="#check">예약신청</button>
                     <!--예약신청 버튼 끝-->
+
+                    <!--모달 (회원 탈퇴시 경고창)-->
+                    <div class="modal fade" id="check" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="exampleModalLabel">예약확인</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-left">
+                                    예약하시겠습니까?
+                                </div>
+                                <!--회원 탈퇴 진행 버튼-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" class="btn btn-primary">확인</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     <!--달력/시간css-->
                     <!--css-->
                     <style type="text/css">
