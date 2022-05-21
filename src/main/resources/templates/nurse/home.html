@@ -8,24 +8,25 @@
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
 
-    <!--Side Bar And Table-->
+    <!--Side Bar-->
     <section>
         <div class="container-fluid">
             <div class="row flex-nowrap">
+
                 <!--sidebar-->
                 <div th:replace="fragments/nurse/sidebar :: sidebar" />
-                <!--Add Table-->
-                <div class="col py-3 container">
-                    <div class="text-center">
-                        <h1 class="fw-bold">간호사 메인 페이지</h1>
-                    </div>
+
+                <!--Add react-->
+                <div class="col py-3">
+                    <h3 style="font-weight:bold">간호사 페이지</h3>
+                    <h5>환자의 기본정보, 차트, 입원환자, 처방내역 을 관리합니다.</h5>
                 </div>
+
             </div>
         </div>
     </section>
-
+    <!--Side Bar End-->
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
-
 </html>

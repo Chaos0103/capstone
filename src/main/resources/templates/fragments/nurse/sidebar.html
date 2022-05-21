@@ -7,59 +7,66 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu">
             <li class="nav-item">
-                <a th:onclick="|location.href='@{/nurse}'|" class="nav-link align-middle px-0 text-white">
-                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">메인 페이지</span>
+                <a href="nurse.html" class="nav-link align-middle px-0 text-white">
+                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"
+                                                        style="font-weight:bold">메인 페이지</span>
                 </a>
             </li>
             <li>
                 <a href="#submenu1" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자 정보</span>
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자
+                                        기본정보</span>
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/patient}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">환자 조회</span></a>
+                        <a href="nurse_patientInfomation.html" class="nav-link px-0 text-white"> <span
+                                class="d-none d-sm-inline">환자 기본정보
+                                                등록</span></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#submenu2" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자 차트</span>
-                </a>
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자
+                                        차트</span></a>
                 <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/chart}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">환자 차트 조회</span></a>
+                        <a href="nurse_patientChart.html" class="nav-link px-0 text-white"> <span
+                                class="d-none d-sm-inline">환자 차트
+                                                등록</span></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#submenu3" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">입·퇴원 내역</span>
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">입원환자</span>
                 </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/in}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline fw-bold">입원 조회</span></a>
+                        <a href="nurse_Inpatient.html" class="nav-link px-0 text-white"> <span
+                                class="d-none d-sm-inline">입원환자
+                                                등록</span></a>
                     </li>
                     <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/out}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">퇴원 조회</span></a>
+                        <a href="nurse_byeInpatient.html" class="nav-link px-0 text-white"> <span
+                                class="d-none d-sm-inline">퇴원환자
+                                                등록</span></a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#submenu4" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">ESL</span>
-                </a>
+                    <i class="bi bi-eyedropper fs-3"></i> <span class="ms-1 d-none d-sm-inline">환자
+                                        처방내역</span> </a>
                 <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                     <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/esl}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">ESL 등록</span></a>
+                        <a href="nurse_prescription.html" class="nav-link px-0 text-white"> <span
+                                class="d-none d-sm-inline">환자 처방내역
+                                                등록</span></a>
                     </li>
                 </ul>
             </li>
@@ -67,4 +74,5 @@
         <hr>
     </div>
 </div>
+
 
