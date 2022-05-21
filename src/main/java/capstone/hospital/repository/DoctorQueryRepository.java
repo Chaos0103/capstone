@@ -55,14 +55,29 @@ public class DoctorQueryRepository {
     /**
      * 승인되지 않은 의사 조회
      */
-    public List<Doctor> notApproveDoctor(String name) {
+    public List<Doctor> notApproveDoctor(String name, int startIndex, int pageSize) {
         return queryFactory
                 .selectFrom(doctor)
                 .where(
                         nameEq(name),
                         doctor.approvalAdmin.isNull()
                 )
+                .offset(startIndex)
+                .limit(pageSize)
                 .fetch();
+    }
+
+    /**
+     * 승인되지 않은 의사 수
+     */
+    public int notApproveDoctorCnt(String name) {
+        return (int) queryFactory
+                .selectFrom(doctor)
+                .where(
+                        nameEq(name),
+                        doctor.approvalAdmin.isNull()
+                )
+                .stream().count();
     }
 
     /**

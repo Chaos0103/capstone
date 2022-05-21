@@ -163,7 +163,7 @@ public class JoinDoctorController {
         UploadFile attachFile = fileStore.storeFile(form.getFile());
         Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
-        Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank(), attachFile);
+        Doctor doctor = new Doctor(form.getLoginId(), form.getLoginPw(), form.getUniversity(), newInfo, form.getLicenseCode(), form.getMajor(), form.getRank(), attachFile);
         joinService.joinDoctor(doctor);
     }
 }

@@ -153,17 +153,9 @@
                                     <input type="text" id="detail-address" th:field="*{street}" class="form-control">
                                 </div>
 
-                                <!-- 사진 -->
-<!--                                <div class="mb-4">-->
-<!--                                    <label for="preview" class="form-label">미리보기</label>-->
-<!--                                    <img class="img-thumbnail form-control" accept="image/*" id="preview"-->
-<!--                                         alt="faceImage" style="width: 200px; height: 200px;"  readonly />-->
-<!--                                </div>-->
-
                                 <div class="mb-4">
                                     <label for="formFile" class="form-label"><strong>* 사진</strong></label>
                                     <div class = "input-group">
-<!--                                        <button class = "btn btn-outline-primary" id = "addonPhoto" type = "button" onclick="location.href = '#'">업로드</button>-->
                                         <input class="form-control" type="file" id="formFile" th:field="*{file}" aria-describedby="addonPhoto" multiple="multiple">
                                     </div>
                                 </div>
@@ -172,6 +164,11 @@
                                 <div class = "form-row mb-4">
                                     <label class = "form-label" for = "code"><strong>* 의사 면허 코드</strong></label>
                                     <input type="text" id="code" th:field="*{licenseCode}" class="form-control" th:errorclass="field-error">
+                                </div>
+
+                                <div class = "form-row mb-4">
+                                    <label class = "form-label" for = "uni"><strong>* 대학교</strong></label>
+                                    <input type="text" id="uni" th:field="*{university}" class="form-control" th:errorclass="field-error">
                                 </div>
 
                                 <div>

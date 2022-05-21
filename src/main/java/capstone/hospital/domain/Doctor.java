@@ -30,6 +30,7 @@ public class Doctor {
 
     private String loginId;
     private String loginPw;
+    private String university;
 
     @Embedded
     private Information info;
@@ -45,10 +46,11 @@ public class Doctor {
 
     private UploadFile profile;
 
-    public Doctor(String loginId, String loginPw, Information info, String licenseCode, Major major, DoctorRank rank, UploadFile profile) {
+    public Doctor(String loginId, String loginPw, String university, Information info, String licenseCode, Major major, DoctorRank rank, UploadFile profile) {
         this.approvalAdmin = null;
         this.loginId = loginId;
         this.loginPw = loginPw;
+        this.university = university;
         this.info = info;
         this.licenseCode = licenseCode;
         this.major = major;

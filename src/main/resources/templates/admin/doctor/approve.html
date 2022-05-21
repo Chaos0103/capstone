@@ -9,23 +9,23 @@
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
 
-    <!--Side Bar And Table-->
-    <section>
-        <div class="container-fluid">
-            <div class="row flex-nowrap">
-                <!--sidebar-->
-                <div th:replace="fragments/admin/sidebar :: sidebar" />
+<!--Side Bar And Table-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/admin/sidebar :: sidebar" />
 
                 <!--Add Table-->
-                <div class="col py-3 container">
-                    <h2 class="text-center fw-bold mb-2">의사 승인</h2>
-
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <h2 class=" text-center fw-bold mb-2">의사승인</h2>
                     <!--검색 form-->
                     <div class="d-flex justify-content-start">
                         <div class="mb-4 col-lg-3">
                             <form class="" method="get">
                                 <div class="input-group form-floting">
-                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control" placeholder="의사 검색"/>
+                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control"
+                                        placeholder="의사 검색" />
                                     <button class="btn btn-outline-primary" type="submit">검색</button>
                                 </div>
                             </form>
@@ -33,57 +33,70 @@
                     </div>
 
                     <!--Table List {1}-->
-                    <table class="table table-bordered table-hover" id = "patientDetail">
-                        <thead class = "table-dark">
+                    <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
+                        <thead class="table-dark">
                             <tr>
                                 <th scope="col" style="width: 200px;">의사 면허 번호</th>
                                 <th scope="col" style="width: 200px;">이름</th>
                                 <th scope="col" style="width: 200px;">진료과</th>
                                 <th scope="col">직급</th>
-                                <th scope="col" style="width: 150px;">승인</th>
+                                <th scope="col" style="width: 150px;">대학교</th>
+                                <th scope="col" style="width: 100px;">승인</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1"
-                            th:each="doctor:${doctors}">
+                            <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
+                                th:each="doctor:${doctors}">
                                 <td th:text="${doctor.licenseCode}">면허번호</td>
                                 <td th:text="${doctor.info.name}">이름</td>
                                 <td th:text="${doctor.major.description}">전공</td>
                                 <td th:text="${doctor.rank.description}">직책</td>
+                                <td th:text="${doctor.university}">대학교</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm" type="button"
                                             th:onclick="|location.href='@{/admin/doctor/approve/{doctorId} (doctorId=${doctor.getId()})}'|">승인</button>
                                 </td>
-                            </tr>   
+                            </tr>
                         </tbody>
-                    </table> 
+                    </table>
 
                     <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
                     <div class="d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination" id = page>
-                    
-                                <!--이전 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                -->
-                    
-                                <!--페이지 표시 버튼-->
-                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
-                                -->
+                            <ul class="pagination" id=page>
 
-                                <!--다음 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                -->
+                                <nav aria-label="Page navigation example ">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{/admin/doctor/approve?page=1}" aria-label="Previous">
+                                                <span aria-hidden="true">처음</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{/admin/doctor/approve?page={page} (page = ${pagination.prevBlock})}" aria-label="Previous">
+                                                <span aria-hidden="true">이전</span>
+                                            </a>
+                                        </li>
+                                        <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+                                            <li class="page-item"
+                                                th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                                                th:each="pageButton : ${#numbers.sequence(start, end)}">
+                                                <a class="page-link" th:href="@{/admin/doctor/approve?page={page} (page = ${pageButton})}" th:text="${pageButton}"></a>
+                                            </li>
+                                        </th:block>
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{?page={page} (page = ${pagination.nextBlock})}" aria-label="Next">
+                                                <span aria-hidden="true">다음</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" th:href="@{?page={page} (page = ${pagination.totalPageCnt})}" aria-label="Previous">
+                                                <span aria-hidden="true">끝</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
                             </ul>
                         </nav>
                     </div>
@@ -96,4 +109,5 @@
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
+
 </html>

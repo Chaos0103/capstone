@@ -34,8 +34,8 @@ public class AdminService {
     /**
      * 승인 대기 의사 조회
      */
-    public List<Doctor> waitDoctor(String name) {
-        return doctorQueryRepository.notApproveDoctor(name);
+    public List<Doctor> waitDoctor(String name, int startIndex, int pageSize) {
+        return doctorQueryRepository.notApproveDoctor(name, startIndex, pageSize);
     }
 
     /**
@@ -56,6 +56,10 @@ public class AdminService {
     @Transactional
     public void deleteDoctor(Long doctorId) {
         doctorRepository.deleteById(doctorId);
+    }
+
+    public int totalCnt(String name) {
+        return (int) doctorQueryRepository.notApproveDoctorCnt(name);
     }
 
     /**

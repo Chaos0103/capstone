@@ -8,23 +8,24 @@
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
 
-    <!--Side Bar And Table-->
-    <section>
-        <div class="container-fluid">
-            <div class="row flex-nowrap">
-                <!--sidebar-->
-                <div th:replace="fragments/admin/sidebar :: sidebar" />
+<!--Side Bar And Table-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/admin/sidebar :: sidebar" />
 
                 <!--Add Table-->
-                <div class="col py-3 container">
-                    <h2 class="text-center fw-bold mb-2">간호사 조회</h2>
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <h2 class="text-center fw-bold mb-2">간호사조회</h2>
 
                     <!--검색 form-->
                     <div class="d-flex justify-content-start">
                         <div class="mb-4 col-lg-3">
                             <form class="" method="post">
                                 <div class="input-group form-floting">
-                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control" placeholder="간호사 검색"/>
+                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control"
+                                        placeholder="간호사 검색" />
                                     <button class="btn btn-outline-primary" type="submit">검색</button>
                                 </div>
                             </form>
@@ -32,39 +33,44 @@
                     </div>
 
                     <!--Table List {1}-->
-                    <table class="table table-bordered table-hover" id = "patientDetail">
-                        <thead class = "table-dark">
+                    <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
+                        <thead class="table-dark">
                             <tr>
                                 <th scope="col" style="width: 200px;">간호사 면허 번호</th>
                                 <th scope="col">이름</th>
                                 <th scope="col">성별</th>
                                 <th scope="col">전화번호</th>
                                 <th scope="col">진료과</th>
-                                <th scope="col">수정 및 삭제</th>
+                                <th scope="col">수정</th>
+                                <th scope="col">삭제</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="nurse:${nurses}" class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1">
-                                <td th:text="${nurse.licenseCode}">면허번호</td>
-                                <td th:text="${nurse.info.name}">이름</td>
-                                <td th:text="${nurse.info.sex.description}">성별</td>
-                                <td th:text="${nurse.info.phoneNumber}">전화번호</td>
-                                <td th:text="${nurse.major.description}">전공</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" type = "button"
-                                            th:onclick="|location.href='@{/admin/nurse/list/{nurseId}/edit (nurseId=${nurse.getId()})}'|">수정</button>
-                                    <button class="btn btn-danger btn-sm" type= "button"
-                                            th:onclick="|location.href='@{/admin/nurse/list/{nurseId}/delete (nurseId=${nurse.getId()})}'|">삭제</button>
-                                </td>
-                            </tr>
+                        <tr th:each="nurse:${nurses}" class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1">
+                            <td th:text="${nurse.licenseCode}">면허번호</td>
+                            <td th:text="${nurse.info.name}">이름</td>
+                            <td th:text="${nurse.info.sex.description}">성별</td>
+                            <td th:text="${nurse.info.phoneNumber}">전화번호</td>
+                            <td th:text="${nurse.major.description}">전공</td>
+                            <td>
+                                <h6 style="font-weight:bold;display:inline">
+                                    <i class="bi bi-pencil-fill" href="#" th:onclick="|location.href='@{/admin/nurse/list/{nurseId}/edit (nurseId=${nurse.getId()})}'|" style="color:dodgerblue"></i>
+                                </h6>
+                            </td>
+                            <td>
+                                <h6 style="font-weight:bold;display:inline">
+                                    <i class="bi bi-trash-fill" href="#" th:onclick="|location.href='@{/admin/nurse/list/{nurseId}/delete (nurseId=${nurse.getId()})}'|" style="color:crimson"></i>
+                                </h6>
+                            </td>
+                        </tr>
                         </tbody>
-                    </table> 
+                    </table>
 
                     <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
                     <div class="d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination" id = page>
-                    
+                            <ul class="pagination" id=page>
+
                                 <!--이전 버튼-->
                                 <!--
                                 <li class="page-item">
@@ -73,7 +79,7 @@
                                     </a>
                                 </li>
                                 -->
-                    
+
                                 <!--페이지 표시 버튼-->
                                 <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
                                 -->
@@ -93,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </section> 
+    </section>
 
     <!-- Footer-->
     <footer class="py-5 bg-dark">

@@ -30,12 +30,12 @@ public class JoinDoctorForm {
     private String zipcode;
     @NotBlank
     private String licenseCode;
-
-    private MultipartFile file;
-    //    @NotBlank
-    private Major major;
-//    @NotBlank
-    private DoctorRank rank;
     @NotBlank
     private String checkPw;
+    @NotBlank
+    private String university;
+
+    private MultipartFile file;
+    private Major major;
+    private DoctorRank rank;
 }

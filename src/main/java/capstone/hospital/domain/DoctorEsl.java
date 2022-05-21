@@ -19,7 +19,7 @@ public class DoctorEsl {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    private String room;
+    private String roomInfo;
 
     // 상태(휴가, 내래, 외래, 수술 등) 추가 고려
 }

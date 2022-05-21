@@ -3,15 +3,13 @@ package capstone.hospital.controller.admin;
 import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.controller.admin.form.SearchForm;
 import capstone.hospital.domain.Admin;
+import capstone.hospital.dto.Pagination;
 import capstone.hospital.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -29,9 +27,17 @@ public class DoctorPartController {
     }
 
     @GetMapping("/approve")
-    public String approvalDoctor(@Login Object loginMember, @ModelAttribute("form") SearchForm form, Model model) {
+    public String approvalDoctor(@Login Object loginMember, @ModelAttribute("form") SearchForm form, @RequestParam(defaultValue = "1") int page, Model model) {
         model.addAttribute("loginMember", loginMember);
-        model.addAttribute("doctors", adminService.waitDoctor(form.getName()));
+
+        int total = adminService.totalCnt(form.getName());
+        Pagination pagination = new Pagination(total, page);
+        log.info("page={}", page);
+        int startIndex = pagination.getStartIndex();
+        int pageSize = pagination.getPageSize();
+        log.info("page start={}, size={}", startIndex, pageSize);
+        model.addAttribute("doctors", adminService.waitDoctor(form.getName(), startIndex, pageSize));
+        model.addAttribute("pagination", pagination);
         return "admin/doctor/approve";
     }
 
