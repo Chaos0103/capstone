@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/disease")
-public class DiseasePartController {
+public class
+DiseasePartController {
 
     private final DiseaseService diseaseService;
 
@@ -58,6 +59,4 @@ public class DiseasePartController {
         diseaseService.save(form.getCode(), form.getName());
         return "redirect:/admin/disease";
     }
-
-
 }

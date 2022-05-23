@@ -3,9 +3,7 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Admin;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Nurse;
-import capstone.hospital.repository.DoctorQueryRepository;
 import capstone.hospital.repository.DoctorRepository;
-import capstone.hospital.repository.NurseQueryRepository;
 import capstone.hospital.repository.NurseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,21 +19,19 @@ public class AdminService {
 
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
-    private final DoctorQueryRepository doctorQueryRepository;
-    private final NurseQueryRepository nurseQueryRepository;
 
     /**
      * 승인된 의사 조회
      */
     public List<Doctor> readDoctor(String name) {
-        return doctorQueryRepository.approveDoctor(name);
+        return doctorRepository.approveDoctor(name);
     }
 
     /**
      * 승인 대기 의사 조회
      */
     public List<Doctor> waitDoctor(String name, int startIndex, int pageSize) {
-        return doctorQueryRepository.notApproveDoctor(name, startIndex, pageSize);
+        return doctorRepository.notApproveDoctor(name, startIndex, pageSize);
     }
 
     /**
@@ -59,21 +55,21 @@ public class AdminService {
     }
 
     public int totalCnt(String name) {
-        return (int) doctorQueryRepository.notApproveDoctorCnt(name);
+        return (int) doctorRepository.notApproveDoctorCnt(name);
     }
 
     /**
      * 승인된 간호사 조회
      */
     public List<Nurse> readNurse(String name) {
-        return nurseQueryRepository.approveNurse(name);
+        return nurseRepository.approveNurse(name);
     }
 
     /**
      * 승인 대기 간호사 조회
      */
     public List<Nurse> waitNurse(String name) {
-        return nurseQueryRepository.notApproveNurse(name);
+        return nurseRepository.notApproveNurse(name);
     }
 
     /**

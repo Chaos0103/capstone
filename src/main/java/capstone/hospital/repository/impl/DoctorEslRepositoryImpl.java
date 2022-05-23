@@ -1,8 +1,7 @@
-package capstone.hospital.repository;
+package capstone.hospital.repository.impl;
 
-import capstone.hospital.domain.ATCCode;
 import capstone.hospital.domain.DoctorEsl;
-import capstone.hospital.domain.QDoctorEsl;
+import capstone.hospital.repository.custom.DoctorEslRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -10,25 +9,25 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.hospital.domain.QATCCode.aTCCode;
 import static capstone.hospital.domain.QDoctorEsl.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
-public class DoctorEslQueryRepository {
+public class DoctorEslRepositoryImpl implements DoctorEslRepositoryCustom {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
-    public DoctorEslQueryRepository(EntityManager em) {
-        this.em = em;
+    public DoctorEslRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Override
     public List<DoctorEsl> findByName(String name) {
         return queryFactory
                 .selectFrom(doctorEsl)
-                .where(nameEq(name))
+                .where(
+                        nameEq(name)
+                )
                 .fetch();
     }
 

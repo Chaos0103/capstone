@@ -35,4 +35,13 @@ public class Report {
     @OneToMany(mappedBy = "report")
     private List<Prescription> prescriptions = new ArrayList<>();
 
+    public Report() {
+    }
+
+    public Report(Patient patient, Doctor doctor, KCDCode kcdCode) {
+        this.patient = patient;
+        this.doctor = doctor;
+        this.kcdCode = kcdCode;
+        this.date = LocalDateTime.now();
+    }
 }

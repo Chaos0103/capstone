@@ -61,17 +61,17 @@ public class TestDataInit {
         Information info9 = new Information("장겨울", "990109", "2000000", "01000000009", address);
         Information info10 = new Information("추민하", "990110", "2000000", "01000000010", address);
 
-        Doctor doctor1 = new Doctor("doctor1", "1234", "서울대학교", info1, "1", Major.GS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor1.png", "/file/doctor1.png"));
-        Doctor doctor2 = new Doctor("doctor2", "1234", "서울대학교", info2, "2", Major.NS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor2.png", "/file/doctor2.png"));
-        Doctor doctor3 = new Doctor("doctor3", "1234", "서울대학교", info3, "3", Major.CS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor3.png", "/file/doctor3.png"));
-        Doctor doctor4 = new Doctor("doctor4", "1234", "서울대학교", info4, "4", Major.PDS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor4.png", "/file/doctor4.png"));
-        Doctor doctor5 = new Doctor("doctor5", "1234", "서울대학교", info5, "5", Major.OBGY, DoctorRank.PROFESSOR, new UploadFile("/file/doctor5.png", "/file/doctor5.png"));
+        Doctor doctor1 = new Doctor("doctor1", "1234", "서울대학교", info1, "23124", Major.GS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor1.png", "/file/doctor1.png"));
+        Doctor doctor2 = new Doctor("doctor2", "1234", "서울대학교", info2, "21421", Major.NS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor2.png", "/file/doctor2.png"));
+        Doctor doctor3 = new Doctor("doctor3", "1234", "서울대학교", info3, "53524", Major.CS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor3.png", "/file/doctor3.png"));
+        Doctor doctor4 = new Doctor("doctor4", "1234", "서울대학교", info4, "43251", Major.PDS, DoctorRank.PROFESSOR, new UploadFile("/file/doctor4.png", "/file/doctor4.png"));
+        Doctor doctor5 = new Doctor("doctor5", "1234", "서울대학교", info5, "34789", Major.OBGY, DoctorRank.PROFESSOR, new UploadFile("/file/doctor5.png", "/file/doctor5.png"));
 
-        Doctor doctor6 = new Doctor("doctor6", "1234", "서울대학교", info6, "6", Major.CS, DoctorRank.FELLOW, new UploadFile("/file/doctor6.png", "/file/doctor6.png"));
-        Doctor doctor7 = new Doctor("doctor7", "1234", "서울대학교", info7, "7", Major.NS, DoctorRank.FELLOW, new UploadFile("/file/doctor7.png", "/file/doctor7.png"));
-        Doctor doctor8 = new Doctor("doctor8", "1234", "서울대학교", info8, "8", Major.NS, DoctorRank.FELLOW, new UploadFile("/file/doctor8.png", "/file/doctor8.png"));
-        Doctor doctor9 = new Doctor("doctor9", "1234", "서울대학교", info9, "9", Major.GS, DoctorRank.FELLOW, new UploadFile("/file/doctor9.png", "/file/doctor9.png"));
-        Doctor doctor10 = new Doctor("doctor10", "1234", "서울대학교", info10, "10", Major.OBGY, DoctorRank.FELLOW, new UploadFile("/file/doctor10.png", "/file/doctor10.png"));
+        Doctor doctor6 = new Doctor("doctor6", "1234", "서울대학교", info6, "21345", Major.CS, DoctorRank.FELLOW, new UploadFile("/file/doctor6.png", "/file/doctor6.png"));
+        Doctor doctor7 = new Doctor("doctor7", "1234", "서울대학교", info7, "43256", Major.NS, DoctorRank.FELLOW, new UploadFile("/file/doctor7.png", "/file/doctor7.png"));
+        Doctor doctor8 = new Doctor("doctor8", "1234", "서울대학교", info8, "12365", Major.NS, DoctorRank.FELLOW, new UploadFile("/file/doctor8.png", "/file/doctor8.png"));
+        Doctor doctor9 = new Doctor("doctor9", "1234", "서울대학교", info9, "42363", Major.GS, DoctorRank.FELLOW, new UploadFile("/file/doctor9.png", "/file/doctor9.png"));
+        Doctor doctor10 = new Doctor("doctor10", "1234", "서울대학교", info10, "43263", Major.OBGY, DoctorRank.FELLOW, new UploadFile("/file/doctor10.png", "/file/doctor10.png"));
 
         joinService.joinDoctor(doctor1);
         joinService.joinDoctor(doctor2);

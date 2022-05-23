@@ -17,9 +17,6 @@ public class LoginService {
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
     private final AdminRepository adminRepository;
-    private final PatientQueryRepository patientQueryRepository;
-    private final DoctorQueryRepository doctorQueryRepository;
-    private final NurseQueryRepository nurseQueryRepository;
 
     public Object login(String loginId, String loginPw) {
 
@@ -46,7 +43,7 @@ public class LoginService {
     }
 
     public String findLoginId(String name, String phoneNumber) {
-        List<String> loginId = patientQueryRepository.findLoginId(name, phoneNumber);
+        List<String> loginId = patientRepository.findLoginId(name, phoneNumber);
         // 수정중
 //        if (loginId.isEmpty()) {
 //            List<Object> test = doctorRepository.findByInfoNameAndInfoPhoneNumber(name, phoneNumber);
@@ -54,7 +51,7 @@ public class LoginService {
 //            loginId.add(doctor.getLoginId());
 //        }
         if (loginId.isEmpty()) {
-            loginId = nurseQueryRepository.findLoginId(name, phoneNumber);
+            loginId = nurseRepository.findLoginId(name, phoneNumber);
         }
         if (loginId.isEmpty()) {
             throw new LoginException("존재하지 않는 회원입니다.");
@@ -63,12 +60,12 @@ public class LoginService {
     }
 
     public String findLoginPw(String name, String phoneNumber, String loginId) {
-        List<String> loginPw = patientQueryRepository.findLoginPw(name, phoneNumber, loginId);
+        List<String> loginPw = patientRepository.findLoginPw(name, phoneNumber, loginId);
         if (loginPw.isEmpty()) {
-            loginPw = doctorQueryRepository.findLoginPw(name, phoneNumber, loginId);
+            loginPw = doctorRepository.findLoginPw(name, phoneNumber, loginId);
         }
         if (loginPw.isEmpty()) {
-            loginPw = nurseQueryRepository.findLoginPw(name, phoneNumber, loginId);
+            loginPw = nurseRepository.findLoginPw(name, phoneNumber, loginId);
         }
         if (loginPw.isEmpty()) {
             throw new LoginException("존재하지 않는 회원입니다.");

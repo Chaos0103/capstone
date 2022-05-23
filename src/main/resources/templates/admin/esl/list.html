@@ -22,9 +22,9 @@
                     <!--검색 form-->
                     <div class="d-flex justify-content-start">
                         <div class="mb-4 col-lg-3">
-                            <form class="" method="post">
+                            <form class="" method="get">
                                 <div class="input-group form-floting">
-                                    <input type="text" id="searchPatientInfo" class="form-control"
+                                    <input type="text" id="searchPatientInfo" class="form-control" th:field="${form.name}"
                                         placeholder="의사 검색" />
                                     <button class="btn btn-outline-primary" type="submit">검색</button>
                                 </div>
@@ -46,26 +46,30 @@
                                 <th scope="col">이름</th>
                                 <th scope="col">진료과</th>
                                 <th scope="col">직급</th>
+                                <th scope="col">대학교</th>
                                 <th scope="col">연락처</th>
+                                <th scope="col">진료실</th>
                                 <th scope="col">수정</th>
                                 <th scope="col">삭제</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="accordion-toggle" data-bs-toggle="collapse"
-                                data-bs-target="#doctorPatientDetail1">
-                                <td>김철수</td>
-                                <td>정형외과</td>
-                                <td>교수</td>
-                                <td>010-1234-2345</td>
+                            <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
+                            th:each="data:${list}">
+                                <th th:text="${data.name}">이름</th>
+                                <th th:text="${data.major}">진료과</th>
+                                <th th:text="${data.rank}">직급</th>
+                                <th th:text="${data.university}">대학교</th>
+                                <th th:text="${data.phoneNumber}">연락처</th>
+                                <th th:text="${data.room}">진료실</th>
                                 <td>
                                     <h6 style="font-weight:bold;display:inline"><i class="bi bi-pencil-fill" href="#"
-                                            onclick="" style="color:dodgerblue"></i>
+                                        th:onclick="|location.href='@{/admin/esl/{eslId}/edit (eslId=${data.getId()})}'|" style="color:dodgerblue"></i>
                                     </h6>
                                 </td>
                                 <td>
                                     <h6 style="font-weight:bold;display:inline"><i class="bi bi-trash-fill" href="#"
-                                            onclick="" style="color:crimson"></i>
+                                        th:onclick="|location.href='@{/admin/esl/{eslId}/delete (eslId=${data.getId()})}'|" style="color:crimson"></i>
                                     </h6>
                                 </td>
                             </tr>

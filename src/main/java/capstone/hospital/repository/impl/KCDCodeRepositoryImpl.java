@@ -1,7 +1,7 @@
-package capstone.hospital.repository;
+package capstone.hospital.repository.impl;
 
-import capstone.hospital.domain.ATCCode;
-import capstone.hospital.domain.QATCCode;
+import capstone.hospital.domain.KCDCode;
+import capstone.hospital.repository.custom.KCDCodeRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -9,29 +9,27 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.hospital.domain.QATCCode.*;
-import static capstone.hospital.domain.QDoctor.doctor;
+import static capstone.hospital.domain.QKCDCode.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
-public class ATCCodeQueryRepository {
+public class KCDCodeRepositoryImpl implements KCDCodeRepositoryCustom {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
-    public ATCCodeQueryRepository(EntityManager em) {
-        this.em = em;
+    public KCDCodeRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    public List<ATCCode> findByName(String name) {
+    @Override
+    public List<KCDCode> findByName(String name) {
         return queryFactory
-                .selectFrom(aTCCode)
+                .selectFrom(kCDCode)
                 .where(nameEq(name))
                 .fetch();
     }
 
     private Predicate nameEq(String name) {
-        return hasText(name) ? aTCCode.name.eq(name) : null;
+        return hasText(name) ? kCDCode.name.eq(name) : null;
     }
 }

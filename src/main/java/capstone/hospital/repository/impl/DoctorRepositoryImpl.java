@@ -1,31 +1,30 @@
-package capstone.hospital.repository;
+package capstone.hospital.repository.impl;
 
 import capstone.hospital.controller.patient.form.SearchForm;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.enumtype.Major;
+import capstone.hospital.repository.custom.DoctorRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.print.Doc;
 import java.util.List;
 
 import static capstone.hospital.domain.QDoctor.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
-public class DoctorQueryRepository {
+public class DoctorRepositoryImpl implements DoctorRepositoryCustom {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
-    public DoctorQueryRepository(EntityManager em) {
-        this.em = em;
+    public DoctorRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Override
     public List<String> findLoginId(String name, String phoneNumber) {
         return queryFactory
                 .select(doctor.loginId)
@@ -34,6 +33,7 @@ public class DoctorQueryRepository {
                 .fetch();
     }
 
+    @Override
     public List<String> findLoginPw(String name, String phoneNumber, String loginId) {
         return queryFactory
                 .select(doctor.loginPw)
@@ -42,6 +42,7 @@ public class DoctorQueryRepository {
                 .fetch();
     }
 
+    @Override
     public List<Doctor> searchByDoctor(SearchForm form) {
         return queryFactory
                 .selectFrom(doctor)
@@ -55,6 +56,7 @@ public class DoctorQueryRepository {
     /**
      * 승인되지 않은 의사 조회
      */
+    @Override
     public List<Doctor> notApproveDoctor(String name, int startIndex, int pageSize) {
         return queryFactory
                 .selectFrom(doctor)
@@ -70,6 +72,7 @@ public class DoctorQueryRepository {
     /**
      * 승인되지 않은 의사 수
      */
+    @Override
     public int notApproveDoctorCnt(String name) {
         return (int) queryFactory
                 .selectFrom(doctor)
@@ -83,6 +86,7 @@ public class DoctorQueryRepository {
     /**
      * 승인된 의사 조회
      */
+    @Override
     public List<Doctor> approveDoctor(String name) {
         return queryFactory
                 .selectFrom(doctor)

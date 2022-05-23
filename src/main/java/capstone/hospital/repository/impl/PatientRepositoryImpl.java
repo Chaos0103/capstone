@@ -1,6 +1,6 @@
-package capstone.hospital.repository;
+package capstone.hospital.repository.impl;
 
-import capstone.hospital.domain.QPatient;
+import capstone.hospital.repository.custom.PatientRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -11,29 +11,39 @@ import static capstone.hospital.domain.QPatient.*;
 
 
 @Repository
-public class PatientQueryRepository {
+public class PatientRepositoryImpl implements PatientRepositoryCustom {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
-    public PatientQueryRepository(EntityManager em) {
-        this.em = em;
+    public PatientRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Override
     public List<String> findLoginId(String name, String phoneNumber) {
         return queryFactory
                 .select(patient.loginId)
                 .from(patient)
-                .where(patient.info.name.eq(name), patient.info.phoneNumber.eq(phoneNumber))
+                .where(
+                        patient.info.name.eq(name),
+                        patient.info.phoneNumber.eq(phoneNumber)
+                )
                 .fetch();
     }
 
+    @Override
     public List<String> findLoginPw(String name, String phoneNumber, String loginId) {
         return queryFactory
                 .select(patient.loginPw)
                 .from(patient)
-                .where(patient.info.name.eq(name), patient.info.phoneNumber.eq(phoneNumber), patient.loginId.eq(loginId))
+                .where(
+                        patient.info.name.eq(name),
+                        patient.info.phoneNumber.eq(phoneNumber),
+                        patient.loginId.eq(loginId)
+                )
                 .fetch();
     }
+
+
+
 }

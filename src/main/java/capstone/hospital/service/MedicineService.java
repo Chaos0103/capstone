@@ -2,7 +2,6 @@ package capstone.hospital.service;
 
 import capstone.hospital.domain.ATCCode;
 import capstone.hospital.domain.enumtype.ATCType;
-import capstone.hospital.repository.ATCCodeQueryRepository;
 import capstone.hospital.repository.ATCCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,9 @@ import java.util.Optional;
 public class MedicineService {
 
     private final ATCCodeRepository atcCodeRepository;
-    private final ATCCodeQueryRepository atcCodeQueryRepository;
 
     public List<ATCCode> list(String name) {
-        return atcCodeQueryRepository.findByName(name);
+        return atcCodeRepository.findByName(name);
     }
 
     public ATCCode findEditCode(String code) {

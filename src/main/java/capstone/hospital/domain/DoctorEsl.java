@@ -22,4 +22,18 @@ public class DoctorEsl {
     private String roomInfo;
 
     // 상태(휴가, 내래, 외래, 수술 등) 추가 고려
+
+    public DoctorEsl() {
+    }
+
+    public DoctorEsl(Doctor doctor, String roomInfo) {
+        this.doctor = doctor;
+        this.roomInfo = roomInfo;
+    }
+
+    //== 비즈니스 로직 ==//
+    public void update(Doctor doctor, String roomInfo) {
+        this.doctor = doctor;
+        this.roomInfo = roomInfo;
+    }
 }

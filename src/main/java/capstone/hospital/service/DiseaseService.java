@@ -1,7 +1,6 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.KCDCode;
-import capstone.hospital.repository.KCDCodeQueryRepository;
 import capstone.hospital.repository.KCDCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +15,9 @@ import java.util.Optional;
 public class DiseaseService {
 
     private final KCDCodeRepository kcdCodeRepository;
-    private final KCDCodeQueryRepository kcdCodeQueryRepository;
 
     public List<KCDCode> list(String name) {
-        return kcdCodeQueryRepository.findByName(name);
+        return kcdCodeRepository.findByName(name);
     }
 
     /**

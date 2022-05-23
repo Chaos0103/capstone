@@ -1,7 +1,7 @@
-package capstone.hospital.repository;
+package capstone.hospital.repository.impl;
 
 import capstone.hospital.domain.Nurse;
-import capstone.hospital.domain.QNurse;
+import capstone.hospital.repository.custom.NurseRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -9,21 +9,19 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static capstone.hospital.domain.QDoctor.doctor;
 import static capstone.hospital.domain.QNurse.*;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
-public class NurseQueryRepository {
+public class NurseRepositoryImpl implements NurseRepositoryCustom {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
-    public NurseQueryRepository(EntityManager em) {
-        this.em = em;
+    public NurseRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Override
     public List<String> findLoginId(String name, String phoneNumber) {
         return queryFactory
                 .select(nurse.loginId)
@@ -32,6 +30,7 @@ public class NurseQueryRepository {
                 .fetch();
     }
 
+    @Override
     public List<String> findLoginPw(String name, String phoneNumber, String loginId) {
         return queryFactory
                 .select(nurse.loginPw)
@@ -43,6 +42,7 @@ public class NurseQueryRepository {
     /**
      * 승인된 간호사 조회
      */
+    @Override
     public List<Nurse> approveNurse(String name) {
         return queryFactory
                 .selectFrom(nurse)
@@ -56,6 +56,7 @@ public class NurseQueryRepository {
     /**
      *
      */
+    @Override
     public List<Nurse> notApproveNurse(String name) {
         return queryFactory
                 .selectFrom(nurse)
