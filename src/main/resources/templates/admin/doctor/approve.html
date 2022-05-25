@@ -36,26 +36,133 @@
                     <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col" style="width: 200px;">의사 면허 번호</th>
-                                <th scope="col" style="width: 200px;">이름</th>
-                                <th scope="col" style="width: 200px;">진료과</th>
+                                <th scope="col" style="width: 200px;">의사면허번호</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">성별</th>
+                                <th scope="col">대학교</th>
+                                <th scope="col">전화번호</th>
+                                <th scope="col">진료과</th>
                                 <th scope="col">직급</th>
-                                <th scope="col" style="width: 150px;">대학교</th>
-                                <th scope="col" style="width: 100px;">승인</th>
+                                <th scope="col">세부정보</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
                                 th:each="doctor:${doctors}">
-                                <td th:text="${doctor.licenseCode}">면허번호</td>
-                                <td th:text="${doctor.info.name}">이름</td>
-                                <td th:text="${doctor.major.description}">전공</td>
-                                <td th:text="${doctor.rank.description}">직책</td>
+                                <td th:text="${doctor.code}">면허번호</td>
+                                <td th:text="${doctor.name}">이름</td>
+                                <td th:text="${doctor.sex}">성별</td>
                                 <td th:text="${doctor.university}">대학교</td>
+                                <td th:text="${doctor.phoneNumber}">전화번호</td>
+                                <td th:text="${doctor.major}">진료과</td>
+                                <td th:text="${doctor.rank}">직급</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm" type="button"
-                                            th:onclick="|location.href='@{/admin/doctor/approve/{doctorId} (doctorId=${doctor.getId()})}'|">승인</button>
+                                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                                            th:data-bs-target="'#staticBackdrop' + ${doctor.id}">세부정보</button>
                                 </td>
+                                <div class="modal fade" th:id="'staticBackdrop' + ${doctor.id}" data-bs-backdrop="static" data-bs-keyboard="false"
+                                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!--모달창내용-->
+                                                <div style="border-left:4px solid rgb(193 223 255);">
+                                                    <h6 class="mb-2" style="margin-top:10px;margin-left:6px">기본 정보</h6>
+                                                </div>
+
+                                                <div class="input-group mb-0 ">
+                                        <span class="input-group-text patient" id="basic-addon1"
+                                              style="width: 105px;">의사 면허번호</span>
+                                                    <span th:text="${doctor.code}" class="form-control patient patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+                                                    <img th:src="${doctor.getFile().getStoreFileName()}" width="145" height="150" alt="photo"
+                                                         style="float : right;border:3px solid rgb(206 212 218);">
+
+                                                </div>
+
+                                                <div class="input-group mb-0" style="width: 322px;margin-top:-113px">
+                                        <span class="input-group-text patient" id="basic-addon1"
+                                              style="width: 105px;">이름</span>
+                                                    <span th:text="${doctor.name}" size="100" class="form-control patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+                                                </div>
+
+                                                <div class="input-group mb-0" style="width: 322px;">
+                                        <span class=" input-group-text patient" id="basic-addon1"
+                                              style="width: 105px;">성별</span>
+                                                    <span th:text="${doctor.sex}" class="form-control patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+
+                                                </div>
+                                                <div class="input-group mb-0" style="width: 322px;">
+                                        <span class="input-group-text patient" id="basic-addon1"
+                                              style="width: 105px;">전화번호</span>
+                                                    <span th:text="${doctor.phoneNumber}" class="form-control patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+                                                </div>
+
+                                                <div class="input-group mb-0">
+                                        <span class="input-group-text patient" id="basic-addon1"
+                                              style="width: 105px;">진료과</span>
+                                                    <span th:text="${doctor.major}" class="form-control patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+                                                    <span class="input-group-text patient" id="basic-addon1"
+                                                          style="width: 105px;">직급</span>
+                                                    <span th:text="${doctor.rank}" class="form-control patient1"
+                                                          aria-label="Username" aria-describedby="basic-addon1"></span>
+
+                                                </div>
+                                                <!--기본정보css-->
+                                                <style>
+                                                    .patient {
+                                                        height: 37.5px;
+                                                        font-size: 13px;
+                                                        border-radius: 0px;
+                                                        background-color: #eff1f4;
+                                                    }
+
+                                                    .patient1 {
+                                                        height: 37.5px;
+                                                        font-size: 13px;
+                                                        border-radius: 0px;
+                                                        background-color: #ffffff;
+                                                    }
+                                                </style>
+                                                <!--모달창내용 끝-->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"
+                                                        th:onclick="|location.href='@{/admin/doctor/approve/{doctorId} (doctorId=${doctor.getId()})}'|">
+                                                    승인
+                                                </button>
+                                                <!--버튼css-->
+                                                <style>
+                                                    .name_search {
+                                                        background-color: dodgerblue;
+                                                        border: 1px solid dodgerblue;
+                                                    }
+
+                                                    .name_search:hover {
+                                                        background-color: rgb(16, 134, 252);
+                                                        border: 1px solid rgb(16, 134, 252);
+                                                    }
+
+                                                    .pre:hover {
+                                                        background-color: #f4f4f4;
+                                                        border: 1px solid #f4f4f4;
+                                                    }
+                                                </style>
+                                                <!--버튼css End-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 모달 종료 -->
                             </tr>
                         </tbody>
                     </table>

@@ -8,21 +8,21 @@ import javax.persistence.Embeddable;
 @Getter
 public class Address {
 
-    private String city;
-    private String street;
     private String zipcode;
+    private String mainAddress;
+    private String subAddress;
 
     protected Address() {}
 
-    public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
+    public Address(String zipcode, String mainAddress, String subAddress) {
         this.zipcode = zipcode;
+        this.mainAddress = mainAddress;
+        this.subAddress = subAddress;
     }
 
     public void changeAddress(Address updateAddress) {
-        this.city = updateAddress.getCity();
-        this.street = updateAddress.getStreet();
         this.zipcode = updateAddress.getZipcode();
+        this.mainAddress = updateAddress.getMainAddress();
+        this.subAddress = updateAddress.getSubAddress();
     }
 }

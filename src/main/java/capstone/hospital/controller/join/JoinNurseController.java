@@ -6,6 +6,8 @@ import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.controller.join.form.JoinNurseForm;
+import capstone.hospital.dto.UploadFile;
+import capstone.hospital.file.FileStore;
 import capstone.hospital.service.JoinService;
 import capstone.hospital.service.ValidateService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -30,6 +33,7 @@ import javax.servlet.http.HttpSession;
 public class JoinNurseController {
 
     private final JoinService joinService;
+    private final FileStore fileStore;
     private final ValidateService validateService;
 
     @ModelAttribute("majors")
@@ -105,7 +109,7 @@ public class JoinNurseController {
     }
 
     @PostMapping("/joinForm")
-    public String saveNurse(@Validated @ModelAttribute("nurse") JoinNurseForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String saveNurse(@Validated @ModelAttribute("nurse") JoinNurseForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
         // 아이디 중복 체크
         try {
@@ -141,10 +145,11 @@ public class JoinNurseController {
         return "redirect:/join/success";
     }
 
-    private void nurseSave(JoinNurseForm form) {
+    private void nurseSave(JoinNurseForm form) throws IOException {
+        UploadFile attachFile = fileStore.storeFile(form.getFile());
         Address newAddress = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Information newInfo = new Information(form.getName(), form.getRrnFront(), form.getRrnBack(), form.getPhoneNumber(), newAddress);
-        Nurse nurse = new Nurse(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor());
+        Nurse nurse = new Nurse(form.getLoginId(), form.getLoginPw(), newInfo, form.getLicenseCode(), form.getMajor(), attachFile);
         joinService.joinNurse(nurse);
     }
 }

@@ -3,12 +3,15 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Admin;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Nurse;
+import capstone.hospital.dto.DoctorInfoDto;
+import capstone.hospital.dto.NurseInfoDto;
 import capstone.hospital.repository.DoctorRepository;
 import capstone.hospital.repository.NurseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +26,25 @@ public class AdminService {
     /**
      * 승인된 의사 조회
      */
-    public List<Doctor> readDoctor(String name) {
-        return doctorRepository.approveDoctor(name);
+    public List<DoctorInfoDto> readDoctor(String name) {
+        List<DoctorInfoDto> data = new ArrayList<>();
+        List<Doctor> doctors = doctorRepository.approveDoctor(name);
+        for (Doctor doctor : doctors) {
+            data.add(new DoctorInfoDto(doctor));
+        }
+        return data;
     }
 
     /**
      * 승인 대기 의사 조회
      */
-    public List<Doctor> waitDoctor(String name, int startIndex, int pageSize) {
-        return doctorRepository.notApproveDoctor(name, startIndex, pageSize);
+    public List<DoctorInfoDto> waitDoctor(String name, int startIndex, int pageSize) {
+        List<DoctorInfoDto> data = new ArrayList<>();
+        List<Doctor> doctors = doctorRepository.notApproveDoctor(name, startIndex, pageSize);
+        for (Doctor doctor : doctors) {
+            data.add(new DoctorInfoDto(doctor));
+        }
+        return data;
     }
 
     /**
@@ -61,15 +74,25 @@ public class AdminService {
     /**
      * 승인된 간호사 조회
      */
-    public List<Nurse> readNurse(String name) {
-        return nurseRepository.approveNurse(name);
+    public List<NurseInfoDto> readNurse(String name) {
+        List<NurseInfoDto> data = new ArrayList<>();
+        List<Nurse> nurses = nurseRepository.approveNurse(name);
+        for (Nurse nurse : nurses) {
+            data.add(new NurseInfoDto(nurse));
+        }
+        return data;
     }
 
     /**
      * 승인 대기 간호사 조회
      */
-    public List<Nurse> waitNurse(String name) {
-        return nurseRepository.notApproveNurse(name);
+    public List<NurseInfoDto> waitNurse(String name) {
+        List<NurseInfoDto> data = new ArrayList<>();
+        List<Nurse> nurses = nurseRepository.notApproveNurse(name);
+        for (Nurse nurse : nurses) {
+            data.add(new NurseInfoDto(nurse));
+        }
+        return data;
     }
 
     /**

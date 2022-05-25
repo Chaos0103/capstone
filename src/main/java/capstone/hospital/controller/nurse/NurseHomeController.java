@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NurseHomeController {
 
     @GetMapping
-    public String adminHome(@Login Object loginMember, Model model) {
+    public String home(@Login Object loginMember, Model model) {
         model.addAttribute("loginMember", loginMember);
         return "/nurse/home";
     }

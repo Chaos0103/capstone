@@ -2,6 +2,7 @@ package capstone.hospital.domain;
 
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Information;
+import capstone.hospital.dto.UploadFile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,13 +34,16 @@ public class Nurse {
     @Enumerated(EnumType.STRING)
     private Major major;
 
-    public Nurse(String loginId, String loginPw, Information info, String licenseCode, Major major) {
+    private UploadFile profile;
+
+    public Nurse(String loginId, String loginPw, Information info, String licenseCode, Major major, UploadFile profile) {
         this.approvalAdmin = null;
         this.loginId = loginId;
         this.loginPw = loginPw;
         this.info = info;
         this.licenseCode = licenseCode;
         this.major = major;
+        this.profile = profile;
     }
 
     //==비즈니스 로직==//

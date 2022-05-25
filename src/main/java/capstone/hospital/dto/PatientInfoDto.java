@@ -23,7 +23,7 @@ public class PatientInfoDto {
         this.phoneNumber = patient.getInfo().getPhoneNumber();
         this.rrn = patient.getInfo().getRrn();
         this.address = "(" + patient.getInfo().getAddress().getZipcode() + ") "
-                + patient.getInfo().getAddress().getCity() + " "
-                + patient.getInfo().getAddress().getStreet();
+                + patient.getInfo().getAddress().getMainAddress() + " "
+                + patient.getInfo().getAddress().getSubAddress();
     }
 }

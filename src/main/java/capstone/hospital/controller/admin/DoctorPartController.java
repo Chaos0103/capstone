@@ -30,14 +30,14 @@ public class DoctorPartController {
     public String approvalDoctor(@Login Object loginMember, @ModelAttribute("form") SearchForm form, @RequestParam(defaultValue = "1") int page, Model model) {
         model.addAttribute("loginMember", loginMember);
 
+        // 페이징
         int total = adminService.totalCnt(form.getName());
         Pagination pagination = new Pagination(total, page);
-        log.info("page={}", page);
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();
-        log.info("page start={}, size={}", startIndex, pageSize);
-        model.addAttribute("doctors", adminService.waitDoctor(form.getName(), startIndex, pageSize));
         model.addAttribute("pagination", pagination);
+
+        model.addAttribute("doctors", adminService.waitDoctor(form.getName(), startIndex, pageSize));
         return "admin/doctor/approve";
     }
 
@@ -46,12 +46,6 @@ public class DoctorPartController {
         model.addAttribute("loginMember", loginMember);
         adminService.approveDoctor(doctorId, (Admin) loginMember);
         return "redirect:/admin/doctor/approve";
-    }
-
-//    @GetMapping("/list/{doctorId}/edit")
-    public String edit(@Login Object loginMember, @PathVariable Long doctorId, Model model) {
-        model.addAttribute("loginMember", loginMember);
-        return "admin/doctor/edit";
     }
 
     @GetMapping("/list/{doctorId}/delete")

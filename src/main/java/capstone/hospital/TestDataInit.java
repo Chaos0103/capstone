@@ -87,7 +87,7 @@ public class TestDataInit {
 
     private void initNurse(Address address) throws Exception {
         Information info = new Information("송수빈", "700101", "2000000", "01077777777", address);
-        Nurse nurse = new Nurse("nurse1", "1234", info, "1", Major.GS);
+        Nurse nurse = new Nurse("nurse1", "1234", info, "00001", Major.GS, new UploadFile("/file/nurse1.png", "/file/nurse1.png"));
         joinService.joinNurse(nurse);
     }
 

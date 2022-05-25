@@ -153,19 +153,10 @@
                                     <input type="text" id="detail-address" th:field="*{street}" class="form-control">
                                 </div>
 
-                                <!-- 사진 -->
-<!--                                <div class="mb-4">-->
-<!--                                    <label for="preview" class="form-label">미리보기</label>-->
-<!--                                    <img class="img-thumbnail form-control" accept="image/*" id="preview"-->
-<!--                                         alt="faceImage" style="width: 200px; height: 200px;"  readonly />-->
-<!--                                </div>-->
-
                                 <div class="mb-4">
                                     <label for="formFile" class="form-label"><strong>* 사진</strong></label>
-
                                     <div class = "input-group">
-                                        <button class = "btn btn-outline-primary" id = "addonPhoto" type = "button" onclick="location.href = '#'">업로드</button>
-                                        <input class="form-control" type="file" id="formFile" aria-describedby="addonPhoto" onchange="imgPreview()">
+                                        <input class="form-control" type="file" id="formFile" th:field="*{file}" aria-describedby="addonPhoto" multiple="multiple">
                                     </div>
                                 </div>
 
@@ -198,29 +189,5 @@
 
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
-
-    <!--form validation js-->
-<!--    <script>-->
-<!--        // Example starter JavaScript for disabling form submissions if there are invalid fields-->
-<!--        (function () {-->
-<!--            'use strict'-->
-
-<!--            // Fetch all the forms we want to apply custom Bootstrap validation styles to-->
-<!--            var forms = document.querySelectorAll('.needs-validation')-->
-
-<!--            // Loop over them and prevent submission-->
-<!--            Array.prototype.slice.call(forms)-->
-<!--                .forEach(function (form) {-->
-<!--                    form.addEventListener('submit', function (event) {-->
-<!--                        if (!form.checkValidity()) {-->
-<!--                            event.preventDefault()-->
-<!--                            event.stopPropagation()-->
-<!--                        }-->
-
-<!--                        form.classList.add('was-validated')-->
-<!--                    }, false)-->
-<!--                })-->
-<!--        })()-->
-<!--    </script>-->
 </body>
 </html>

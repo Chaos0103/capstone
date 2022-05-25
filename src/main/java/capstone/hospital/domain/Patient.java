@@ -15,14 +15,15 @@ public class Patient {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(length = 20, updatable = false)
     private String loginId;
+    @Column(length = 20)
     private String loginPw;
 
     @Embedded
     private Information info;
 
     //== 생성 메서드 ==//
-
     public Patient() {
     }
 

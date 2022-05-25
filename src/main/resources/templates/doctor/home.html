@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>의사 페이지</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+    <section>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <!--Side Bar-->
+                <div th:replace="fragments/doctor/sidebar :: sidebar" />
+                <!--Add Table-->
+                <div class="col py-3" id="root">
+                    Content area...
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>
