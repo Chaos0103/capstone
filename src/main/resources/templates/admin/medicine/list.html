@@ -17,27 +17,59 @@
 
                 <!--Add Table-->
                 <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
-                    <h2 class="text-center fw-bold mb-2">약 조회</h2>
-
-
+                    <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">약물 조회
+                        </h3>
+                        <h6 style="display:inline-block;color:rgb(165, 165, 165); float: right;padding-top:15px; font-size:11px">
+                            HOME> admin> 약물 조회
+                        </h6>
+                    </div>
                     <!--검색 form-->
-                    <div class="d-flex justify-content-start">
+                    <div class=" d-flex justify-content-start" style="padding-top:35px">
                         <div class="mb-4 col-lg-3">
-                            <form class="" method="get" style="display: inline;">
+                            <form class="" method="post">
                                 <div class="input-group form-floting">
-                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control" placeholder="약 검색" />
-                                    <button class="btn btn-outline-primary" type="submit">검색</button>
+                                    <input type="text" id="doctorSearch" class="form-control" placeholder="이름 검색">
+                                    <!--여기 바꾸고싶으면 paceholder 바꾸면됨-->
+                                    <button type="submit" class="btn btn-primary name_search"><i
+                                            class="bi bi-search"></i></button>
                                 </div>
                             </form>
                         </div>
                         <!--등록버튼-->
                         <div class="mb-4 col-lg-9">
-                            <button class="btn btn-primary" type="button"
-                                    th:onclick="|location.href='@{/admin/medicine/create}'|"
-                                style="background-color:dodgerblue;width:85px; float: right;border: 1px solid dodgerblue;">등록</button>
+                            <button class="btn btn-primary add" type="button"
+                                    onclick="location.href = 'nursePatientChartRegister.html'"
+                                    style="width:85px; float: right;">등록</button>
                         </div>
                         <!--등록버튼 End-->
                     </div>
+                    <!--등록버튼 css-->
+                    <style>
+                        .add {
+                            background-color: dodgerblue;
+                            border: 1px solid dodgerblue;
+                        }
+
+                        .add:hover {
+                            background-color: rgb(16, 134, 252);
+                            border: 1px solid rgb(16, 134, 252);
+                        }
+                    </style>
+
+                    <!--검색버튼 색 css-->
+                    <style>
+                        .name_search {
+                            background-color: rgb(255, 255, 255);
+                            color: rgb(16, 134, 252);
+                            border: 1px solid dodgerblue;
+                        }
+
+                        .name_search:hover {
+                            background-color: rgb(16, 134, 252);
+                            border: 1px solid rgb(16, 134, 252);
+                        }
+                    </style>
 
                     <!--Table List {1}-->
                     <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">

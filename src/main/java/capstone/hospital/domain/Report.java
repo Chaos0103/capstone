@@ -38,10 +38,11 @@ public class Report {
     public Report() {
     }
 
-    public Report(Patient patient, Doctor doctor, KCDCode kcdCode) {
+    public Report(Patient patient, Doctor doctor, KCDCode kcdCode, String content) {
         this.patient = patient;
         this.doctor = doctor;
         this.kcdCode = kcdCode;
+        this.content = content;
         this.date = LocalDateTime.now();
     }
 }

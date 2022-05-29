@@ -8,25 +8,128 @@
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
 
-    <!--Side Bar-->
-    <section>
-        <div class="container-fluid">
-            <div class="row flex-nowrap">
-
-                <!--sidebar-->
-                <div th:replace="fragments/nurse/sidebar :: sidebar" />
-
+<!--Side Bar-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/nurse/sidebar :: sidebar" />
                 <!--Add react-->
-                <div class="col py-3">
-                    <h3 style="font-weight:bold">간호사 페이지</h3>
-                    <h5>환자의 기본정보, 차트, 입원환자, 처방내역 을 관리합니다.</h5>
-                </div>
+                <div class="col py-3" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">간호사</h3>
+                        <h6
+                            style="display:inline-block;color:rgb(165, 165, 165); float: right;padding-top:15px; font-size:11px">
+                            HOME> nurse>
+                            메인 페이지
+                        </h6>
+                    </div>
+                    <!--글씨 위치조정을 위한 css-->
+                    <style>
+                        .cover {
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                    </style>
+                    <!--시계, 입원환자수 나타내는 베너-->
+                    <div class="col-lg-12">
+                        <div class="card"
+                            style="width: 100%;margin-top:40px;border-radius: 0px;background-color: #f9f9f9">
+                            <div class="card-body" style="display: flex; padding:1rem">
+                                <div
+                                    style="background-color: #f9f9f9;padding:1rem; width:5.5rem;border-radius: 10px 0px 0px 10px;margin-left:50px">
+                                    <img th:src="@{/assets/images/calendar.png}" width="59" alt="My Logo">
+                                    </h6>
+                                </div>
+                                <div
+                                    style="background-color: #f9f9f9;padding:1rem; width:13rem;border-radius: 10px 0px 0px 10px;">
+                                    <h5>2022-05-26</h5>
+                                    <h4 class="fw-bold">17:50</h4>
+                                </div>
+                                <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:1rem; width:14rem;border-radius: 40px 0px 0px 40px;border-left:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);text-align: center;">
+                                    <h6 style="text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
+                                        총 입원 환자
+                                    </h6>
+                                    <h5 class="fw-bold" style="display:inline-block;">30</h5>
+                                    <h5 style="display:inline-block;">명</h5>
+                                </div>
+                                <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:0rem; width:14rem;border-radius: 0px 40px 40px 0px;border-right:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);border-left:2px dashed rgb(210, 210, 210);text-align: center;">
+                                    <h6 style="margin-left:-6px;text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
+                                        오늘입원 환자
+                                    </h6>
+                                    <h5 class="fw-bold" style="display:inline-block;">2</h5>
+                                    <h5 style="display:inline-block;">명</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--시계, 입원환자수 나타내는 베너 끝-->
+                    <div class="row" style="margin-top:30px">
+                        <!--최근 입원 환자-->
+                        <div class="col-lg-6">
+                            <div style="border-left:4px solid rgb(193 223 255);">
+                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">최근 입원 환자</h6>
+                            </div>
+                            <table class="table table-bordered table-hover" id="patientDetail">
+                                <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">병동</th>
+                                        <th scope="col">이름</th>
+                                        <th scope="col">주치의</th>
+                                        <th scope="col">질병</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="height:34px;font-size: 13px;">
+                                    <tr class="accordion-toggle" data-bs-toggle="collapse"
+                                        data-bs-target="#doctorPatientDetail1">
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">4인실 35병상</td>
+                                        <td style="text-align: center;">김철수</td>
+                                        <td style="text-align: center;">신채원</td>
+                                        <td style="text-align: center;">관절염</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--최근 입원 환자 끝-->
+                        <!--진료 예약 현황-->
+                        <div class="col-lg-6">
+                            <div style="border-left:4px solid rgb(193 223 255);">
+                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">진료 예약 현황</h6>
+                            </div>
 
+                            <table class="table table-bordered table-hover" id="patientDetail">
+                                <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">환자명</th>
+                                        <th scope="col">진료일자</th>
+                                        <th scope="col">질병</th>
+                                        <th scope="col">진료여부</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="height:34px;font-size: 13px;">
+                                    <tr class="accordion-toggle" data-bs-toggle="collapse"
+                                        data-bs-target="#doctorPatientDetail1">
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">신채원</td>
+                                        <td style="text-align: center;">2022-05-26</td>
+                                        <td style="text-align: center;">관절염</td>
+                                        <td style="text-align: center;">완료</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--진료 예약 현황 끝-->
+                    </div>
+                </div>
+                <!--Add react End-->
             </div>
         </div>
     </section>
-    <!--Side Bar End-->
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
+
 </html>

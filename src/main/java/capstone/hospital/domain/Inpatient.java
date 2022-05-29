@@ -1,6 +1,8 @@
 package capstone.hospital.domain;
 
 import capstone.hospital.domain.enumtype.BloodType;
+import capstone.hospital.domain.enumtype.HospitalizationStatus;
+import capstone.hospital.domain.enumtype.WardType;
 import capstone.hospital.domain.valuetype.Ward;
 import lombok.Getter;
 
@@ -30,7 +32,20 @@ public class Inpatient extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
+    private String height;
+    private String weight;
 
     @Embedded
     private Ward ward;
+
+    @Enumerated(EnumType.STRING)
+    private HospitalizationStatus status;
+
+    public Inpatient(Patient patient, Doctor doctor, Report report, WardType type) {
+        this.patient = patient;
+        this.doctor = doctor;
+        this.report = report;
+        this.ward = new Ward(type, null, null);
+        this.status = HospitalizationStatus.WAIT;
+    }
 }

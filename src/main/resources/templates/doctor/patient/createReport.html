@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>환자기본정보 조회</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+<!--Side Bar-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/doctor/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container" style="margin-left:0px;margin-right:0px;margin-top:60px">
+                    <div class="container d-flex justify-content-center mb-4">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title text-center fw-bold">처방 등록</h3>
+                                    <hr class="text-dark">
+                                    <form method="post" th:object="${form}" th:action>
+                                        <div class="mb-4">
+                                            <label class="form-label" for="disease">병명</label>
+                                            <div class="input-group">
+                                                <input th:field="*{name}" type="text" id="disease" class="form-control"
+                                                    placeholder="병명 입력">
+                                                <!--여기 바꾸고싶으면 paceholder 바꾸면됨-->
+                                                <button type="submit" class="btn btn-primary name_search"><i
+                                                        class="bi bi-search"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="code">질병 코드</label>
+                                            <input th:field="*{code}" class="form-control" type="text" id="code" readonly/>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label" for="content">세부사항</label>
+                                            <input th:field="*{content}" class="form-control" type="text" id="content" />
+                                        </div>
+
+                                        <!-- 처방 시작 -->
+                                        <div style="border-left:4px solid rgb(193 223 255);">
+                                            <h6 class="mb-2" style="margin-top:40px;margin-left:6px">처방 내역</h6>
+                                            <button class="btn btn-primary add" type="button"
+                                                    style="margin-bottom:10px;width:100px;height:35px; float: right;margin-top:-40px"
+                                                    data-bs-toggle="modal" th:data-bs-target="'#add1'">처방등록</button>
+                                        </div>
+                                        <table class="table table-bordered table-hover" id="patientDetail">
+                                            <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                                            <tr>
+                                                <th scope="col">약물코드</th>
+                                                <th scope="col">약물명</th>
+                                                <th scope="col">총투여일수</th>
+                                                <th scope="col">하루투여횟수</th>
+                                                <th scope="col">1회투여량</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody style="height:34px;font-size: 13px;">
+                                            <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
+                                            th:each="data:${prescriptions}">
+                                                <td th:text="${data.medicineCode}" style="text-align: center;">약물코드</td>
+                                                <td th:text="${data.medicineName}" style="text-align: center;">약물명</td>
+                                                <td th:text="${data.totalDoseDays}" style="text-align: center;">총투여일수</td>
+                                                <td th:text="${data.dailyDose}" style="text-align: center;">하루투여횟수</td>
+                                                <td th:text="${data.singleDose}" style="text-align: center;">1회투여량</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- 처방 끝 -->
+
+                                    <!-- 처방 추가 Modal -->
+                                    <div class="modal fade" th:id="'add1'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">처방</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="pName">약품명</label>
+                                                            <input th:field="${prescription.medicineName}" class="form-control" type="text" id="pName" />
+                                                        </div>
+
+                                                    <div class="mb-4">
+                                                        <label class="form-label" for="medicineCode">약품코드</label>
+                                                        <input th:field="${prescription.medicineCode}" class="form-control" type="text" id="medicineCode" />
+                                                    </div>
+
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="one">1회 투여량</label>
+                                                            <input th:field="${prescription.singleDose}" class="form-control" type="text" id="one" />
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="day">하루 투여 횟수</label>
+                                                            <input th:field="${prescription.dailyDose}" class="form-control" type="text" id="day" />
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="total">총 투여일</label>
+                                                            <input th:field="${prescription.totalDoseDays}" class="form-control" type="text" id="total" />
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                                            <button type="submit" class="btn btn-primary">추가</button>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <div class="mb-4 text-center">
+                                            <button class="btn btn-primary name_search" type="submit"
+                                                    style="width:85px; float: center;">등록</button>
+                                        </div>
+                                        <style>
+                                            .name_search {
+                                                background-color: dodgerblue;
+                                                border: 1px solid dodgerblue;
+                                            }
+
+                                            .name_search:hover {
+                                                background-color: rgb(16, 134, 252);
+                                                border: 1px solid rgb(16, 134, 252);
+                                            }
+                                        </style>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--이전 버튼-->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-light pre" type="button" th:onclick="|location.href='@{/doctor/patient}'|"
+                            style="width:85px; float: center;">이전</button>
+                    </div>
+
+                    <!--이전 버튼 호버효과-->
+                    <style>
+                        .pre:hover {
+                            background-color: #f4f4f4;
+                            border: 1px solid #f4f4f4;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

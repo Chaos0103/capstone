@@ -24,7 +24,7 @@ public class TestDataInit {
 
     @PostConstruct
     public void init() throws Exception {
-        Address address = new Address("서울특별시", "광진구", "12345");
+        Address address = new Address("12345", "서울특별시", "광진구");
 
         initPatient(address);
         initDoctor(address);
@@ -37,7 +37,7 @@ public class TestDataInit {
     }
 
     private void initPatient(Address address) throws Exception {
-        Address testAddress = new Address("인천광역시 남동구 석산로 123", "101동 101호", "12345");
+        Address testAddress = new Address("12345", "인천광역시 남동구 석산로 123", "101동 101호");
         Information info = new Information("세종대", "010101", "1000000", "01000000000", address);
         Patient patient = new Patient("test", "test!", info);
 

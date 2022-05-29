@@ -1,6 +1,7 @@
 package capstone.hospital.controller;
 
 import capstone.hospital.argumentresolver.Login;
+import capstone.hospital.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,13 @@ public class HomeController {
         }
 
         model.addAttribute("loginMember", loginMember);
+        if (loginMember.getClass() == Nurse.class) {
+            return "redirect:/nurse";
+        } else if (loginMember.getClass() == Doctor.class) {
+            return "redirect:/doctor";
+        } else if (loginMember.getClass() == Admin.class) {
+            return "redirect:/admin";
+        }
         return "loginHome";
-    }
-
-    @GetMapping("/staff")
-    public String staffHome(@Login Object loginMember, Model model) {
-        model.addAttribute("loginMember", loginMember);
-        return "staffHome";
     }
 }

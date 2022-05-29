@@ -1,9 +1,13 @@
 package capstone.hospital.service;
 
+import capstone.hospital.domain.Inpatient;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.Report;
+import capstone.hospital.dto.InpatientInfoDto;
 import capstone.hospital.dto.PatientInfoDto;
 import capstone.hospital.dto.ReportDto;
+import capstone.hospital.exception.SearchException;
+import capstone.hospital.repository.InpatientRepository;
 import capstone.hospital.repository.PatientRepository;
 import capstone.hospital.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +24,12 @@ import java.util.Optional;
 public class NurseService {
 
     private final PatientRepository patientRepository;
+    private final InpatientRepository inpatientRepository;
     private final ReportRepository reportRepository;
 
     public PatientInfoDto findPatientInfo(String name) {
         Optional<Patient> patient = patientRepository.findByInfoName(name);
-        if (patient.isPresent()) {
-            return new PatientInfoDto(patient.get());
-        } else {
-            return new PatientInfoDto();
-        }
+        return patient.map(PatientInfoDto::new).orElseGet(PatientInfoDto::new);
     }
 
     public List<ReportDto> findReport(Long patientId) {
@@ -38,6 +39,28 @@ public class NurseService {
             for (Report report : reports) {
                 data.add(new ReportDto(report));
             }
+        }
+        return data;
+    }
+
+    public InpatientInfoDto findInpatientInfo(String name) {
+        if (name == null) {
+            return new InpatientInfoDto();
+        } else {
+            try {
+                Optional<Inpatient> inpatient = inpatientRepository.findByPatientName(name);
+                return new InpatientInfoDto(inpatient.get());
+            } catch (Exception e) {
+                throw new SearchException("error");
+            }
+        }
+    }
+
+    public List<InpatientInfoDto> findWaitInpatient(String name) {
+        List<InpatientInfoDto> data = new ArrayList<>();
+        List<Inpatient> waited = inpatientRepository.findWaitedByName(name);
+        for (Inpatient inpatient : waited) {
+            data.add(new InpatientInfoDto(inpatient));
         }
         return data;
     }

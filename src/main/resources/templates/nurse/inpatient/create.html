@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>입원환자 등록</title>
+</head>
+
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+<!--Side Bar And Table-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/nurse/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <h2 class="text-center fw-bold mb-2">입원환자승인</h2>
+
+                    <!--검색 form-->
+                    <div class="d-flex justify-content-start">
+                        <div class="mb-4 col-lg-3">
+                            <form class="" method="post">
+                                <div class="input-group form-floting">
+                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control"
+                                        placeholder="환자 검색" />
+                                    <button class="btn btn-outline-primary" type="submit">검색</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--Table List {1}-->
+                    <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" style="width: 200px;">간호사면허번호</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">성별</th>
+                                <th scope="col">전화번호</th>
+                                <th scope="col">진료과</th>
+                                <th scope="col">세부정보</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="inpatient:${inpatients}" class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1">
+                            <td th:text="${inpatient.patientName}">이름</td>
+                            <td th:text="${inpatient.sex}">성별</td>
+                            <td th:text="${inpatient.phoneNumber}">병명</td>
+                            <td th:text="${inpatient.major}">진료과</td>
+                            <td th:text="${inpatient.doctorName}">주치의</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+                                        th:data-bs-target="'#staticBackdrop'">세부정보</button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id=page>
+
+                                <!--이전 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                -->
+
+                                <!--페이지 표시 버튼-->
+                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                                -->
+
+                                <!--다음 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <head>
-    <title>환자기본정보 조회</title>
+    <title>환자차트 조회</title>
 </head>
 <body>
 <!-- Top -->
@@ -18,11 +18,11 @@
                 <!--Add Table-->
                 <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
                     <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
-                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">환자기본정보 조회 </h3>
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">환자차트 조회 </h3>
                         <h6
                             style="display:inline-block;color:rgb(165, 165, 165); float: right;padding-top:15px; font-size:11px">
                             HOME> nurse>
-                            환자기본정보 조회
+                            환자차트 조회
                         </h6>
                     </div>
                     <!--글씨 위치조정을 위한 css-->
@@ -68,7 +68,7 @@
 
                     <div class="input-group mb-0 ">
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">이름</span>
-                        <input th:field="${info.name}" type="text" class="form-control patient" aria-label="Username"
+                        <input th:field="${info.patientName}" type="text" class="form-control patient" aria-label="Username"
                             aria-describedby="basic-addon1" disabled>
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">성별</span>
                         <input th:field="${info.sex}" type="text" class="form-control patient" aria-label="Username"
@@ -88,6 +88,29 @@
                                th:field="${info.address}" aria-label="Username" aria-describedby="basic-addon1"
                                disabled>
                     </div>
+                    <!-- 추가 정보 -->
+                    <div class="input-group mb-0">
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">입원날짜</span>
+                        <input  type="text" class="form-control patient" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">퇴원날짜</span>
+                        <input type="text" class="form-control patient" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">진료과</span>
+                        <input th:field="${info.major}" type="text" class="form-control patient" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                    </div>
+                    <div class="input-group mb-0 ">
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">병동</span>
+                        <input th:field="${info.wardType}" type="text" class="form-control patient1" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">병실</span>
+                        <input th:field="${info.roomNumber}" type="text" class="form-control patient1" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주치의</span>
+                        <input th:field="${info.doctorName}" type="text" class="form-control patient" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                    </div>
 
                     <!--기본정보css-->
                     <style>
@@ -106,8 +129,23 @@
                     <!--기본정보끝-->
                     <!--진단내역-->
                     <div style="border-left:4px solid rgb(193 223 255);">
-                        <h6 class="mb-2" style="margin-top:40px;margin-left:6px">진단 내역</h6>
+                        <h6 class="mb-2" style="margin-top:40px;margin-left:6px">처방 내역</h6>
+                        <button class="btn btn-primary add" type="button"
+                                style="margin-bottom:10px;width:75px;height:35px; float: right;margin-top:-40px">등록</button>
                     </div>
+                    <!--등록버튼 css-->
+                    <style>
+                        .add {
+                            background-color: dodgerblue;
+                            border: 1px solid dodgerblue;
+                        }
+
+                        .add:hover {
+                            background-color: rgb(16, 134, 252);
+                            border: 1px solid rgb(16, 134, 252);
+                        }
+                    </style>
+
                     <table class="table table-bordered table-hover" id="patientDetail">
                         <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
                             <tr>

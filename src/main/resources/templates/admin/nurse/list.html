@@ -17,20 +17,40 @@
 
                 <!--Add Table-->
                 <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
-                    <h2 class="text-center fw-bold mb-2">간호사조회</h2>
+                    <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">간호사 조회
+                        </h3>
+                        <h6 style="display:inline-block;color:rgb(165, 165, 165); float: right;padding-top:15px; font-size:11px">
+                            HOME> admin> 간호사 조회
+                        </h6>
+                    </div>
 
                     <!--검색 form-->
-                    <div class="d-flex justify-content-start">
+                    <div class=" d-flex justify-content-start" style="padding-top:35px">
                         <div class="mb-4 col-lg-3">
-                            <form class="" method="post">
+                            <form class="" method="get">
                                 <div class="input-group form-floting">
-                                    <input th:field="${form.name}" type="text" id="searchPatientInfo" class="form-control"
-                                        placeholder="간호사 검색" />
-                                    <button class="btn btn-outline-primary" type="submit">검색</button>
+                                    <input th:field="${form.name}" type="text" id="doctorSearch" class="form-control" placeholder="이름 검색">
+                                    <!--여기 바꾸고싶으면 paceholder 바꾸면됨-->
+                                    <button type="submit" class="btn btn-primary name_search"><i
+                                            class="bi bi-search"></i></button>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <!--검색버튼 색 css-->
+                    <style>
+                        .name_search {
+                            background-color: rgb(255, 255, 255);
+                            color: rgb(16, 134, 252);
+                            border: 1px solid dodgerblue;
+                        }
+
+                        .name_search:hover {
+                            background-color: rgb(16, 134, 252);
+                            border: 1px solid rgb(16, 134, 252);
+                        }
+                    </style>
 
                     <!--Table List {1}-->
                     <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
@@ -132,16 +152,6 @@
                                             </button>
                                             <!--버튼css-->
                                             <style>
-                                                .name_search {
-                                                    background-color: dodgerblue;
-                                                    border: 1px solid dodgerblue;
-                                                }
-
-                                                .name_search:hover {
-                                                    background-color: rgb(16, 134, 252);
-                                                    border: 1px solid rgb(16, 134, 252);
-                                                }
-
                                                 .pre:hover {
                                                     background-color: #f4f4f4;
                                                     border: 1px solid #f4f4f4;

@@ -19,26 +19,14 @@
             <li>
                 <a th:onclick="|location.href='@{/nurse/chart}'|" class="nav-link px-0 align-middle text-white" style="cursor:pointer">
                     <i class="bi bi-person fs-3"></i>
-                    <span class="ms-1 d-none d-sm-inline">환자차트</span>
+                    <span class="ms-1 d-none d-sm-inline">입원환자차트</span>
                 </a>
             </li>
             <li>
-                <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                <a th:onclick="|location.href='@{/nurse/inpatient}'|" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                     <i class="bi bi-person fs-3"></i>
                     <span class="ms-1 d-none d-sm-inline">입원환자</span>
                 </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/inpatient}'|" class="nav-link px-0 text-white">
-                            <span class="d-none d-sm-inline">입원환자등록</span>
-                        </a>
-                    </li>
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/outpatient}'|" class="nav-link px-0 text-white">
-                            <span class="d-none d-sm-inline">퇴원환자등록</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">

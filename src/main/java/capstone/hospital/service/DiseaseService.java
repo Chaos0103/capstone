@@ -1,6 +1,9 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.KCDCode;
+import capstone.hospital.dto.DiseaseDto;
+import capstone.hospital.exception.AppointmentException;
+import capstone.hospital.exception.SearchException;
 import capstone.hospital.repository.KCDCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,6 +42,15 @@ public class DiseaseService {
             return findCode.get();
         } else {
             throw new IllegalStateException("error");
+        }
+    }
+
+    public DiseaseDto findCode(String name) {
+        List<KCDCode> findCode = kcdCodeRepository.findByName(name);
+        if (!findCode.isEmpty()) {
+            return new DiseaseDto(findCode.get(0));
+        } else {
+            throw new SearchException("찾으시는 질병은 등록되지 않은 질병입니다.");
         }
     }
 }
