@@ -1,6 +1,7 @@
 package capstone.hospital.service;
 
 import capstone.hospital.domain.*;
+import capstone.hospital.dto.AppointmentDto;
 import capstone.hospital.dto.PatientInfoDto;
 import capstone.hospital.dto.PrescriptionDto;
 import capstone.hospital.dto.ReportDto;
@@ -24,12 +25,13 @@ public class DoctorService {
     private final ReportRepository reportRepository;
     private final ATCCodeRepository atcCodeRepository;
     private final PrescriptionRepository prescriptionRepository;
+    private final AppointmentRepository appointmentRepository;
 
     /**
      * 진단서 등록
      */
     @Transactional
-    public void report(Long patientId, Long doctorId, String kdcCode, String content, List<PrescriptionDto> prescriptions) {
+    public Long report(Long patientId, Long doctorId, String kdcCode, String content, List<PrescriptionDto> prescriptions) {
         Optional<Patient> patient = patientRepository.findById(patientId);
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         Optional<KCDCode> code = kcdCodeRepository.findById(kdcCode);
@@ -40,6 +42,7 @@ public class DoctorService {
             newPrescription.addPrescription();
             prescriptionRepository.save(newPrescription);
         }
+        return save.getId();
     }
 
     public PatientInfoDto findPatientInfo(String name) {
@@ -59,6 +62,15 @@ public class DoctorService {
             for (Report report : reports) {
                 data.add(new ReportDto(report));
             }
+        }
+        return data;
+    }
+
+    public List<AppointmentDto> findAppointment(Long doctorId) {
+        List<AppointmentDto> data = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAppointmentList(doctorId);
+        for (Appointment appointment : appointments) {
+            data.add(new AppointmentDto(appointment));
         }
         return data;
     }

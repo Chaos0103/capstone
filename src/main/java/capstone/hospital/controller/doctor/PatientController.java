@@ -58,16 +58,6 @@ public class PatientController {
         return "/doctor/patient/info";
     }
 
-    @PostMapping
-    public String createInpatient(@Login Object loginMember, @RequestParam("name") String name, @ModelAttribute("ward") WardForm wardForm, RedirectAttributes redirectAttributes) {
-        PatientInfoDto patientInfo = doctorService.findPatientInfo(name);
-        log.info("patient={}", patientInfo);
-        log.info("ward={}", wardForm);
-
-        inpatientService.createInpatient(patientInfo.getId(), ((Doctor)loginMember).getId(), wardForm.getReportId(), wardForm.getType());
-        return "redirect:/doctor/patient";
-    }
-
     @GetMapping("/report/{patientId}/create")
     public String createReport(@Login Object loginMember,
                                @ModelAttribute("form") ReportForm form,
@@ -104,9 +94,14 @@ public class PatientController {
             return "redirect:/doctor/patient/report/{patientId}/create";
         }
 
-        doctorService.report(patientId, ((Doctor) loginMember).getId(), report.getCode(), report.getContent(), prescriptions);
+        Long reportId = doctorService.report(patientId, ((Doctor) loginMember).getId(), report.getCode(), report.getContent(), prescriptions);
         prescriptions = new ArrayList<>();
         redirectAttributes.addFlashAttribute("patientId", patientId);
+
+        log.info("form={}", report);
+        if (report.isCheck()) {
+            inpatientService.createInpatient(patientId, ((Doctor) loginMember).getId(), reportId);
+        }
         return "redirect:/doctor/patient";
     }
 

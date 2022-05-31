@@ -25,7 +25,9 @@
                                     <hr class="text-dark">
                                     <form method="post" th:object="${form}" th:action>
                                         <div class="mb-4">
-                                            <label class="form-label" for="disease">병명</label>
+                                            <div style="border-left:4px solid rgb(193 223 255);">
+                                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">병명</h6>
+                                            </div>
                                             <div class="input-group">
                                                 <input th:field="*{name}" type="text" id="disease" class="form-control"
                                                     placeholder="병명 입력">
@@ -36,13 +38,24 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <label class="form-label" for="code">질병 코드</label>
+                                            <div style="border-left:4px solid rgb(193 223 255);">
+                                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">질병 코드</h6>
+                                            </div>
                                             <input th:field="*{code}" class="form-control" type="text" id="code" readonly/>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label class="form-label" for="content">세부사항</label>
+                                            <div style="border-left:4px solid rgb(193 223 255);">
+                                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">세부사항</h6>
+                                            </div>
                                             <input th:field="*{content}" class="form-control" type="text" id="content" />
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <div style="border-left:4px solid rgb(193 223 255);">
+                                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">입원 여부</h6>
+                                            </div>
+                                            <input type="checkbox" id="check" th:field="*{check}" class="form-check-input">
                                         </div>
 
                                         <!-- 처방 시작 -->

@@ -43,21 +43,21 @@
                                 </div>
                                 <div
                                     style="background-color: #f9f9f9;padding:1rem; width:13rem;border-radius: 10px 0px 0px 10px;">
-                                    <h5>2022-05-26</h5>
-                                    <h4 class="fw-bold">17:50</h4>
+                                    <h5 th:text="${#temporals.format(today, 'yyyy-MM-dd')}">2022-05-26</h5>
+                                    <h4 class="fw-bold" th:text="${#temporals.format(today, 'hh:mm')}">17:50</h4>
                                 </div>
                                 <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:1rem; width:14rem;border-radius: 40px 0px 0px 40px;border-left:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);text-align: center;">
                                     <h6 style="text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
                                         총 입원 환자
                                     </h6>
-                                    <h5 class="fw-bold" style="display:inline-block;">30</h5>
+                                    <h5 class="fw-bold" style="display:inline-block;" th:text="${totalInpatient}">30</h5>
                                     <h5 style="display:inline-block;">명</h5>
                                 </div>
                                 <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:0rem; width:14rem;border-radius: 0px 40px 40px 0px;border-right:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);border-left:2px dashed rgb(210, 210, 210);text-align: center;">
                                     <h6 style="margin-left:-6px;text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
                                         오늘입원 환자
                                     </h6>
-                                    <h5 class="fw-bold" style="display:inline-block;">2</h5>
+                                    <h5 class="fw-bold" style="display:inline-block;" th:text="${todayInpatient}">2</h5>
                                     <h5 style="display:inline-block;">명</h5>
                                 </div>
                             </div>

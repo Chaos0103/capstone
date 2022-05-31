@@ -41,11 +41,15 @@ public class Inpatient extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private HospitalizationStatus status;
 
-    public Inpatient(Patient patient, Doctor doctor, Report report, WardType type) {
+    public Inpatient(Patient patient, Doctor doctor, Report report) {
         this.patient = patient;
         this.doctor = doctor;
         this.report = report;
-        this.ward = new Ward(type, null, null);
+        this.ward = new Ward();
         this.status = HospitalizationStatus.WAIT;
+    }
+
+    public Inpatient() {
+
     }
 }

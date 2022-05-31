@@ -1,11 +1,14 @@
 package capstone.hospital.repository.impl;
 
 import capstone.hospital.domain.Inpatient;
+import capstone.hospital.domain.enumtype.HospitalizationStatus;
 import capstone.hospital.repository.custom.InpatientRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +43,27 @@ public class InpatientRepositoryImpl implements InpatientRepositoryCustom {
                         inpatient.ward.isNull()
                 )
                 .fetch();
+    }
+
+    @Override
+    public long countInpatient() {
+        return queryFactory
+                .selectFrom(inpatient)
+                .where(
+                        inpatient.status.eq(HospitalizationStatus.Hospitalization)
+                )
+                .stream().count();
+    }
+
+    @Override
+    public long todayInpatient() {
+        return queryFactory
+                .selectFrom(inpatient)
+                .where(
+//                        inpatient.createdDate.eq(LocalDateTime.from(LocalDate.now())),
+                        inpatient.status.eq(HospitalizationStatus.Hospitalization)
+                )
+                .stream().count();
     }
 
     private Predicate nameEq(String name) {

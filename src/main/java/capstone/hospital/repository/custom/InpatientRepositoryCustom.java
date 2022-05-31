@@ -9,4 +9,8 @@ public interface InpatientRepositoryCustom {
     Optional<Inpatient> findByPatientName(String name);
 
     List<Inpatient> findWaitedByName(String name);
+
+    long countInpatient();
+
+    long todayInpatient();
 }

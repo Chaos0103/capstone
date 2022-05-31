@@ -12,6 +12,7 @@ public class ReportForm {
     private String name;
     private String code;
     private String content;
+    private boolean check;
 
     public void input(DiseaseDto data) {
         this.name = data.getName();

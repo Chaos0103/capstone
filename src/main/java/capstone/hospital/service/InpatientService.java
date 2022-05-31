@@ -26,10 +26,18 @@ public class InpatientService {
     private final ReportRepository reportRepository;
 
     @Transactional
-    public void createInpatient(Long patientId, Long doctorId, Long reportId, WardType type) {
+    public void createInpatient(Long patientId, Long doctorId, Long reportId) {
         Optional<Patient> patient = patientRepository.findById(patientId);
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         Optional<Report> report = reportRepository.findById(reportId);
-        inpatientRepository.save(new Inpatient(patient.get(), doctor.get(), report.get(), type));
+        inpatientRepository.save(new Inpatient(patient.get(), doctor.get(), report.get()));
+    }
+
+    public long totalInpatient() {
+        return inpatientRepository.countInpatient();
+    }
+
+    public long todayInpatient() {
+        return inpatientRepository.todayInpatient();
     }
 }
