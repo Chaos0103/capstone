@@ -66,6 +66,16 @@ public class InpatientRepositoryImpl implements InpatientRepositoryCustom {
                 .stream().count();
     }
 
+    @Override
+    public long myInpatient(Long doctorId) {
+        return queryFactory
+                .selectFrom(inpatient)
+                .where(
+                        inpatient.doctor.id.eq(doctorId)
+                )
+                .stream().count();
+    }
+
     private Predicate nameEq(String name) {
         return hasText(name) ? inpatient.patient.info.name.eq(name) : null;
     }

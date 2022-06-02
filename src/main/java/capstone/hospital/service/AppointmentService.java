@@ -3,12 +3,14 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Appointment;
 import capstone.hospital.domain.Doctor;
 import capstone.hospital.domain.Patient;
+import capstone.hospital.dto.AppointmentDto;
 import capstone.hospital.exception.AppointmentException;
 import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,18 @@ public class AppointmentService {
      */
     public void deleteAppointment(Long appointmentId) {
         appointmentRepository.deleteById(appointmentId);
+    }
+
+    public long myAppointment(Long doctorId) {
+        return appointmentRepository.myAppointment(doctorId);
+    }
+
+    public List<AppointmentDto> myAppointmentInfo(Long doctorId) {
+        List<AppointmentDto> data = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.myAppointmentInfo(doctorId);
+        for (Appointment appointment : appointments) {
+            data.add(new AppointmentDto(appointment));
+        }
+        return data;
     }
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <head>
-    <title>입원환자 등록</title>
+    <title>입원환자승인</title>
 </head>
 
 <body>
@@ -37,26 +37,30 @@
                     <table class="table table-bordered table-hover" id="patientDetail" style="text-align: center;">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col" style="width: 200px;">간호사면허번호</th>
                                 <th scope="col">이름</th>
-                                <th scope="col">성별</th>
+                                <th scope="col">성별/나이</th>
                                 <th scope="col">전화번호</th>
+                                <th scope="col">진단명</th>
                                 <th scope="col">진료과</th>
-                                <th scope="col">세부정보</th>
+                                <th scope="col">주치의</th>
+                                <th scope="col">입원등록</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="inpatient:${inpatients}" class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1">
-                            <td th:text="${inpatient.patientName}">이름</td>
-                            <td th:text="${inpatient.sex}">성별</td>
-                            <td th:text="${inpatient.phoneNumber}">병명</td>
+                        <tr class = "accordion-toggle" data-bs-toggle = "collapse" data-bs-target="#doctorPatientDetail1"
+                        th:each="inpatient:${inpatients}">
+                            <td th:text="${inpatient.name}">이름</td>
+                            <td th:text="|${inpatient.sex}/${inpatient.age}|">성별/나이</td>
+                            <td th:text="${inpatient.phoneNumber}">전화번호</td>
+                            <td th:text="${inpatient.diseaseName}">진단명</td>
                             <td th:text="${inpatient.major}">진료과</td>
                             <td th:text="${inpatient.doctorName}">주치의</td>
                             <td>
-                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-                                        th:data-bs-target="'#staticBackdrop'">세부정보</button>
+                                <button class="btn btn-primary btn-sm" type="button"
+                                        th:onclick="|location.href='@{/nurse/inpatient/create/{inpatientId} (inpatientId=${inpatient.inpatientId})}'|">
+                                    입원등록
+                                </button>
                             </td>
-
                         </tr>
                         </tbody>
                     </table>

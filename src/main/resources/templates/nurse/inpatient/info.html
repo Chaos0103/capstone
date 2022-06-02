@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>입원환자등록</title>
+</head>
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+<!--Side Bar-->
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--sidebar-->
+            <div th:replace="fragments/nurse/sidebar :: sidebar" />
+
+                <!--Add Table-->
+                <div class="col py-3 container" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">입원환자등록</h3>
+                    </div>
+                    <!--글씨 위치조정을 위한 css-->
+                    <style>
+                        .cover {
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                    </style>
+
+                    <!--Table List {1}-->
+                    <!--기본정보-->
+                    <div style="border-left:4px solid rgb(193 223 255);">
+                        <h6 class="mb-2" style="margin-top:10px;margin-left:6px">기본 정보</h6>
+                    </div>
+                    <div th:object="${info}">
+                        <div class="input-group mb-0 ">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">이름</span>
+                            <input th:value="*{name}" type="text" class="form-control patient" aria-label="Username"
+                                aria-describedby="basic-addon1" disabled>
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">성별/나이</span>
+                            <input th:value="|*{sex}/*{age}|" type="text" class="form-control patient" aria-label="Username"
+                                aria-describedby="basic-addon1" disabled>
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">연락처</span>
+                            <input th:value="*{phoneNumber}" type="text" class="form-control patient"
+                                aria-label="Username" aria-describedby="basic-addon1" disabled>
+
+                        </div>
+
+                        <div class="input-group mb-0">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주민등록번호</span>
+                            <input type="text" class="form-control patient"
+                                aria-label="Username" aria-describedby="basic-addon1" disabled>
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주소</span>
+                            <input style="width:36.2%" type="text" class="form-control patient"
+                                   aria-label="Username" aria-describedby="basic-addon1"
+                                   disabled>
+                        </div>
+                        <!-- 추가 정보 -->
+                        <div class="input-group mb-0">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">진단명</span>
+                            <input th:value="*{diseaseName}" type="text" class="form-control patient" aria-label="Username"
+                                   aria-describedby="basic-addon1" disabled>
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주치의</span>
+                            <input th:value="*{doctorName}" type="text" class="form-control patient" aria-label="Username"
+                                   aria-describedby="basic-addon1" disabled>
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">진료과</span>
+                            <input th:value="*{major}" type="text" class="form-control patient" aria-label="Username"
+                                   aria-describedby="basic-addon1" disabled>
+                        </div>
+                    </div>
+                    <form method="post" th:action th:object="${form}">
+                        <div class="input-group mb-0 ">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">혈액형</span>
+                            <input th:field="*{bloodType}" type="text" class="form-control patient1" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">키</span>
+                            <input th:field="*{height}" type="text" class="form-control patient1" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">몸무게</span>
+                            <input th:field="*{weight}" type="text" class="form-control patient" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="input-group mb-0 ">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">병동</span>
+                            <input th:field="*{wardType}"type="text" class="form-control patient1" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">호실</span>
+                            <input th:field="*{roomNumber}" type="text" class="form-control patient1" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">침대번호</span>
+                            <input th:field="*{bedNumber}" type="text" class="form-control patient" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                        </div>
+
+                        <div style="border-left:4px solid rgb(193 223 255);">
+                            <button class="btn btn-primary add" type="submit"
+                                    style="margin-bottom:10px;width:75px;height:35px; float: right;margin-top:-40px">
+                                등록
+                            </button>
+                        </div>
+                    </form>
+                    <!--기본정보css-->
+                    <style>
+                        .patient {
+                            height: 34px;
+                            font-size: 13px;
+                            border-radius: 0px;
+                            background-color: #eff1f4;
+                        }
+                        .form-control:disabled {
+                            height: 34px;
+                            font-size: 13px;
+                            background-color: white;
+                        }
+                        .add {
+                            background-color: dodgerblue;
+                            border: 1px solid dodgerblue;
+                        }
+
+                        .add:hover {
+                            background-color: rgb(16, 134, 252);
+                            border: 1px solid rgb(16, 134, 252);
+                        }
+                    </style>
+                    <!--기본정보끝-->
+
+                    <table class="table table-bordered table-hover" id="patientDetail">
+                        <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                            <tr>
+                                <th scope="col">진단일자</th>
+                                <th scope="col">진단병명</th>
+                                <th scope="col">진단의</th>
+                                <th scope="col">진단과</th>
+                            </tr>
+                        </thead>
+                        <tbody style="height:34px;font-size: 13px;">
+                            <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
+                            th:each="report:${reports}">
+                                <td th:text="${report.date}" style="text-align: center;">진단일자</td>
+                                <td th:text="${report.diseaseName}" style="text-align: center;">진단병명</td>
+                                <td th:text="${report.doctorName}" style="text-align: center;">진단의</td>
+                                <td th:text="${report.major}" style="text-align: center;">진단과</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--진단내역끝-->
+
+                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id=page>
+
+                                <!--이전 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                -->
+
+                                <!--페이지 표시 버튼-->
+                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                                -->
+
+                                <!--다음 버튼-->
+                                <!--
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+
+</html>

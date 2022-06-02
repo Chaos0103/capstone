@@ -13,4 +13,6 @@ public interface InpatientRepositoryCustom {
     long countInpatient();
 
     long todayInpatient();
+
+    long myInpatient(Long doctorId);
 }

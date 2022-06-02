@@ -29,4 +29,24 @@ public class AppointmentRepositoryImpl implements AppointmentRepositoryCustom {
                 )
                 .fetch();
     }
+
+    @Override
+    public long myAppointment(Long doctorId) {
+        return queryFactory
+                .selectFrom(appointment)
+                .where(
+                        appointment.doctor.id.eq(doctorId)
+                )
+                .stream().count();
+    }
+
+    @Override
+    public List<Appointment> myAppointmentInfo(Long doctorId) {
+        return queryFactory
+                .selectFrom(appointment)
+                .where(
+                        appointment.doctor.id.eq(doctorId)
+                )
+                .fetch();
+    }
 }

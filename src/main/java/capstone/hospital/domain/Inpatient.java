@@ -4,6 +4,7 @@ import capstone.hospital.domain.enumtype.BloodType;
 import capstone.hospital.domain.enumtype.HospitalizationStatus;
 import capstone.hospital.domain.enumtype.WardType;
 import capstone.hospital.domain.valuetype.Ward;
+import capstone.hospital.dto.CreateInpatientInfoDto;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -41,6 +42,10 @@ public class Inpatient extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private HospitalizationStatus status;
 
+    public Inpatient() {
+
+    }
+
     public Inpatient(Patient patient, Doctor doctor, Report report) {
         this.patient = patient;
         this.doctor = doctor;
@@ -49,7 +54,12 @@ public class Inpatient extends BaseEntity {
         this.status = HospitalizationStatus.WAIT;
     }
 
-    public Inpatient() {
-
+    //== 비즈니스 로직==//
+    public void approve(CreateInpatientInfoDto data) {
+        this.bloodType = data.getBloodType();
+        this.height = data.getHeight();
+        this.weight = data.getWeight();
+        this.ward = new Ward(data.getWardType(), data.getRoomNumber(), data.getBedNumber());
+        this.status = HospitalizationStatus.Hospitalization;
     }
 }

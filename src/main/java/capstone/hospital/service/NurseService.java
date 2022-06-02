@@ -3,6 +3,7 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Inpatient;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.Report;
+import capstone.hospital.dto.CreateInpatientDto;
 import capstone.hospital.dto.InpatientInfoDto;
 import capstone.hospital.dto.PatientInfoDto;
 import capstone.hospital.dto.ReportDto;
@@ -56,12 +57,17 @@ public class NurseService {
         }
     }
 
-    public List<InpatientInfoDto> findWaitInpatient(String name) {
-        List<InpatientInfoDto> data = new ArrayList<>();
+    public List<CreateInpatientDto> findWaitInpatient(String name) {
+        List<CreateInpatientDto> data = new ArrayList<>();
         List<Inpatient> waited = inpatientRepository.findWaitedByName(name);
         for (Inpatient inpatient : waited) {
-            data.add(new InpatientInfoDto(inpatient));
+            data.add(new CreateInpatientDto(inpatient));
         }
         return data;
+    }
+
+    public CreateInpatientDto findOneInpatient(Long inpatientId) {
+        Optional<Inpatient> inpatient = inpatientRepository.findById(inpatientId);
+        return new CreateInpatientDto(inpatient.get());
     }
 }

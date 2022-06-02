@@ -8,15 +8,139 @@
 <!-- Top -->
 <nav th:replace="fragments/bodyTop :: bodyTop" />
 
-    <section>
-        <div class="container-fluid">
-            <div class="row flex-nowrap">
-                <!--Side Bar-->
-                <div th:replace="fragments/doctor/sidebar :: sidebar" />
-                <!--Add Table-->
-                <div class="col py-3" id="root">
-                    Content area...
+<section>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!--Side Bar-->
+            <div th:replace="fragments/doctor/sidebar :: sidebar" />
+                <!--Add react-->
+
+                <div class="col py-3" style="margin-left:100px;margin-right:100px;margin-top:60px">
+                    <div style="border-bottom:1px solid rgb(197, 197, 197);padding-bottom: 0px;">
+                        <h3 class=" fw-bold mb-2" style="display:inline-block;margin-bottom:-20px">의사</h3>
+                        <h6 style="display:inline-block;color:rgb(165, 165, 165); float: right;padding-top:15px; font-size:11px">
+                            HOME> doctor> 메인 페이지
+                        </h6>
+                    </div>
+                    <!--글씨 위치조정을 위한 css-->
+                    <style>
+                        .cover {
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                    </style>
+                    <!--시계, 입원환자수 나타내는 베너-->
+                    <div class="col-lg-12">
+                        <div class="card"
+                            style="width: 100%;margin-top:40px;border-radius: 0px;background-color: #f9f9f9">
+                            <div class="card-body" style="display: flex; padding:1rem">
+                                <div style="background-color: #f9f9f9;padding:1rem; width:5.5rem;border-radius: 10px 0px 0px 10px;margin-left:50px">
+                                    <img th:src="@{/assets/images/calendar.png}" width="59" alt="My Logo">
+                                    </h6>
+                                </div>
+                                <div style="background-color: #f9f9f9;padding:1rem; width:13rem;border-radius: 10px 0px 0px 10px;">
+                                    <h5 th:text="${#temporals.format(today, 'yyyy-MM-dd')}">2022-05-26</h5>
+                                    <h4 class="fw-bold" th:text="${#temporals.format(today, 'hh:mm')}">17:50</h4>
+                                </div>
+                                <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:1rem; width:14rem;border-radius: 40px 0px 0px 40px;border-left:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);text-align: center;">
+                                    <h6 style="margin-left:-2px;text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
+                                        담당 환자
+                                    </h6>
+                                    <h5 class="fw-bold" style="display:inline-block;" th:text="${myInpatient}">30</h5>
+                                    <h5 style="display:inline-block;">명</h5>
+                                </div>
+                                <div style="background-color: #ffffff;width:20rem;padding-top:1rem;padding-bottom:1rem;padding-left:0rem; width:14rem;border-radius: 0px 40px 40px 0px;border-right:1px solid rgb(218 218 218);border-bottom:1px solid rgb(218 218 218);border-top:1px solid rgb(218 218 218);border-left:2px dashed rgb(210, 210, 210);text-align: center;">
+                                    <h6 style="margin-left:-8px;text-align: center;font-weight: 800;color:rgb(71, 71, 71);margin-top:10px">
+                                        오늘 외래예약 환자
+                                    </h6>
+                                    <h5 class="fw-bold" style="display:inline-block;" th:text="${myAppointment}">32</h5>
+                                    <h5 style="display:inline-block;">명</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--시계, 입원환자수 나타내는 베너 끝-->
+                    <div class="row" style="margin-top:30px">
+                        <!--담당 환자 정보-->
+                        <div class="col-lg-6">
+                            <!--더보기 없애고싶으면 여기부터-->
+                            <div style="border-left:4px solid rgb(193 223 255);margin-top:33px;margin-bottom:10px">
+                                <h6 class="mb-2" style="display:inline;margin-top:40px;margin-left:6px">담당 환자 정보
+                                </h6>
+                                <a href="doctorManagementPatient.html">
+                                    <h6 style="color:rgb(165, 165, 165); float: right;margin-top:8px; font-size:12px">
+                                        더보기
+                                    </h6>
+                                </a>
+                            </div>
+                            <!--여기까지 간호사꺼 복붙해서 쓰면됨-->
+
+                            <table class="table table-bordered table-hover" id="patientDetail">
+                                <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                                    <tr>
+                                        <th scope="col">이름</th>
+                                        <th scope="col">성별/나이</th>
+                                        <th scope="col">전화번호</th>
+                                        <th scope="col">진단명</th>
+                                        <th scope="col">병동</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="height:34px;font-size: 13px;">
+                                    <tr class="accordion-toggle" data-bs-toggle="collapse"
+                                        data-bs-target="#doctorPatientDetail1"
+                                    th:each="inpatient:${inpatients}">
+                                        <td style="text-align: center;" th:text="${inpatient.name}">신채원</td>
+                                        <td style="text-align: center;" th:text="|${inpatient.sex}/${inpatient.age}|">여/20</td>
+                                        <td style="text-align: center;" th:text="${inpatient.phoneNumber}">010-1234-2345</td>
+                                        <td style="text-align: center;" th:text="${inpatient.reportName}">관절염</td>
+                                        <td style="text-align: center;" th:text="${inpatient.ward}">물파스</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--담당 환자 정보 끝-->
+                        <!--외래진료 예약 현황-->
+                        <div class="col-lg-6">
+                            <!--더보기 없애고싶으면 여기부터-->
+                            <div style="border-left:4px solid rgb(193 223 255);margin-top:33px;margin-bottom:10px">
+                                <h6 class="mb-2" style="display:inline;margin-top:40px;margin-left:6px">외래진료 예약 현황
+                                </h6>
+                                <a href="doctorManagementTreatment.html">
+                                    <h6 style="color:rgb(165, 165, 165); float: right;margin-top:8px; font-size:12px">
+                                        더보기
+                                    </h6>
+                                </a>
+                            </div>
+                            <!--여기까지 간호사꺼 복붙해서 쓰면됨-->
+
+                            <table class="table table-bordered table-hover" id="patientDetail">
+                                <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
+                                    <tr>
+                                        <th scope="col">이름</th>
+                                        <th scope="col">성별/나이</th>
+                                        <th scope="col">연락처</th>
+                                        <th scope="col">예약일</th>
+                                        <th scope="col">예약시간</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="height:34px;font-size: 13px;">
+                                    <tr class="accordion-toggle" data-bs-toggle="collapse"
+                                        data-bs-target="#doctorPatientDetail1"
+                                    th:each="appointment:${appointments}">
+                                        <td style="text-align: center;" th:text="${appointment.name}">신채원</td>
+                                        <td style="text-align: center;" th:text="|${appointment.sex}/${appointment.age}|">F/20</td>
+                                        <td style="text-align: center;" th:text="${appointment.phoneNumber}">010-1234-2345</td>
+                                        <td style="text-align: center;" th:text="${appointment.appointmentDate}">2022/05/17</td>
+                                        <td style="text-align: center;" th:text="${appointment.appointmentTime}">14:00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--외래진료 예약 현황 끝-->
+                    </div>
                 </div>
+                <!--Add react End-->
             </div>
         </div>
     </section>

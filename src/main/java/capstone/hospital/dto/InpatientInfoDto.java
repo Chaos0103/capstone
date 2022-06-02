@@ -33,7 +33,6 @@ public class InpatientInfoDto {
         this.sex = data.getPatient().getInfo().getSex().getDescription();
         this.phoneNumber = data.getPatient().getInfo().getPhoneNumber();
         this.rrn = data.getPatient().getInfo().getRrn();
-
         this.doctorName = data.getDoctor().getInfo().getName();
         this.bloodType = data.getBloodType();
         this.wardType = data.getWard().getWardType().getDescription();
