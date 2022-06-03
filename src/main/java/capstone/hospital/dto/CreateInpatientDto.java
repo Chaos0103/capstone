@@ -17,6 +17,8 @@ public class CreateInpatientDto {
     private String diseaseName;
     private String major;
     private String doctorName;
+    private String rrn;
+    private String address;
 
     public CreateInpatientDto(Inpatient data) {
         this.inpatientId = data.getId();
@@ -27,6 +29,10 @@ public class CreateInpatientDto {
         this.diseaseName = data.getReport().getKcdCode().getName();
         this.major = data.getDoctor().getMajor().getDescription();
         this.doctorName = data.getDoctor().getInfo().getName();
+        this.rrn = data.getPatient().getInfo().getRrn();
+        this.address = "(" + data.getPatient().getInfo().getAddress().getZipcode() + ") "
+                + data.getPatient().getInfo().getAddress().getMainAddress() + " "
+                + data.getPatient().getInfo().getAddress().getSubAddress();
     }
 
     private int getAge(String rrn) {

@@ -24,11 +24,17 @@ public class InpatientInfoDto {
     private String roomNumber;
     private String bedNumber;
 
+    private String height;
+    private String weight;
+
+    private String diseaseName;
+
     public InpatientInfoDto() {}
 
     public InpatientInfoDto(Inpatient data) {
         this.id = data.getId();
 
+        this.major = data.getDoctor().getMajor().getDescription();
         this.patientName = data.getPatient().getInfo().getName();
         this.sex = data.getPatient().getInfo().getSex().getDescription();
         this.phoneNumber = data.getPatient().getInfo().getPhoneNumber();
@@ -41,5 +47,8 @@ public class InpatientInfoDto {
         this.address = "(" + data.getPatient().getInfo().getAddress().getZipcode() + ") "
                 + data.getPatient().getInfo().getAddress().getMainAddress() + " "
                 + data.getPatient().getInfo().getAddress().getSubAddress();
+        this.height = data.getHeight();
+        this.weight = data.getWeight();
+        this.diseaseName = data.getReport().getKcdCode().getName();
     }
 }

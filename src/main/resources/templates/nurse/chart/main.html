@@ -76,7 +76,6 @@
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">연락처</span>
                         <input th:field="${info.phoneNumber}" type="text" class="form-control patient"
                             aria-label="Username" aria-describedby="basic-addon1" disabled>
-
                     </div>
 
                     <div class="input-group mb-0">
@@ -90,16 +89,29 @@
                     </div>
                     <!-- 추가 정보 -->
                     <div class="input-group mb-0">
-                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">입원날짜</span>
-                        <input  type="text" class="form-control patient" aria-label="Username"
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">진단명</span>
+                        <input th:field="${info.diseaseName}" type="text" class="form-control patient" aria-label="Username"
                                aria-describedby="basic-addon1" disabled>
-                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">퇴원날짜</span>
-                        <input type="text" class="form-control patient" aria-label="Username"
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주치의</span>
+                        <input th:field="${info.doctorName}" type="text" class="form-control patient" aria-label="Username"
                                aria-describedby="basic-addon1" disabled>
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">진료과</span>
                         <input th:field="${info.major}" type="text" class="form-control patient" aria-label="Username"
                                aria-describedby="basic-addon1" disabled>
                     </div>
+
+                    <div class="input-group mb-0 ">
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">혈액형</span>
+                        <input th:field="${info.bloodType}" type="text" class="form-control patient1" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">키</span>
+                        <input th:field="${info.height}" type="text" class="form-control patient1" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">몸무게</span>
+                        <input th:field="${info.weight}" type="text" class="form-control patient" aria-label="Username"
+                               aria-describedby="basic-addon1" disabled>
+                    </div>
+
                     <div class="input-group mb-0 ">
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">병동</span>
                         <input th:field="${info.wardType}" type="text" class="form-control patient1" aria-label="Username"
@@ -107,8 +119,8 @@
                         <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">병실</span>
                         <input th:field="${info.roomNumber}" type="text" class="form-control patient1" aria-label="Username"
                                aria-describedby="basic-addon1" disabled>
-                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">주치의</span>
-                        <input th:field="${info.doctorName}" type="text" class="form-control patient" aria-label="Username"
+                        <span class="input-group-text patient" id="basic-addon1" style="width: 105px;">침대번호</span>
+                        <input th:field="${info.bedNumber}" type="text" class="form-control patient" aria-label="Username"
                                aria-describedby="basic-addon1" disabled>
                     </div>
 
@@ -166,37 +178,6 @@
                         </tbody>
                     </table>
                     <!--진단내역끝-->
-
-                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
-                    <div class="d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination" id=page>
-
-                                <!--이전 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                -->
-
-                                <!--페이지 표시 버튼-->
-                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
-                                -->
-
-                                <!--다음 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                -->
-                            </ul>
-                        </nav>
-                    </div>
-
                 </div>
             </div>
         </div>

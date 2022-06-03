@@ -48,7 +48,9 @@
                                             <div style="border-left:4px solid rgb(193 223 255);">
                                                 <h6 class="mb-2" style="margin-top:40px;margin-left:6px">세부사항</h6>
                                             </div>
-                                            <input th:field="*{content}" class="form-control" type="text" id="content" />
+                                            <div class="input-group" style="height:100px">
+                                                <textarea th:field="*{content}" class="form-control" aria-label="With textarea"></textarea>
+                                            </div>
                                         </div>
 
                                         <div class="mb-4">
@@ -61,7 +63,7 @@
                                         <!-- 처방 시작 -->
                                         <div style="border-left:4px solid rgb(193 223 255);">
                                             <h6 class="mb-2" style="margin-top:40px;margin-left:6px">처방 내역</h6>
-                                            <button class="btn btn-primary add" type="button"
+                                            <button class="btn btn-primary add name_search" type="button"
                                                     style="margin-bottom:10px;width:100px;height:35px; float: right;margin-top:-40px"
                                                     data-bs-toggle="modal" th:data-bs-target="'#add1'">처방등록</button>
                                         </div>

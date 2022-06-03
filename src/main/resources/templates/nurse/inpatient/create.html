@@ -55,6 +55,7 @@
                             <td th:text="${inpatient.diseaseName}">진단명</td>
                             <td th:text="${inpatient.major}">진료과</td>
                             <td th:text="${inpatient.doctorName}">주치의</td>
+                            <!-- 여기 -->
                             <td>
                                 <button class="btn btn-primary btn-sm" type="button"
                                         th:onclick="|location.href='@{/nurse/inpatient/create/{inpatientId} (inpatientId=${inpatient.inpatientId})}'|">

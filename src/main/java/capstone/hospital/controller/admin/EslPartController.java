@@ -2,14 +2,17 @@ package capstone.hospital.controller.admin;
 
 import capstone.hospital.argumentresolver.Login;
 import capstone.hospital.controller.admin.form.EslForm;
+import capstone.hospital.controller.admin.form.EslJsonForm;
 import capstone.hospital.controller.admin.form.SearchForm;
 import capstone.hospital.dto.DoctorEslDto;
 import capstone.hospital.dto.DoctorInfoDto;
 import capstone.hospital.service.DoctorEslService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -70,5 +73,6 @@ public class EslPartController {
         service.update(id, form.getName(), form.getRoom());
         return "redirect:/admin/esl";
     }
+
 
 }

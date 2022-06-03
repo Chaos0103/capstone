@@ -3,10 +3,7 @@ package capstone.hospital.service;
 import capstone.hospital.domain.Inpatient;
 import capstone.hospital.domain.Patient;
 import capstone.hospital.domain.Report;
-import capstone.hospital.dto.CreateInpatientDto;
-import capstone.hospital.dto.InpatientInfoDto;
-import capstone.hospital.dto.PatientInfoDto;
-import capstone.hospital.dto.ReportDto;
+import capstone.hospital.dto.*;
 import capstone.hospital.exception.SearchException;
 import capstone.hospital.repository.InpatientRepository;
 import capstone.hospital.repository.PatientRepository;
@@ -69,5 +66,11 @@ public class NurseService {
     public CreateInpatientDto findOneInpatient(Long inpatientId) {
         Optional<Inpatient> inpatient = inpatientRepository.findById(inpatientId);
         return new CreateInpatientDto(inpatient.get());
+    }
+
+    @Transactional
+    public void createInpatient(Long inpatientId, CreateInpatientInfoDto data) {
+        Inpatient findInpatient = inpatientRepository.findById(inpatientId).get();
+        findInpatient.approve(data);
     }
 }
