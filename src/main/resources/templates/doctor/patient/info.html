@@ -129,7 +129,6 @@
                                 <th scope="col" style="width: 100px;">진단의</th>
                                 <th scope="col" style="width: 100px;">진단과</th>
                                 <th scope="col" style="width: 150px;">처방내역</th>
-                                <th scope="col" style="width: 150px;">입원등록</th>
                             </tr>
                         </thead>
                         <tbody style="height:34px;font-size: 13px;">
@@ -143,14 +142,6 @@
                                     <button class="btn btn-primary add fw-bold" type="button" onclick=""
                                         style="width:65px;height:26px; font-size: 12px;border-radius: 70px;padding:0px"
                                         data-bs-toggle="modal" th:data-bs-target="'#staticBackdrop' + ${report.id}">처방</button>
-                                </td>
-                                <td style="text-align: center;">
-                                    <button class="btn btn-primary add fw-bold" type="button"
-                                            style="width:65px;height:26px; font-size: 12px;border-radius: 70px;padding:0px"
-                                            data-bs-toggle="modal" th:data-bs-target="'#inpatient' + ${report.id}">
-                                        등록
-                                    </button>
-
                                 </td>
                             </tr>
                         </tbody>
@@ -180,7 +171,6 @@
                                             <th scope="col">투여일수</th>
                                             <th scope="col">하루투여일수</th>
                                             <th scope="col">1회투여량</th>
-<!--                                            <th scope="col">특이사항</th>-->
                                         </tr>
                                         </thead>
                                         <tbody style="height:34px;font-size: 13px;">
@@ -192,7 +182,6 @@
                                             <td th:text="${data.totalDoseDays}" style="text-align: center;">중</td>
                                             <td th:text="${data.dailyDose}" style="text-align: center;">중</td>
                                             <td th:text="${data.singleDose}" style="text-align: center;">중</td>
-<!--                                            <td>퇴행성으로 진행중</td>-->
                                         </tr>
                                         </tbody>
                                     </table>
@@ -201,9 +190,6 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-light pre" data-bs-dismiss="modal">
                                         닫기
-                                    </button>
-                                    <button type="button" class="btn btn-primary add" data-bs-dismiss="modal">
-                                        수정
                                     </button>
                                     <!--버튼css-->
                                     <style>
@@ -219,71 +205,6 @@
                     </div>
                     <!--모달창 끝-->
                     </div>
-
-                    <!-- 입원 modal -->
-                    <div th:each="report:${reports}">
-                    <div class="modal fade" th:id="'inpatient' + ${report.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">병동선택</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form method="post">
-                                <div class="modal-body">
-                                    <div>
-                                        <div>병동 선택</div>
-                                        <select th:field="${ward.type}" class="form-select">
-                                            <option value="">==병동 선택==</option>
-                                            <option th:each="data : ${wards}" th:value="${data.name()}"
-                                                    th:text="${data.description}">none</option>
-                                        </select>
-<!--                                        <input type="text" th:field="${ward.reportId}" th:value="*{report.id}"/>-->
-                                    </div>
-                                    <div class="modal-footer" >
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                        <button type="submit" class="btn btn-primary"
-                                                th:field="${ward.reportId}" th:value="15">추가</button>
-
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    <!--Pagination js로 헀는데 타임리프 가능하면 주석 해제하고 타임리프-->
-                    <div class="d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination" id=page>
-
-                                <!--이전 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                -->
-
-                                <!--페이지 표시 버튼-->
-                                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
-                                -->
-
-                                <!--다음 버튼-->
-                                <!--
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                -->
-                            </ul>
-                        </nav>
-                    </div>
-
                 </div>
             </div>
         </div>

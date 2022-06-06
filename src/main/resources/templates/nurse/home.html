@@ -67,26 +67,26 @@
                         <!--최근 입원 환자-->
                         <div class="col-lg-6">
                             <div style="border-left:4px solid rgb(193 223 255);">
-                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">최근 입원 환자</h6>
+                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">입원 대기 환자</h6>
                             </div>
                             <table class="table table-bordered table-hover" id="patientDetail">
                                 <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
                                     <tr>
-                                        <th scope="col">No.</th>
-                                        <th scope="col">병동</th>
                                         <th scope="col">이름</th>
+                                        <th scope="col">성별/나이</th>
+                                        <th scope="col">진단명</th>
+                                        <th scope="col">진료과</th>
                                         <th scope="col">주치의</th>
-                                        <th scope="col">질병</th>
                                     </tr>
                                 </thead>
                                 <tbody style="height:34px;font-size: 13px;">
-                                    <tr class="accordion-toggle" data-bs-toggle="collapse"
-                                        data-bs-target="#doctorPatientDetail1">
-                                        <td style="text-align: center;">1</td>
-                                        <td style="text-align: center;">4인실 35병상</td>
-                                        <td style="text-align: center;">김철수</td>
-                                        <td style="text-align: center;">신채원</td>
-                                        <td style="text-align: center;">관절염</td>
+                                    <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
+                                    th:each="inpatient:${inpatients}">
+                                        <td th:text="${inpatient.name}" style="text-align: center;">이름</td>
+                                        <td th:text="|${inpatient.sex}/${inpatient.age}|" style="text-align: center;">성별/나이</td>
+                                        <td th:text="${inpatient.diseaseName}" style="text-align: center;">진단명</td>
+                                        <td th:text="${inpatient.major}" style="text-align: center;">진료과</td>
+                                        <td th:text="${inpatient.doctorName}" style="text-align: center;">주치의</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -95,27 +95,28 @@
                         <!--진료 예약 현황-->
                         <div class="col-lg-6">
                             <div style="border-left:4px solid rgb(193 223 255);">
-                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">진료 예약 현황</h6>
+                                <h6 class="mb-2" style="margin-top:40px;margin-left:6px">투약 현황</h6>
                             </div>
 
                             <table class="table table-bordered table-hover" id="patientDetail">
                                 <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
                                     <tr>
-                                        <th scope="col">No.</th>
                                         <th scope="col">환자명</th>
-                                        <th scope="col">진료일자</th>
-                                        <th scope="col">질병</th>
-                                        <th scope="col">진료여부</th>
+                                        <th scope="col">약물코드</th>
+                                        <th scope="col">약물명</th>
+                                        <th scope="col">투약시간</th>
+                                        <th scope="col">투약자</th>
                                     </tr>
                                 </thead>
                                 <tbody style="height:34px;font-size: 13px;">
                                     <tr class="accordion-toggle" data-bs-toggle="collapse"
-                                        data-bs-target="#doctorPatientDetail1">
-                                        <td style="text-align: center;">1</td>
-                                        <td style="text-align: center;">신채원</td>
-                                        <td style="text-align: center;">2022-05-26</td>
-                                        <td style="text-align: center;">관절염</td>
-                                        <td style="text-align: center;">완료</td>
+                                        data-bs-target="#doctorPatientDetail1"
+                                    th:each="chart:${charts}">
+                                        <td th:text="${chart.prescription.report.patient.info.name}" style="text-align: center;">환자명</td>
+                                        <td th:text="${chart.prescription.atcCode.code}" style="text-align: center;">약물코드</td>
+                                        <td th:text="${chart.prescription.atcCode.name}" style="text-align: center;">약물명</td>
+                                        <td th:text="${#temporals.format(chart.createdDate, 'yyyy년 MM월 dd일 HH시 mm분')}" style="text-align: center;">투약시간</td>
+                                        <td th:text="${chart.createdBy}" style="text-align: center;">투약자</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -53,4 +53,8 @@ public class DiseaseService {
             throw new SearchException("찾으시는 질병은 등록되지 않은 질병입니다.");
         }
     }
+
+    public int count() {
+        return (int) kcdCodeRepository.count();
+    }
 }

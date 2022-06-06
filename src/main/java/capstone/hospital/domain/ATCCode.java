@@ -1,13 +1,16 @@
 package capstone.hospital.domain;
 
 import capstone.hospital.domain.enumtype.ATCType;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-public class ATCCode extends BaseEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class ATCCode extends TimeBaseEntity {
 
     @Id
     @Column(name = "atccode_id")
@@ -17,17 +20,11 @@ public class ATCCode extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ATCType type;
-    private int stock;
 
-    public ATCCode() {
-
-    }
-
-    public ATCCode(String code, String name, String company, ATCType type, int stock) {
+    public ATCCode(String code, String name, String company, ATCType type) {
         this.code = code;
         this.name = name;
         this.company = company;
         this.type = type;
-        this.stock = stock;
     }
 }

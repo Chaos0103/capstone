@@ -1,6 +1,7 @@
 package capstone.hospital;
 
 import capstone.hospital.domain.*;
+import capstone.hospital.domain.enumtype.ATCType;
 import capstone.hospital.domain.enumtype.DoctorRank;
 import capstone.hospital.domain.enumtype.Major;
 import capstone.hospital.domain.valuetype.Address;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class TestDataInit {
 
@@ -30,7 +31,7 @@ public class TestDataInit {
         initDoctor(address);
         initNurse(address);
         initAdmin(address);
-        ATCCode test = new ATCCode("test-01", "타이레놀", "세종대",null, 100);
+        ATCCode test = new ATCCode("test-01", "타이레놀", "세종대", ATCType.PILL);
         KCDCode code = new KCDCode("COVID-19", "코로나19");
         kcdCodeRepository.save(code);
         atcCodeRepository.save(test);

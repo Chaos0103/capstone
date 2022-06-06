@@ -28,12 +28,17 @@ public class Doctor {
     @JoinColumn(name = "admin_id")
     private Admin approvalAdmin;
 
+    @Column(length = 20, updatable = false)
     private String loginId;
+    @Column(length = 20)
     private String loginPw;
+
     private String university;
 
     @Embedded
     private Information info;
+
+    @Column(updatable = false)
     private String licenseCode;
 
     @Enumerated(EnumType.STRING)

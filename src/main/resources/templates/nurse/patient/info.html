@@ -120,7 +120,7 @@
                         <tbody style="height:34px;font-size: 13px;">
                             <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
                             th:each="report:${reports}">
-                                <td th:text="${report.date}" style="text-align: center;">진단일자</td>
+                                <td th:text="${#temporals.format(report.date, 'yyyy년 MM월 dd일 HH시 mm분')}" style="text-align: center;">진단일자</td>
                                 <td th:text="${report.diseaseName}" style="text-align: center;">진단병명</td>
                                 <td th:text="${report.doctorName}" style="text-align: center;">진단의</td>
                                 <td th:text="${report.major}" style="text-align: center;">진단과</td>

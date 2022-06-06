@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head th:replace="fragments/header :: header" />
+<head>
+    <title>오시는길</title>
+    <link th:href="@{/css/hospital.css}" rel = "stylesheet" />
+    <link th:href="@{/css/common.css}" rel = "stylesheet" />
+    <link th:href="@{/css/cms.css}" rel="stylesheet" />
+    <!--KakaoAPI-->
+    <script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=af2177a7e6305424fb0ce0039119c263&libraries=services,clusterer,drawing}"></script>
+</head>
+
+<body>
+<!-- Top -->
+<nav th:replace="fragments/bodyTop :: bodyTop" />
+
+<article>
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h1 class="fw-bold mt-5 mb-5 ">오시는길</h1>
+            </div>
+            <div class="box-guide">
+                <ul class="list list1-gray">
+                    <li>
+                        <strong>지하철: </strong>
+                        <br>
+                        어린이 대공원역 7호선 6번출구 도보 2분
+                        <br>
+                        군자역 5호선, 7호선 7번출구 도보 15분
+                        <br>
+                        건대입구역 7호선 2호선 3번출구 도보 18분
+                    </li>
+                </ul>
+            </div>
+            <h4 class="title1 mt-0 mb-3">약도</h4>
+            <div class= "indent mb-5">
+                <img th:src="@{/assets/images/way.png}" alt="세종대학교 약도" style="width: 1000px; height: 750px;"/>
+            </div>
+
+            <h4 class="title1">주소 및 안내 시간</h4>
+            <div class="indent mb-5">
+                <ul>
+                    <li>
+                        05006 서울특별시 광진구 능동로 209 세종대학교
+                    </li>
+                    <li>
+                        Sejong University, 209, Neungdong-ro, Gwangjin-gu, Seoul, Republic of Korea
+                    </li>
+                    <li>
+                        [대표 전화]: <strong>02-3408-3114</strong>
+                    </li>
+                    <li>
+                        영업시간: <strong>주말 휴무, 매일 9:00 ~ 5:30</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</article>
+
+    <!-- Footer 변경!-->
+<footer class="py-3 bg-dark">
+    <div class="px-5">
+        <div class="row mb-4 d-flex justify-content-center">
+            <div class="col-lg-1 text-center">
+                <a class="text-white" th:onclick="|location.href='@{/main/use}'|">이용약관</a>
+            </div>
+            <div class="col-lg-2 text-center">
+                <a class="text-white" th:onclick="|location.href='@{/main/info}'|">개인정보약관</a>
+            </div>
+            <div class="col-lg-1 text-center">
+                <a class="text-white" th:onclick="|location.href='@{/main/way}'|">오시는길</a>
+            </div>
+            <hr class="mt-2 text-white">
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="mx-3">
+                <img th:src="@{/assets/images/sejong_black.png}" width="50" style="
+                                            border-radius: 70px;
+                                            -moz-border-radius: 70px;
+                                            -khtml-border-radius: 70px;
+                                            -webkit-border-radius: 70px;
+                                            " alt="My Logo" />
+            </div>
+            <div class="mb-5">
+                <p class="text-white">05006 서울특별시 광진구 능동로 209 세종대학교</p>
+                <p class="text-white">Copyright &copy; SejongUniversity Hospital ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--OtherJS-->
+    <script src="otherFunction.js"></script>
+    <!--KakaoMapJS 추가!-->
+    <script th:src="@{/js/kakaoMap.js}"></script>
+</body>
+
+</html>

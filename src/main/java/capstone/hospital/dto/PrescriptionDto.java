@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class PrescriptionDto {
 
+    private Long id;
+
     private String medicineName;
     private String medicineCode;
 
@@ -22,11 +24,15 @@ public class PrescriptionDto {
         this.totalDoseDays = form.getTotalDoseDays();
     }
 
-    public PrescriptionDto(Prescription form) {
-        this.medicineName = form.getAtcCode().getName();
-        this.medicineCode = form.getAtcCode().getCode();
-        this.singleDose = form.getSingleDose();
-        this.dailyDose = form.getDailyDose();
-        this.totalDoseDays = form.getTotalDoseDays();
+    public PrescriptionDto(Prescription data) {
+        this.id = data.getId();
+        this.medicineName = data.getAtcCode().getName();
+        this.medicineCode = data.getAtcCode().getCode();
+        this.singleDose = data.getSingleDose();
+        this.dailyDose = data.getDailyDose();
+        this.totalDoseDays = data.getTotalDoseDays();
+    }
+
+    public PrescriptionDto() {
     }
 }

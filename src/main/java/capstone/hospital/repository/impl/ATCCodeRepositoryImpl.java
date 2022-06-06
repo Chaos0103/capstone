@@ -1,6 +1,7 @@
 package capstone.hospital.repository.impl;
 
 import capstone.hospital.domain.ATCCode;
+import capstone.hospital.domain.enumtype.ATCType;
 import capstone.hospital.repository.custom.ATCCodeRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -28,6 +29,17 @@ public class ATCCodeRepositoryImpl implements ATCCodeRepositoryCustom {
                 .where(nameEq(name))
                 .fetch();
     }
+
+    @Override
+    public int countType(ATCType type) {
+        return (int) queryFactory
+                .selectFrom(aTCCode)
+                .where(
+                        aTCCode.type.eq(type)
+                )
+                .stream().count();
+    }
+
 
     private Predicate nameEq(String name) {
         return hasText(name) ? aTCCode.name.eq(name) : null;

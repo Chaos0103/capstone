@@ -25,21 +25,8 @@
             <li>
                 <a th:onclick="|location.href='@{/nurse/inpatient}'|" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                     <i class="bi bi-person fs-3"></i>
-                    <span class="ms-1 d-none d-sm-inline">입원환자</span>
+                    <span class="ms-1 d-none d-sm-inline">입원수속</span>
                 </a>
-            </li>
-            <li>
-                <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-eyedropper fs-3"></i>
-                    <span class="ms-1 d-none d-sm-inline">환자처방내역</span>
-                </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/nurse/report}'|" class="nav-link px-0 text-white">
-                            <span class="d-none d-sm-inline">환자 처방내역 등록</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
         <hr>

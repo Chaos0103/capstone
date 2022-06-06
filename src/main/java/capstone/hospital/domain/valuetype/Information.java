@@ -3,17 +3,17 @@ package capstone.hospital.domain.valuetype;
 import capstone.hospital.domain.enumtype.SexType;
 import lombok.Getter;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Embeddable
 @Getter
 public class Information {
 
     private String name;
+
+    @Column(length = 14, updatable = false)
     private String rrn;
+    @Column(length = 11)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

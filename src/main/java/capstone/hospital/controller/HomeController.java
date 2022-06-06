@@ -22,8 +22,14 @@ public class HomeController {
 
         model.addAttribute("loginMember", loginMember);
         if (loginMember.getClass() == Nurse.class) {
+            if (((Nurse) loginMember).getApprovalAdmin() == null) {
+                return "loginHome";
+            }
             return "redirect:/nurse";
         } else if (loginMember.getClass() == Doctor.class) {
+            if (((Doctor) loginMember).getApprovalAdmin() == null) {
+                return "loginHome";
+            }
             return "redirect:/doctor";
         } else if (loginMember.getClass() == Admin.class) {
             return "redirect:/admin";

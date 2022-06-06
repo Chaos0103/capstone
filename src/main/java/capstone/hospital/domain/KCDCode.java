@@ -1,6 +1,8 @@
 package capstone.hospital.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,15 +11,13 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-public class KCDCode extends BaseEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class KCDCode extends TimeBaseEntity {
 
     @Id
     @Column(name = "kcdcode_id")
     private String code;
     private String name;
-
-    public KCDCode() {
-    }
 
     public KCDCode(String code, String name) {
         this.code = code;

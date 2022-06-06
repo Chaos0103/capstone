@@ -12,66 +12,41 @@
                 </a>
             </li>
             <li>
-                <a href="#submenu1" data-bs-toggle="collapse"
+                <a th:onclick="|location.href='@{/admin/doctor/list}'|" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">의사</span>
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">의사 조회</span>
                 </a>
-                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/doctor/approve}'|" class="nav-link px-0 text-white">
-                            <span class="d-none d-sm-inline">승인</span>
-                        </a>
-                    </li>
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/doctor/list}'|" class="nav-link px-0 text-white">
-                            <span class="d-none d-sm-inline fw-bold">조회</span>
-                        </a>
-                    </li>
-                </ul>
+                <a th:onclick="|location.href='@{/admin/doctor/approve}'|" data-bs-toggle="collapse"
+                   class="nav-link px-0 align-middle text-white">
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">의사 승인</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:onclick="|location.href='@{/admin/nurse/list}'|" data-bs-toggle="collapse"
+                   class="nav-link px-0 align-middle text-white">
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">간호사 조회</span>
+                </a>
+                <a th:onclick="|location.href='@{/admin/nurse/approve}'|" data-bs-toggle="collapse"
+                   class="nav-link px-0 align-middle text-white">
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">간호사 승인</span>
+                </a>
             </li>
             <li>
-                <a href="#submenu2" data-bs-toggle="collapse"
+                <a th:onclick="|location.href='@{/admin/medicine}'|" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">간호사</span>
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">약 조회</span>
                 </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/nurse/approve}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">승인</span></a>
-                    </li>
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/nurse/list}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">조회</span></a>
-                    </li>
-                </ul>
+                <a th:onclick="|location.href='@{/admin/disease}'|" data-bs-toggle="collapse"
+                   class="nav-link px-0 align-middle text-white">
+                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">질병 조회</span>
+                </a>
             </li>
             <li>
-                <a href="#submenu3" data-bs-toggle="collapse"
-                   class="nav-link px-0 align-middle text-white">
-                    <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">질병·약</span>
-                </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/medicine}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">약 조회</span></a>
-                    </li>
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/disease}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">질병 조회</span></a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#submenu4" data-bs-toggle="collapse"
+                <a th:onclick="|location.href='@{/admin/esl}'|" data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
                     <i class="bi bi-person fs-3"></i> <span class="ms-1 d-none d-sm-inline">ESL</span>
                 </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
-                    <li class="w-100">
-                        <a th:onclick="|location.href='@{/admin/esl}'|" class="nav-link px-0 text-white"> <span
-                                class="d-none d-sm-inline">ESL 등록</span></a>
-                    </li>
-                </ul>
             </li>
         </ul>
         <hr>

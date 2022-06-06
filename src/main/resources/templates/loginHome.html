@@ -8,9 +8,59 @@
 </head>
 
 <body>
-    <!-- Responsive navbar-->
-    <!-- !border: 3px solid rgb(0, 0, 0); -->
-    <nav th:replace="fragments/bodyTop :: bodyTop" />
+    <nav id="primary-navbar" class="navbar navbar-expand-lg navbar-transparent fixed-top rgba-black-light"
+         style="background-color: #1d1d1d75;height:70px">
+        <div class="container-xxl">
+            <a class="navbar-brand text-white" th:onclick="|location.href='@{/}'|" style="margin-left:40px">
+                <img th:src="@{/assets/images/sejong_black.png}" width="37" style="
+                  border-radius: 70px;
+                  -moz-border-radius: 70px;
+                  -khtml-border-radius: 70px;
+                  -webkit-border-radius: 70px;
+                  " alt="My Logo" />
+                <h5 style="display:inline-block; color:#dddddd;">세종대병원</h5>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link"
+                                            th:text="|${loginMember.info.name}님 환영합니다|"
+                                            th:onclick="|location.href='@{/mypage}'|"
+                                            style=" font-size:1.0em; width:auto; height:39px">사용자 이름</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                                            th:onclick="|location.href='@{/logout}'|"
+                                            style=" font-size:1.0em; width:90px; height:39px" type="submit">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <style>
+        .navbar .navbar-nav .nav-item.dropdown-wide .dropdown-menu.w-75 {
+            margin-top: -0.5rem;
+            left: 50%;
+            -webkit-transform: translateX(-50%) !important;
+            transform: translateX(-50%) !important;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown-wide .dropdown-menu.w-75 #mega-menu {
+            padding: 0 0.6rem;
+        }
+
+        .navbar .navbar-nav .nav-item .nav-link {
+            color: #fff;
+            text-align: center;
+        }
+
+        .navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item {
+            color: #9e9e9e !important;
+            font-size: 0.85rem;
+        }
+    </style>
+
+
+
 
     <article>
 
@@ -22,7 +72,7 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
                         aria-label="Slide 2"></button>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="height: 520px;"> <!--메인페이지 높이를 따로 픽스함-->
                 <div class="carousel-item active">
                     <img th:src="@{/assets/images/main7.jpg}" class="d-block w-100" alt="..." id="banner">
                     <div class="carousel-caption d-none d-md-block" style="margin-bottom:130px;padding-left:-20px">
@@ -75,7 +125,7 @@
 
             .carousel-inner {
                 width: 100%;
-                height: 520px;
+                /*height: 520px;*/ /* 의학 메거진 캐러셀이랑 메인 이미지 캐러셀이랑 css가 중첩돼서 확인하고 수정함*/
                 /* 이미지 높이 변경 */
             }
 
@@ -172,7 +222,7 @@
                 </div>
             </div>      
         </section>
-        
+
         <!--의학 매거진 섹션 추가!-->
         <section>
             <div class="row container-fluid bg-primary py-5 mb-5">
@@ -254,12 +304,12 @@
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl"
-                            data-bs-slide="prev">
+                                data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl"
-                            data-bs-slide="next">
+                                data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -267,23 +317,42 @@
                 </div>
             </div>
         </section>
-
-        <!--오시는기 섹션 카카오 맵 api 활용하여 지도 렌더링 추가!-->
-        <section>
-            <div class="container bg-light py-2">
-                <h2 class="text-center fw-bold">오시는길</h2>
-            </div>
-
-            <div style="position: relative;">
-                <img src="/assets/images/KakaoTalk_Photo_2022-05-24-23-10-21.png" alt="세종대학교" style="filter: brightness(50%);"
-                    height="600" width="1500" />
-            </div>
-            <div class="rounded" id = "map" style="width: 500px; height: 400px; position: absolute; top: 1280px; left: 470px;"></div>
-        </section>
     </article>
 
-    <!-- Footer-->
-    <div th:replace="fragments/footer :: footer"/>
+    <!-- Footer 변경!-->
+    <footer class="py-3 bg-dark">
+        <div class="px-5">
+            <div class="row mb-4 d-flex justify-content-center">
+                <div class="col-lg-1 text-center">
+                    <a class="text-white" th:onclick="|location.href='@{/main/use}'|">이용약관</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a class="text-white" th:onclick="|location.href='@{/main/info}'|">개인정보약관</a>
+                </div>
+                <div class="col-lg-1 text-center">
+                    <a class="text-white" th:onclick="|location.href='@{/main/way}'|">오시는길</a>
+                </div>
+                <hr class="mt-2 text-white">
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="mx-3">
+                    <img th:src="@{assets/images/sejong_black.png}" width="50" style="
+                                            border-radius: 70px;
+                                            -moz-border-radius: 70px;
+                                            -khtml-border-radius: 70px;
+                                            -webkit-border-radius: 70px;
+                                            " alt="My Logo" />
+                </div>
+                <div class="mb-5">
+                    <p class="text-white">05006 서울특별시 광진구 능동로 209 세종대학교</p>
+                    <p class="text-white">Copyright &copy; SejongUniversity Hospital ALL RIGHTS RESERVED.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

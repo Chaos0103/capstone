@@ -16,7 +16,9 @@ public class Admin {
     @Column(name = "admin_id")
     private Long id;
 
+    @Column(length = 20, updatable = false)
     private String loginId;
+    @Column(length = 20)
     private String loginPw;
 
     @Embedded

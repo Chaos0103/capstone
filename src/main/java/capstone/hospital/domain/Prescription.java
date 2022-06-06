@@ -1,6 +1,8 @@
 package capstone.hospital.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,6 +10,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Prescription {
 
     @Id @GeneratedValue
@@ -33,10 +36,6 @@ public class Prescription {
         this.singleDose = singleDose;
         this.dailyDose = dailyDose;
         this.totalDoseDays = totalDoseDays;
-    }
-
-    public Prescription() {
-
     }
 
     //== 비즈니스 로직 ==//

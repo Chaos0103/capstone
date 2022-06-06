@@ -64,6 +64,9 @@
                     <!--기본정보-->
                     <div style="border-left:4px solid rgb(193 223 255);">
                         <h6 class="mb-2" style="margin-top:10px;margin-left:6px">기본 정보</h6>
+                        <button class="btn btn-primary add" type="button"
+                                style="margin-bottom:10px;width:75px;height:35px; float: right;margin-top:-40px"
+                                data-bs-toggle="modal" th:data-bs-target="'#delete'">퇴원</button>
                     </div>
 
                     <div class="input-group mb-0 ">
@@ -141,9 +144,10 @@
                     <!--기본정보끝-->
                     <!--진단내역-->
                     <div style="border-left:4px solid rgb(193 223 255);">
-                        <h6 class="mb-2" style="margin-top:40px;margin-left:6px">처방 내역</h6>
+                        <h6 class="mb-2" style="margin-top:40px;margin-left:6px">투약 내역</h6>
                         <button class="btn btn-primary add" type="button"
-                                style="margin-bottom:10px;width:75px;height:35px; float: right;margin-top:-40px">등록</button>
+                                style="margin-bottom:10px;width:75px;height:35px; float: right;margin-top:-40px"
+                                data-bs-toggle="modal" th:data-bs-target="'#staticBackdrop'">등록</button>
                     </div>
                     <!--등록버튼 css-->
                     <style>
@@ -161,23 +165,110 @@
                     <table class="table table-bordered table-hover" id="patientDetail">
                         <thead class=" table-dark" style="height:34px;font-size: 13px;text-align: center;">
                             <tr>
-                                <th scope="col">진단일자</th>
-                                <th scope="col">진단병명</th>
-                                <th scope="col">진단의</th>
-                                <th scope="col">진단과</th>
+                                <th scope="col">약물코드</th>
+                                <th scope="col">약물명</th>
+                                <th scope="col">투약시작시간</th>
+                                <th scope="col">투약자</th>
+                                <th scope="col">상태</th>
                             </tr>
                         </thead>
                         <tbody style="height:34px;font-size: 13px;">
                             <tr class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#doctorPatientDetail1"
-                            th:each="report:${reports}">
-                                <td th:text="${report.date}" style="text-align: center;">진단일자</td>
-                                <td th:text="${report.diseaseName}" style="text-align: center;">진단병명</td>
-                                <td th:text="${report.doctorName}" style="text-align: center;">진단의</td>
-                                <td th:text="${report.major}" style="text-align: center;">진단과</td>
+                            th:each="chart:${charts}">
+                                <td th:text="${chart.prescription.atcCode.code}" style="text-align: center;">약물코드</td>
+                                <td th:text="${chart.prescription.atcCode.name}" style="text-align: center;">약물명</td>
+                                <td th:text="${#temporals.format(chart.createdDate, 'yyyy년 MM월 dd일 HH시 mm분')}" style="text-align: center;">투약시간</td>
+                                <td th:text="${chart.createdBy}" style="text-align: center;">투약자</td>
+                                <td th:text="${chart.status.description}" style="text-align: center;">상태</td>
                             </tr>
                         </tbody>
                     </table>
                     <!--진단내역끝-->
+
+                    <!--바뀜주의 모달창-->
+                        <div class="modal fade" th:id="'staticBackdrop'" data-bs-backdrop="static" data-bs-keyboard="false"
+                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class=" modal-title fw-bold" id="staticBackdropLabel">
+                                            약 처방 정보
+                                        </h6>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--모달창내용-->
+                                        <table class="table table-bordered table-hover" id="patientDetail" >
+                                            <thead class=" table-dark"
+                                                   style="height:34px;font-size: 13px;text-align: center;">
+                                            <tr>
+                                                <th scope="col">약물이름</th>
+                                                <th scope="col">약물코드</th>
+                                                <th scope="col">투여일수</th>
+                                                <th scope="col">하루투여일수</th>
+                                                <th scope="col">1회투여량</th>
+                                                <th scope="col">투약</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody style="height:34px;font-size: 13px;">
+                                            <tr th:each="data:${prescription}"
+                                                class="accordion-toggle" data-bs-toggle="collapse"
+                                                data-bs-target="#doctorPatientDetail1">
+                                                <td th:text="${data.medicineName}" style="text-align: center;">관절염</td>
+                                                <td th:text="${data.medicineCode}" style="text-align: center;">TTT-4000</td>
+                                                <td th:text="${data.totalDoseDays}" style="text-align: center;">중</td>
+                                                <td th:text="${data.dailyDose}" style="text-align: center;">중</td>
+                                                <td th:text="${data.singleDose}" style="text-align: center;">중</td>
+                                                <td style="text-align: center;vertical-align:middle;">
+                                                    <button class="btn btn-primary add fw-bold" type="button" onclick=""
+                                                            style="width:65px;height:26px; font-size: 12px;border-radius: 70px;padding:0px"
+                                                            th:onclick="|location.href='@{/nurse/chart/{id}/inject (id=${data.getId()})}'|"
+                                                    >투약</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--모달창내용 끝-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light pre" data-bs-dismiss="modal">
+                                            닫기
+                                        </button>
+                                        <!--버튼css-->
+                                        <style>
+                                            .pre:hover {
+                                                background-color: #f4f4f4;
+                                                border: 1px solid #f4f4f4;
+                                            }
+                                        </style>
+                                        <!--버튼css End-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="exampleModalLabel">예약확인</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-left" th:text="|${info.patientName}님을 퇴원시키시겠습니까?|">
+                                    message
+                                </div>
+                                <!--회원 탈퇴 진행 버튼-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary"
+                                            th:onclick="|location.href='@{/nurse/chart/{id}/out (id=${info.getId()})}'|">
+                                        퇴원</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

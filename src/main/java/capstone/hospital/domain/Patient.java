@@ -3,12 +3,15 @@ package capstone.hospital.domain;
 import capstone.hospital.domain.valuetype.Address;
 import capstone.hospital.domain.valuetype.Information;
 import capstone.hospital.dto.InfoDto;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Patient {
 
     @Id @GeneratedValue
@@ -24,9 +27,6 @@ public class Patient {
     private Information info;
 
     //== 생성 메서드 ==//
-    public Patient() {
-    }
-
     public Patient(String loginId, String loginPw, Information info) {
         this.loginId = loginId;
         this.loginPw = loginPw;

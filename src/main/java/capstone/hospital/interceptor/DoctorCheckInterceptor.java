@@ -27,6 +27,12 @@ public class DoctorCheckInterceptor implements HandlerInterceptor {
             return false;
         }
 
+        if (((Doctor) loginMember).getApprovalAdmin() == null) {
+            log.info("승인되지 않은 직원");
+            response.sendRedirect("/");
+            return false;
+        }
+
         return true;
     }
 }

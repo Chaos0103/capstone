@@ -5,7 +5,9 @@ import capstone.hospital.domain.enumtype.HospitalizationStatus;
 import capstone.hospital.domain.enumtype.WardType;
 import capstone.hospital.domain.valuetype.Ward;
 import capstone.hospital.dto.CreateInpatientInfoDto;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -13,7 +15,8 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-public class Inpatient extends BaseEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Inpatient extends TimeBaseEntity {
     
     @Id @GeneratedValue
     @Column(name = "inpatient_id")
@@ -42,10 +45,6 @@ public class Inpatient extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private HospitalizationStatus status;
 
-    public Inpatient() {
-
-    }
-
     public Inpatient(Patient patient, Doctor doctor, Report report) {
         this.patient = patient;
         this.doctor = doctor;
@@ -61,5 +60,9 @@ public class Inpatient extends BaseEntity {
         this.weight = data.getWeight();
         this.ward = new Ward(data.getWardType(), data.getRoomNumber(), data.getBedNumber());
         this.status = HospitalizationStatus.Hospitalization;
+    }
+
+    public void out() {
+        this.status = HospitalizationStatus.OUT;
     }
 }

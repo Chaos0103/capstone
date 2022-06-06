@@ -1,6 +1,8 @@
 package capstone.hospital.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Report {
 
     @Id @GeneratedValue
@@ -35,9 +38,7 @@ public class Report {
     @OneToMany(mappedBy = "report")
     private List<Prescription> prescriptions = new ArrayList<>();
 
-    public Report() {
-    }
-
+    //== 생성 메서드 ==//
     public Report(Patient patient, Doctor doctor, KCDCode kcdCode, String content) {
         this.patient = patient;
         this.doctor = doctor;

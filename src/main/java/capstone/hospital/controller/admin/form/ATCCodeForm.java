@@ -14,8 +14,6 @@ public class ATCCodeForm {
     private String name;
     @NotBlank
     private String company;
-    @NotBlank
-    private int stock;
 
     private ATCType type;
 }

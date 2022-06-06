@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Appointment extends TimeBaseEntity {
+public class Appointment {
 
     @Id
     @GeneratedValue
@@ -33,7 +33,9 @@ public class Appointment extends TimeBaseEntity {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
+    @Column(length = 10)
     private String medicalDate;
+    @Column(length = 5)
     private String medicalTime;
 
     //== 생성 메서드 ==//

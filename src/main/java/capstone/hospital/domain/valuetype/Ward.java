@@ -26,6 +26,4 @@ public class Ward {
         this.roomNumber = roomNumber;
         this.bedNumber = bedNumber;
     }
-
-
 }

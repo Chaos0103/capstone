@@ -42,7 +42,11 @@ public class MedicineService {
      * save
      */
     @Transactional
-    public void save(String code, String name, String company, ATCType type, int stock) {
-        atcCodeRepository.save(new ATCCode(code, name, company, type, stock));
+    public void save(String code, String name, String company, ATCType type) {
+        atcCodeRepository.save(new ATCCode(code, name, company, type));
+    }
+
+    public int count(ATCType type) {
+        return atcCodeRepository.countType(type);
     }
 }

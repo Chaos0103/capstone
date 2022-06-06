@@ -40,7 +40,7 @@ public class MedicinePartController {
 
     @PostMapping("/create")
     public String save(@ModelAttribute("form") ATCCodeForm form) {
-        medicineService.save(form.getCode(), form.getName(), form.getCompany(), form.getType(), form.getStock());
+        medicineService.save(form.getCode(), form.getName(), form.getCompany(), form.getType());
         return "redirect:/admin/medicine";
     }
 
@@ -52,13 +52,12 @@ public class MedicinePartController {
         form.setName(editCode.getName());
         form.setCompany(editCode.getCompany());
         form.setType(editCode.getType());
-        form.setStock(editCode.getStock());
         return "/admin/medicine/edit";
     }
 
     @PostMapping("/{code}/edit")
     public String update(@ModelAttribute("form") ATCCodeForm form) {
-        medicineService.save(form.getCode(), form.getName(), form.getCompany(), form.getType(), form.getStock());
+        medicineService.save(form.getCode(), form.getName(), form.getCompany(), form.getType());
         return "redirect:/admin/medicine";
     }
 }

@@ -1,13 +1,9 @@
 package capstone.hospital.service;
 
-import capstone.hospital.domain.Inpatient;
-import capstone.hospital.domain.Patient;
-import capstone.hospital.domain.Report;
+import capstone.hospital.domain.*;
 import capstone.hospital.dto.*;
 import capstone.hospital.exception.SearchException;
-import capstone.hospital.repository.InpatientRepository;
-import capstone.hospital.repository.PatientRepository;
-import capstone.hospital.repository.ReportRepository;
+import capstone.hospital.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +20,9 @@ public class NurseService {
     private final PatientRepository patientRepository;
     private final InpatientRepository inpatientRepository;
     private final ReportRepository reportRepository;
+    private final ChartRepository chartRepository;
+    private final NurseRepository nurseRepository;
+    private final PrescriptionRepository prescriptionRepository;
 
     public PatientInfoDto findPatientInfo(String name) {
         Optional<Patient> patient = patientRepository.findByInfoName(name);
@@ -73,4 +72,53 @@ public class NurseService {
         Inpatient findInpatient = inpatientRepository.findById(inpatientId).get();
         findInpatient.approve(data);
     }
+
+    public List<PrescriptionDto> findPrescription(Long inpatientId) {
+        List<PrescriptionDto> data = new ArrayList<>();
+        if (inpatientId == null) {
+            return data;
+        }
+        Optional<Inpatient> inpatient = inpatientRepository.findById(inpatientId);
+        List<Prescription> prescriptions = inpatient.get().getReport().getPrescriptions();
+        for (Prescription prescription : prescriptions) {
+            data.add(new PrescriptionDto(prescription));
+        }
+        return data;
+    }
+
+    @Transactional
+    public void createChart(Long prescriptionId, Long nurseId) {
+        Nurse findNurse = nurseRepository.findById(nurseId).get();
+        Prescription prescription = prescriptionRepository.findById(prescriptionId).get();
+        chartRepository.save(new Chart(prescription, findNurse.getInfo().getName()));
+    }
+
+    public List<Chart> findAllChart(Long inpatientId) {
+        List<Chart> data = new ArrayList<>();
+        if (inpatientId == null) {
+            return data;
+        }
+        Inpatient inpatient = inpatientRepository.findById(inpatientId).get();
+        List<Prescription> prescriptions = inpatient.getReport().getPrescriptions();
+        for (Prescription prescription : prescriptions) {
+            Optional<Chart> find = chartRepository.findByPrescriptionId(prescription.getId());
+            find.ifPresent(data::add);
+        }
+        return data;
+    }
+
+    public List<Chart> findChart() {
+        List<Chart> charts = chartRepository.findByStatus();
+        if (charts.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return charts;
+    }
+
+    @Transactional
+    public void outInpatient(Long inpatientId) {
+        Inpatient inpatient = inpatientRepository.findById(inpatientId).get();
+        inpatient.out();
+    }
+
 }

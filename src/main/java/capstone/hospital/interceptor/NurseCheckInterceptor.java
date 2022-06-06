@@ -27,6 +27,12 @@ public class NurseCheckInterceptor implements HandlerInterceptor {
             return false;
         }
 
+        if (((Nurse) loginMember).getApprovalAdmin() == null) {
+            log.info("승인되지 않은 직원");
+            response.sendRedirect("/");
+            return false;
+        }
+
         return true;
     }
 }

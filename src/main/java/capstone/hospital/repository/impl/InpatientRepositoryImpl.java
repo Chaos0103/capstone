@@ -30,7 +30,10 @@ public class InpatientRepositoryImpl implements InpatientRepositoryCustom {
         return queryFactory
                 .selectFrom(inpatient)
                 .join(inpatient.patient, patient)
-                .where(patient.info.name.eq(name))
+                .where(
+                        patient.info.name.eq(name),
+                        inpatient.status.eq(HospitalizationStatus.Hospitalization)
+                )
                 .stream().findAny();
     }
 
@@ -71,7 +74,8 @@ public class InpatientRepositoryImpl implements InpatientRepositoryCustom {
         return queryFactory
                 .selectFrom(inpatient)
                 .where(
-                        inpatient.doctor.id.eq(doctorId)
+                        inpatient.doctor.id.eq(doctorId),
+                        inpatient.status.eq(HospitalizationStatus.Hospitalization)
                 )
                 .stream().count();
     }
